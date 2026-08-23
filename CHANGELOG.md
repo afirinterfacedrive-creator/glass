@@ -1,5 +1,11 @@
 # Changelog
 
+2.1.0
+Updated the package metadata for pub.dev publication.
+Added the GitHub homepage and repository information.
+Improved package structure and reusable glassmorphism components.
+Updated the package version to 2.1.0.
+
 ## 1.0.0
 
 - Initial release of the reusable Glass Flutter UI component library.
