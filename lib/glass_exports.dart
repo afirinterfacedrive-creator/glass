@@ -8,7 +8,7 @@
 //
 // For external applications, prefer:
 //
-//   import 'package:glass/glass.dart';
+//   import 'package:universal_glass/glass.dart';
 //
 // ============================================================================
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:glass/components/toggle/glass_highlight.dart';
-import 'package:glass/components/toggle/glass_toggle.dart';
-import 'package:glass/components/toggle/glass_toggle_knob.dart';
-import 'package:glass/components/toggle/glass_toggle_track.dart';
+import 'package:universal_glass/components/toggle/glass_highlight.dart';
+import 'package:universal_glass/components/toggle/glass_toggle.dart';
+import 'package:universal_glass/components/toggle/glass_toggle_knob.dart';
+import 'package:universal_glass/components/toggle/glass_toggle_track.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

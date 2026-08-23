@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:glass/glass_exports.dart';
+import 'package:universal_glass/glass_exports.dart';
 
 import 'sections/appearance_section.dart';
 import 'sections/general_section.dart';

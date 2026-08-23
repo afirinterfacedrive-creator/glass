@@ -6,7 +6,7 @@
 //
 // Les autres fichiers de l'application peuvent importer :
 //
-// import 'package:glass/home/home_exports.dart';
+// import 'package:universal_glass/home/home_exports.dart';
 //
 // au lieu d'importer individuellement les composants du module Home.
 //

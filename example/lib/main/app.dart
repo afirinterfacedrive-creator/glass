@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:glass/glass.dart';
+import 'package:universal_glass/glass.dart';
 
-import 'package:glass_example/routes/app_router.dart';
-import 'package:glass_example/routes/app_routes.dart';
+import 'package:universal_glass_example/routes/app_router.dart';
+import 'package:universal_glass_example/routes/app_routes.dart';
 
 // ============================================================================
 // GLASS EXAMPLE APP

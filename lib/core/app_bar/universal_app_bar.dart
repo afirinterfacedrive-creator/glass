@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:glass/core/app_bar/universal_app_bar_content.dart';
-import 'package:glass/core/app_bar/universal_app_bar_decorator.dart';
-import 'package:glass/core/app_bar/universal_tab_item.dart';
-import 'package:glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/core/app_bar/universal_app_bar_content.dart';
+import 'package:universal_glass/core/app_bar/universal_app_bar_decorator.dart';
+import 'package:universal_glass/core/app_bar/universal_tab_item.dart';
+import 'package:universal_glass/provider/glass_theme_provider.dart';
 
 // ============================================================================
 // UNIVERSAL APP BAR

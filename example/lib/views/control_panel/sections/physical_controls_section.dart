@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:glass/components/toggle/physical_toggles.dart';
-import 'package:glass/components/toggle/toggle_types.dart';
+import 'package:universal_glass/components/toggle/physical_toggles.dart';
+import 'package:universal_glass/components/toggle/toggle_types.dart';
 
-import 'package:glass/glass.dart';
+import 'package:universal_glass/glass.dart';
 
 import '../widgets/control_panel_section_title.dart';
 

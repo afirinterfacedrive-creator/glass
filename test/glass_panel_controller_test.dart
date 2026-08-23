@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:glass/enums/glass_enums.dart';
+import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:glass/controllers/glass_panel_controller.dart';
-import 'package:glass/provider/glass_button_provider.dart';
-import 'package:glass/provider/glass_theme_provider.dart';
-import 'package:glass/providers/shared_preferences_provider.dart';
-import 'package:glass/theme/glass_effects.dart';
+import 'package:universal_glass/controllers/glass_panel_controller.dart';
+import 'package:universal_glass/provider/glass_button_provider.dart';
+import 'package:universal_glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/providers/shared_preferences_provider.dart';
+import 'package:universal_glass/theme/glass_effects.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

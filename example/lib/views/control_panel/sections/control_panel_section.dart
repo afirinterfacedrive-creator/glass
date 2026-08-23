@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:glass/glass.dart';
-import 'package:glass_example/views/physical_toggles/sections/physical_toggles_section.dart';
+import 'package:universal_glass/glass.dart';
+import 'package:universal_glass_example/views/physical_toggles/sections/physical_toggles_section.dart';
 
 import '../widgets/control_panel_section_title.dart';
 import '../widgets/control_panel_theme_card.dart';

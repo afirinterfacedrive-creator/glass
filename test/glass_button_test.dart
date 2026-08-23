@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:glass/components/glass_button.dart';
-import 'package:glass/components/glass_icon.dart';
-import 'package:glass/enums/glass_enums.dart';
-import 'package:glass/theme/glass_effects.dart';
+import 'package:universal_glass/components/glass_button.dart';
+import 'package:universal_glass/components/glass_icon.dart';
+import 'package:universal_glass/enums/glass_enums.dart';
+import 'package:universal_glass/theme/glass_effects.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

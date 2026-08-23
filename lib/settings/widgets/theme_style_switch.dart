@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:glass/components/glass_breaker_switch.dart';
+import 'package:universal_glass/components/glass_breaker_switch.dart';
 
 // ============================================================================
 // THEME STYLE SWITCH

@@ -1,4 +1,4 @@
-# glass_example
+# universal_glass_example
 
 A new Flutter project.
 

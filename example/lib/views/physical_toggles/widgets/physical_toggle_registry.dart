@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:glass/components/glass_breaker_switch.dart';
-import 'package:glass/components/toggle/physical_toggles.dart';
-import 'package:glass/components/toggle/toggle_types.dart';
+import 'package:universal_glass/components/glass_breaker_switch.dart';
+import 'package:universal_glass/components/toggle/physical_toggles.dart';
+import 'package:universal_glass/components/toggle/toggle_types.dart';
 
 import 'physical_toggle_definition.dart';
 

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:glass/components/glass_painter.dart';
+import 'package:universal_glass/components/glass_painter.dart';
 
 import '../enums/glass_enums.dart';
 import '../provider/glass_button_provider.dart';

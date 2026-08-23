@@ -8,7 +8,7 @@
 //
 // External applications should use only:
 //
-//   import 'package:glass/glass.dart';
+//   import 'package:universal_glass/glass.dart';
 //
 // Do NOT import internal Glass files directly from an application.
 //

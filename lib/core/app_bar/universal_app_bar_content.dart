@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glass/core/app_bar/universal_tab_item.dart';
+import 'package:universal_glass/core/app_bar/universal_tab_item.dart';
 
 // ============================================================================
 // CONTENU DE L'APP BAR

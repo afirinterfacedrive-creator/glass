@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:glass/glass.dart';
+import 'package:universal_glass/glass.dart';
 
 import '../widgets/physical_toggle_card.dart';
 import '../widgets/physical_toggle_definition.dart';

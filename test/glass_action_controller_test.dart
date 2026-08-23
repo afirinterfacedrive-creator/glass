@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:glass/controllers/glass_action_controller.dart';
-import 'package:glass/provider/glass_button_provider.dart';
-import 'package:glass/providers/shared_preferences_provider.dart';
+import 'package:universal_glass/controllers/glass_action_controller.dart';
+import 'package:universal_glass/provider/glass_button_provider.dart';
+import 'package:universal_glass/providers/shared_preferences_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/provider/glass_theme_provider.dart';
 
 import '../widgets/aqua_glass_switch.dart';
 import '../widgets/setting_section.dart';

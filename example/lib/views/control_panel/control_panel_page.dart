@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:glass/glass_exports.dart';
+import 'package:universal_glass/glass_exports.dart';
 
 import 'sections/control_panel_section.dart';
 

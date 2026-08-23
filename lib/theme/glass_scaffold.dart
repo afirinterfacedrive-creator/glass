@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'glass_background.dart';
-import 'package:glass/core/app_bar/universal_app_bar.dart';
+import 'package:universal_glass/core/app_bar/universal_app_bar.dart';
 
 // ============================================================================
 // GLASS SCAFFOLD
