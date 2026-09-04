@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+
+import 'package:universal_glass/theme/glass_color_palette.dart';
 
 import 'physical_toggle_header.dart';
 import 'physical_toggle_shell.dart';
@@ -17,16 +20,25 @@ import 'physical_toggle_status.dart';
 //      ├── PhysicalToggleHeader
 //      │
 //      ├── PhysicalToggleShell
+//      │       │
+//      │       ├── GlassColorPalette
 //      │       └── child
 //      │
 //      └── PhysicalToggleStatus
 //
+// ============================================================================
+//
 // RESPONSABILITÉS
 //
+// - recevoir les données d'affichage
+// - recevoir l'état du contrôle
+// - recevoir la palette Glass
 // - composer le Header
 // - composer le Shell Glass
 // - afficher le contrôle reçu via `child`
 // - composer le Status
+//
+// ============================================================================
 //
 // NE GÈRE PAS
 //
@@ -36,9 +48,32 @@ import 'physical_toggle_status.dart';
 // - état interne du toggle
 // - callback du toggle
 // - type du toggle
-// - décoration Glass interne
+// - création de la palette
+// - récupération de la palette
+//
+// La palette est injectée depuis le parent.
 //
 // Le contrôle réel est entièrement fourni via `child`.
+//
+// ============================================================================
+//
+// FLUX
+//
+// ControlPanelPage
+//       │
+//       ▼
+// GlassColorPalette
+//       │
+//       ▼
+// PhysicalTogglesSection
+//       │
+//       ▼
+// PhysicalToggleCard
+//       │
+//       ├── palette
+//       │
+//       ▼
+// PhysicalToggleShell
 //
 // ============================================================================
 
@@ -48,7 +83,9 @@ class PhysicalToggleCard extends StatelessWidget {
   // ==========================================================================
 
   final String title;
+
   final String subtitle;
+
   final IconData icon;
 
   // ==========================================================================
@@ -64,6 +101,18 @@ class PhysicalToggleCard extends StatelessWidget {
   final Color accent;
 
   // ==========================================================================
+  // PALETTE GLASS
+  // ==========================================================================
+  //
+  // Palette centrale injectée depuis l'extérieur.
+  //
+  // PhysicalToggleCard ne connaît pas Riverpod.
+  //
+  // ==========================================================================
+
+  final GlassColorPalette palette;
+
+  // ==========================================================================
   // TOGGLE
   // ==========================================================================
 
@@ -74,6 +123,7 @@ class PhysicalToggleCard extends StatelessWidget {
   // ==========================================================================
 
   final double? width;
+
   final double? height;
 
   // ==========================================================================
@@ -89,15 +139,48 @@ class PhysicalToggleCard extends StatelessWidget {
   const PhysicalToggleCard({
     super.key,
 
+    // ------------------------------------------------------------------------
+    // INFORMATIONS
+    // ------------------------------------------------------------------------
+
     required this.title,
     required this.subtitle,
     required this.icon,
+
+    // ------------------------------------------------------------------------
+    // ÉTAT
+    // ------------------------------------------------------------------------
+
     required this.value,
+
+    // ------------------------------------------------------------------------
+    // ACCENT
+    // ------------------------------------------------------------------------
+
     required this.accent,
+
+    // ------------------------------------------------------------------------
+    // PALETTE
+    // ------------------------------------------------------------------------
+
+    required this.palette,
+
+    // ------------------------------------------------------------------------
+    // TOGGLE
+    // ------------------------------------------------------------------------
+
     required this.child,
+
+    // ------------------------------------------------------------------------
+    // DIMENSIONS
+    // ------------------------------------------------------------------------
 
     this.width,
     this.height,
+
+    // ------------------------------------------------------------------------
+    // PADDING
+    // ------------------------------------------------------------------------
 
     this.padding = const EdgeInsets.all(15),
   });
@@ -109,21 +192,53 @@ class PhysicalToggleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PhysicalToggleShell(
+      // =======================================================================
+      // ÉTAT
+      // =======================================================================
+
       value: value,
+
+      // =======================================================================
+      // ACCENT
+      // =======================================================================
+
       accent: accent,
 
+      // =======================================================================
+      // PALETTE
+      // =======================================================================
+
+      palette: palette,
+
+      // =======================================================================
+      // DIMENSIONS
+      // =======================================================================
+
       width: width,
+
       height: height,
+
+      // =======================================================================
+      // PADDING
+      // =======================================================================
 
       padding: padding,
 
+      // =======================================================================
+      // CONTENU
+      // =======================================================================
+
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+
+        crossAxisAlignment:
+            CrossAxisAlignment.stretch,
+
         children: [
           // ===================================================================
           // HEADER
           // ===================================================================
+
           PhysicalToggleHeader(
             title: title,
             subtitle: subtitle,
@@ -132,7 +247,9 @@ class PhysicalToggleCard extends StatelessWidget {
             accent: accent,
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(
+            height: 12,
+          ),
 
           // ===================================================================
           // TOGGLE
@@ -146,16 +263,26 @@ class PhysicalToggleCard extends StatelessWidget {
           // Cela évite les RenderFlex overflow sur mobile.
           //
           // ===================================================================
-          Center(child: child),
 
-          const SizedBox(height: 10),
+          Center(
+            child: child,
+          ),
+
+          const SizedBox(
+            height: 10,
+          ),
 
           // ===================================================================
           // STATUS
           // ===================================================================
-          PhysicalToggleStatus(value: value, accent: accent),
+
+          PhysicalToggleStatus(
+            value: value,
+            accent: accent,
+          ),
         ],
       ),
     );
   }
 }
+

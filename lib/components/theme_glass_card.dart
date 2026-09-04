@@ -1,19 +1,20 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../enums/glass_enums.dart';
 import '../providers/theme_provider.dart';
+import '../theme/glass_color_palette.dart';
 import '../theme/glass_effects.dart';
 
 import 'glass_button.dart';
-
 import 'glass_icon.dart';
 
 // ============================================================================
 // THEME GLASS CARD
 // ============================================================================
 //
-// Sélecteur visuel du thème de l'application.
+// Sélecteur visuel du thème système de l'application.
 //
 // Modes disponibles:
 //
@@ -21,7 +22,24 @@ import 'glass_icon.dart';
 //   1 → Sombre
 //   2 → Clair
 //
-// L'état du thème est géré exclusivement par Riverpod.
+// RESPONSABILITÉS
+// ----------------
+//
+// • afficher les trois modes disponibles
+// • gérer la sélection du mode
+// • utiliser GlassColorPalette pour toutes les couleurs
+// • gérer l'animation de sélection
+// • transmettre GlassEffects au GlassButton
+//
+// NE GÈRE PAS
+// ------------
+//
+// • la palette globale
+// • Riverpod de la palette
+// • la création de GlassEffects
+// • le style Aqua / Classic global
+//
+// La palette est injectée depuis l'extérieur.
 //
 // ============================================================================
 
@@ -31,14 +49,29 @@ class ThemeGlassCard extends ConsumerStatefulWidget {
   // ==========================================================================
 
   final GlassEffects effects;
+
   final GlassShapeType shape;
+
   final GlassStyle style;
+
+  // ==========================================================================
+  // PALETTE
+  // ==========================================================================
+
+  /// Palette de couleurs utilisée par le composant.
+  ///
+  /// ThemeGlassCard ne récupère pas directement le provider.
+  ///
+  /// La palette est injectée par le parent afin de conserver un composant
+  /// réutilisable et indépendant de la source de la palette.
+  final GlassColorPalette palette;
 
   // ==========================================================================
   // DIMENSIONS
   // ==========================================================================
 
   final double width;
+
   final double height;
 
   // ==========================================================================
@@ -57,6 +90,7 @@ class ThemeGlassCard extends ConsumerStatefulWidget {
   // ==========================================================================
 
   final double horizontalPadding;
+
   final double spacing;
 
   // ==========================================================================
@@ -65,12 +99,38 @@ class ThemeGlassCard extends ConsumerStatefulWidget {
 
   const ThemeGlassCard({
     super.key,
+
+    // ------------------------------------------------------------------------
+    // GLASS
+    // ------------------------------------------------------------------------
+
     required this.effects,
     required this.shape,
     required this.style,
+
+    // ------------------------------------------------------------------------
+    // PALETTE
+    // ------------------------------------------------------------------------
+
+    required this.palette,
+
+    // ------------------------------------------------------------------------
+    // DIMENSIONS
+    // ------------------------------------------------------------------------
+
     this.width = 210,
     this.height = 75,
+
+    // ------------------------------------------------------------------------
+    // ICÔNES
+    // ------------------------------------------------------------------------
+
     this.iconSizePercent = 60,
+
+    // ------------------------------------------------------------------------
+    // ESPACEMENT
+    // ------------------------------------------------------------------------
+
     this.horizontalPadding = 2,
     this.spacing = 3,
   }) : assert(
@@ -136,7 +196,8 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
         return;
       }
 
-      final AppThemeMode currentMode = ref.read(themeProvider).mode;
+      final AppThemeMode currentMode =
+          ref.read(themeProvider).mode;
 
       if (currentMode != AppThemeMode.system) {
         _animController.forward(from: 0);
@@ -151,6 +212,7 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
   @override
   void dispose() {
     _animController.dispose();
+
     super.dispose();
   }
 
@@ -159,7 +221,87 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
   // ==========================================================================
 
   double get _realIconSize {
-    return widget.height * widget.iconSizePercent / 100.0;
+    return widget.height *
+        widget.iconSizePercent /
+        100.0;
+  }
+
+  // ==========================================================================
+  // COULEUR PRINCIPALE DU STYLE GLASS
+  // ==========================================================================
+
+  Color get _primaryColor {
+    final bool useAquaStyle =
+        widget.style == GlassStyle.transparentAqua;
+
+    return widget.palette.primaryForStyle(
+      useAquaStyle,
+    );
+  }
+
+  // ==========================================================================
+  // COULEUR SYSTÈME
+  // ==========================================================================
+
+  Color get _systemColor {
+    return widget.palette.info;
+  }
+
+  // ==========================================================================
+  // COULEUR SOMBRE
+  // ==========================================================================
+
+  Color get _darkColor {
+    return widget.palette.textSecondary;
+  }
+
+  // ==========================================================================
+  // COULEUR CLAIRE
+  // ==========================================================================
+
+  Color get _lightColor {
+    final bool useAquaStyle =
+        widget.style == GlassStyle.transparentAqua;
+
+    return widget.palette.primaryForStyle(
+      useAquaStyle,
+    );
+  }
+
+  // ==========================================================================
+  // COULEUR INACTIVE
+  // ==========================================================================
+
+  Color get _inactiveColor {
+    return widget.palette.textSecondary;
+  }
+
+  // ==========================================================================
+  // COULEUR ACTIVE
+  // ==========================================================================
+
+  Color get _activeColor {
+    return _primaryColor;
+  }
+
+  // ==========================================================================
+  // COULEUR D'ICÔNE SELON LE MODE
+  // ==========================================================================
+
+  Color _iconColorForIndex(int index) {
+    switch (index) {
+      case 0:
+        return _systemColor;
+
+      case 1:
+        return _darkColor;
+
+      case 2:
+        return _lightColor;
+
+      default:
+        return _inactiveColor;
+    }
   }
 
   // ==========================================================================
@@ -167,13 +309,15 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
   // ==========================================================================
 
   void _selectMode(int index) {
-    final AppThemeMode? newMode = _indexToMode[index];
+    final AppThemeMode? newMode =
+        _indexToMode[index];
 
     if (newMode == null) {
       return;
     }
 
-    final AppThemeMode currentMode = ref.read(themeProvider).mode;
+    final AppThemeMode currentMode =
+        ref.read(themeProvider).mode;
 
     // ------------------------------------------------------------------------
     // AUCUN CHANGEMENT
@@ -187,7 +331,9 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
     // APPLICATION DU THÈME
     // ------------------------------------------------------------------------
 
-    ref.read(themeProvider.notifier).setTheme(newMode);
+    ref
+        .read(themeProvider.notifier)
+        .setTheme(newMode);
 
     // ------------------------------------------------------------------------
     // ANIMATION
@@ -195,7 +341,9 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
 
     _animController.forward(from: 0);
 
-    debugPrint('🎨 ThemeGlassCard → Mode $newMode appliqué');
+    debugPrint(
+      '🎨 ThemeGlassCard → Mode $newMode appliqué',
+    );
   }
 
   // ==========================================================================
@@ -208,15 +356,18 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
     // ÉTAT RIVERPOD
     // =========================================================================
 
-    final AppThemeMode currentMode = ref.watch(themeProvider).mode;
+    final AppThemeMode currentMode =
+        ref.watch(themeProvider).mode;
 
-    final int selectedModeIndex = _modeToIndex[currentMode] ?? 0;
+    final int selectedModeIndex =
+        _modeToIndex[currentMode] ?? 0;
 
     // =========================================================================
     // HAUTEUR TOTALE
     // =========================================================================
 
-    final double totalHeight = widget.height + 22;
+    final double totalHeight =
+        widget.height + 22;
 
     // =========================================================================
     // CARTE
@@ -232,54 +383,72 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
           // ===================================================================
           // BOUTON GLASS
           // ===================================================================
+
           Positioned(
             top: 0,
             child: GlassButton(
               width: widget.width,
               height: widget.height,
+
               shape: widget.shape,
+
               effects: widget.effects,
+
               style: widget.style,
+
               onTap: () {},
+
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: widget.horizontalPadding,
+                  horizontal:
+                      widget.horizontalPadding,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment:
+                      MainAxisAlignment.center,
                   children: [
                     // =========================================================
                     // SYSTÈME
                     // =========================================================
+
                     _buildIcon(
                       icon: Icons.brightness_auto,
-                      color: Colors.blueGrey.shade100,
+                      color: _iconColorForIndex(0),
                       index: 0,
-                      selectedIndex: selectedModeIndex,
+                      selectedIndex:
+                          selectedModeIndex,
                     ),
 
-                    SizedBox(width: widget.spacing),
+                    SizedBox(
+                      width: widget.spacing,
+                    ),
 
                     // =========================================================
                     // SOMBRE
                     // =========================================================
+
                     _buildIcon(
                       icon: Icons.dark_mode,
-                      color: Colors.indigo.shade200,
+                      color: _iconColorForIndex(1),
                       index: 1,
-                      selectedIndex: selectedModeIndex,
+                      selectedIndex:
+                          selectedModeIndex,
                     ),
 
-                    SizedBox(width: widget.spacing),
+                    SizedBox(
+                      width: widget.spacing,
+                    ),
 
                     // =========================================================
                     // CLAIR
                     // =========================================================
+
                     _buildIcon(
                       icon: Icons.light_mode,
-                      color: Colors.orange.shade600,
+                      color: _iconColorForIndex(2),
                       index: 2,
-                      selectedIndex: selectedModeIndex,
+                      selectedIndex:
+                          selectedModeIndex,
                     ),
                   ],
                 ),
@@ -290,30 +459,33 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
           // ===================================================================
           // LABEL SYSTÈME
           // ===================================================================
+
           _buildAnimatedLabel(
             position: 0,
             text: 'Système',
-            activeColor: Colors.cyanAccent,
+            activeColor: _activeColor,
             selectedIndex: selectedModeIndex,
           ),
 
           // ===================================================================
           // LABEL SOMBRE
           // ===================================================================
+
           _buildAnimatedLabel(
             position: 1,
             text: 'Sombre',
-            activeColor: Colors.indigoAccent,
+            activeColor: _activeColor,
             selectedIndex: selectedModeIndex,
           ),
 
           // ===================================================================
           // LABEL CLAIR
           // ===================================================================
+
           _buildAnimatedLabel(
             position: 2,
             text: 'Clair',
-            activeColor: Colors.orangeAccent,
+            activeColor: _activeColor,
             selectedIndex: selectedModeIndex,
           ),
         ],
@@ -331,22 +503,32 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
     required int index,
     required int selectedIndex,
   }) {
-    final bool isActive = selectedIndex == index;
+    final bool isActive =
+        selectedIndex == index;
 
     return Expanded(
       child: Center(
         child: AnimatedScale(
           scale: isActive ? 1.15 : 1.0,
-          duration: const Duration(milliseconds: 250),
+
+          duration:
+              const Duration(milliseconds: 250),
+
           curve: Curves.easeOutBack,
+
           child: SizedBox(
             width: _realIconSize,
             height: _realIconSize,
+
             child: GlassIcon(
               icon: icon,
+
               baseColor: color,
+
               size: _realIconSize,
+
               isActive: isActive,
+
               onTap: () => _selectMode(index),
             ),
           ),
@@ -365,13 +547,17 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
     required Color activeColor,
     required int selectedIndex,
   }) {
-    final bool isActive = selectedIndex == position;
+    final bool isActive =
+        selectedIndex == position;
 
     // =========================================================================
     // LARGEUR D'UNE ZONE
     // =========================================================================
 
-    final double itemWidth = (widget.width - widget.horizontalPadding * 2) / 3;
+    final double itemWidth =
+        (widget.width -
+                widget.horizontalPadding * 2) /
+            3;
 
     // =========================================================================
     // POSITION HORIZONTALE
@@ -391,24 +577,39 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
       top: widget.height + 4,
       left: left,
       width: 60,
+
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
+
         onTap: () => _selectMode(position),
+
         child: AnimatedBuilder(
           animation: _animController,
-          builder: (BuildContext context, Widget? child) {
+
+          builder: (
+            BuildContext context,
+            Widget? child,
+          ) {
             // ===============================================================
             // VALEUR D'ANIMATION
             // ===============================================================
 
-            final double animValue = isActive ? _animController.value : 0.0;
+            final double animValue =
+                isActive
+                    ? _animController.value
+                    : 0.0;
 
             // ===============================================================
             // OPACITÉ
             // ===============================================================
 
             final double opacity =
-                (0.6 + (0.4 * (isActive ? 1 : 0)) + (0.4 * animValue)).clamp(
+                (
+                  0.6 +
+                  (0.4 *
+                      (isActive ? 1 : 0)) +
+                  (0.4 * animValue)
+                ).clamp(
                   0.0,
                   1.0,
                 );
@@ -418,47 +619,84 @@ class _ThemeGlassCardState extends ConsumerState<ThemeGlassCard>
             // ===============================================================
 
             final double scale =
-                1.0 + (0.15 * (isActive ? 1 : 0)) + (0.1 * animValue);
+                1.0 +
+                (0.15 *
+                    (isActive ? 1 : 0)) +
+                (0.1 * animValue);
 
             // ===============================================================
             // TRANSLATION
             // ===============================================================
 
-            final double translateY = -6 * animValue;
+            final double translateY =
+                -6 * animValue;
 
             // ===============================================================
             // TRANSFORM
             // ===============================================================
 
             return Transform.translate(
-              offset: Offset(0, translateY),
+              offset: Offset(
+                0,
+                translateY,
+              ),
+
               child: Opacity(
                 opacity: opacity,
-                child: Transform.scale(scale: scale, child: child),
+
+                child: Transform.scale(
+                  scale: scale,
+                  child: child,
+                ),
               ),
             );
           },
+
           child: Text(
             text,
+
             textAlign: TextAlign.center,
+
             maxLines: 1,
+
             overflow: TextOverflow.ellipsis,
+
             style: TextStyle(
               fontSize: 10,
-              fontWeight: isActive ? FontWeight.w900 : FontWeight.w600,
-              color: isActive ? activeColor : Colors.white60,
+
+              fontWeight:
+                  isActive
+                      ? FontWeight.w900
+                      : FontWeight.w600,
+
+              color:
+                  isActive
+                      ? activeColor
+                      : widget.palette.textSecondary,
+
               letterSpacing: 0.5,
+
               shadows: [
                 if (isActive)
                   Shadow(
-                    color: activeColor.withValues(alpha: 0.6),
+                    color:
+                        activeColor.withValues(
+                      alpha: 0.6,
+                    ),
                     blurRadius: 8,
                   )
                 else
-                  const Shadow(
-                    color: Colors.black38,
+                  Shadow(
+                    color:
+                        widget.palette.black
+                            .withValues(
+                      alpha: 0.22,
+                    ),
                     blurRadius: 2,
-                    offset: Offset(0, 1),
+                    offset: const Offset(
+                      0,
+                      1,
+                    ),
                   ),
               ],
             ),

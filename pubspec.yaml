@@ -1,7 +1,5 @@
 name: universal_glass
-
 description: "A reusable Flutter glassmorphism UI component library."
-
 version: 2.1.0
 
 homepage: https://github.com/afirinterfacedrive-creator/glass
@@ -15,6 +13,7 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^3.3.2
   shared_preferences: ^2.3.5
+  flutter_colorpicker: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +22,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/phone/phone_countries.json
+    - assets/phone/flags/
+    - assets/noise.png
+    - assets/noise_dark.png
+    - assets/phone/phone_operators.json  # <- AJOUTE CA

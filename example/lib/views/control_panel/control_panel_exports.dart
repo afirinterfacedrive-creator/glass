@@ -4,6 +4,9 @@
 //
 // Point d'entrée central du module Control Panel.
 //
+// Ce fichier regroupe uniquement les éléments publics du Control Panel.
+// Il ne contient aucune logique métier.
+//
 // ============================================================================
 
 // ============================================================================
@@ -25,3 +28,7 @@ export 'sections/physical_controls_section.dart';
 
 export 'widgets/control_panel_theme_card.dart';
 export 'widgets/control_panel_section_title.dart';
+
+// ============================================================================
+// END OF CONTROL PANEL EXPORTS
+// ============================================================================

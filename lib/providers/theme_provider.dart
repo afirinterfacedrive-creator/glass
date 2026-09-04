@@ -11,28 +11,15 @@
 // - ThemeNotifier
 // - themeProvider
 // - materialThemeModeProvider
+// - glassThemeProvider
 //
-// IMPORTANT :
-//
-// Le provider utilise l'instance SharedPreferences injectée par
-// sharedPreferencesProvider.
-//
-// L'application cliente doit donc override sharedPreferencesProvider
-// dans son ProviderScope.
-//
-// Compatible Riverpod 3.x.
 // ============================================================================
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_glass/enums/glass_enums.dart';
 
 import 'shared_preferences_provider.dart';
-
-// ============================================================================
-// MODES DE THÈME DE L'APPLICATION
-// ============================================================================
-
-enum AppThemeMode { system, dark, light }
 
 // ============================================================================
 // ÉTAT DU THÈME
@@ -40,15 +27,33 @@ enum AppThemeMode { system, dark, light }
 
 class ThemeState {
   final AppThemeMode mode;
+  final bool enableGradient;
+  final bool enableBlur;
+  final bool enableNoise;
 
-  const ThemeState(this.mode);
+  const ThemeState(
+    this.mode, {
+    this.enableGradient = true,
+    this.enableBlur = true,
+    this.enableNoise = true,
+  });
 
   // ==========================================================================
   // COPY WITH
   // ==========================================================================
 
-  ThemeState copyWith({AppThemeMode? mode}) {
-    return ThemeState(mode ?? this.mode);
+  ThemeState copyWith({
+    AppThemeMode? mode,
+    bool? enableGradient,
+    bool? enableBlur,
+    bool? enableNoise,
+  }) {
+    return ThemeState(
+      mode?? this.mode,
+      enableGradient: enableGradient?? this.enableGradient,
+      enableBlur: enableBlur?? this.enableBlur,
+      enableNoise: enableNoise?? this.enableNoise,
+    );
   }
 
   // ==========================================================================
@@ -59,30 +64,33 @@ class ThemeState {
     switch (mode) {
       case AppThemeMode.system:
         return ThemeMode.system;
-
       case AppThemeMode.dark:
+      case AppThemeMode.classic:
+      case AppThemeMode.sage:
+      case AppThemeMode.sagePro:
+      case AppThemeMode.sageOled:
+      case AppThemeMode.sageGlass:
         return ThemeMode.dark;
-
       case AppThemeMode.light:
+      case AppThemeMode.aqua:
         return ThemeMode.light;
     }
   }
 
   // ==========================================================================
-  // HELPERS
+  // HELPERS GLASS
   // ==========================================================================
 
-  bool get isSystem {
-    return mode == AppThemeMode.system;
-  }
-
-  bool get isDark {
-    return mode == AppThemeMode.dark;
-  }
-
-  bool get isLight {
-    return mode == AppThemeMode.light;
-  }
+  bool get isAqua => mode == AppThemeMode.aqua;
+  bool get isClassic => mode == AppThemeMode.classic;
+  bool get isSage => mode == AppThemeMode.sage;
+  bool get isSagePro => mode == AppThemeMode.sagePro;
+  bool get isSageOled => mode == AppThemeMode.sageOled;
+  bool get isSageGlass => mode == AppThemeMode.sageGlass;
+  bool get isAnySage => mode.name.startsWith('sage'); // <-- Helper pour les 4
+  bool get isDarkMode => mode == AppThemeMode.dark || mode == AppThemeMode.classic || isAnySage;
+  bool get isLightMode => mode == AppThemeMode.light || mode == AppThemeMode.aqua;
+  bool get isSystem => mode == AppThemeMode.system;
 
   // ==========================================================================
   // DEBUG
@@ -90,65 +98,47 @@ class ThemeState {
 
   @override
   String toString() {
-    return 'ThemeState(mode: $mode)';
+    return 'ThemeState(mode: $mode, gradient: $enableGradient, blur: $enableBlur, noise: $enableNoise)';
   }
 }
 
 // ============================================================================
 // NOTIFIER DU THÈME
 // ============================================================================
-//
-// Riverpod 3.x
-//
-// Ancien :
-//   extends StateNotifier<ThemeState>
-//
-// Nouveau :
-//   extends Notifier<ThemeState>
-//
-// ============================================================================
 
 class ThemeNotifier extends Notifier<ThemeState> {
   // ==========================================================================
-  // CLÉ DE PERSISTANCE
+  // CLÉS DE PERSISTANCE
   // ==========================================================================
 
   static const String themeKey = 'app_theme_mode';
+  static const String enableGradientKey = 'app_enable_gradient';
+  static const String enableBlurKey = 'app_enable_blur';
+  static const String enableNoiseKey = 'app_enable_noise';
 
   // ==========================================================================
   // BUILD
-  // ==========================================================================
-  //
-  // Dans Riverpod 3, l'état initial est créé dans build().
-  //
-  // On récupère ici SharedPreferences via ref.
-  //
   // ==========================================================================
 
   @override
   ThemeState build() {
     final prefs = ref.read(sharedPreferencesProvider);
 
-    final int savedIndex = prefs.getInt(themeKey) ?? AppThemeMode.system.index;
-
-    // ------------------------------------------------------------------------
-    // SÉCURITÉ
-    // ------------------------------------------------------------------------
-    //
-    // Si une ancienne valeur invalide est trouvée dans SharedPreferences,
-    // on revient automatiquement au mode système.
-    //
-    // ------------------------------------------------------------------------
+    final int savedIndex = prefs.getInt(themeKey)?? AppThemeMode.system.index;
+    final bool savedGradient = prefs.getBool(enableGradientKey)?? true;
+    final bool savedBlur = prefs.getBool(enableBlurKey)?? true;
+    final bool savedNoise = prefs.getBool(enableNoiseKey)?? true;
 
     if (savedIndex < 0 || savedIndex >= AppThemeMode.values.length) {
       return const ThemeState(AppThemeMode.system);
     }
 
-    // ------------------------------------------------------------------------
-    // RESTAURATION
-    // ------------------------------------------------------------------------
-
-    return ThemeState(AppThemeMode.values[savedIndex]);
+    return ThemeState(
+      AppThemeMode.values[savedIndex],
+      enableGradient: savedGradient,
+      enableBlur: savedBlur,
+      enableNoise: savedNoise,
+    );
   }
 
   // ==========================================================================
@@ -156,62 +146,59 @@ class ThemeNotifier extends Notifier<ThemeState> {
   // ==========================================================================
 
   Future<void> setTheme(AppThemeMode mode) async {
-    // ------------------------------------------------------------------------
-    // AUCUN CHANGEMENT
-    // ------------------------------------------------------------------------
+    if (state.mode == mode) return;
 
-    if (state.mode == mode) {
-      return;
-    }
-
-    // ------------------------------------------------------------------------
-    // MISE À JOUR IMMÉDIATE
-    // ------------------------------------------------------------------------
-
-    state = ThemeState(mode);
-
-    // ------------------------------------------------------------------------
-    // PERSISTANCE
-    // ------------------------------------------------------------------------
+    state = state.copyWith(mode: mode);
 
     final prefs = ref.read(sharedPreferencesProvider);
-
     await prefs.setInt(themeKey, mode.index);
   }
 
   // ==========================================================================
-  // THÈME SYSTÈME
+  // TOGGLES GLASS
   // ==========================================================================
 
-  Future<void> setSystemTheme() async {
-    await setTheme(AppThemeMode.system);
+  Future<void> setEnableGradient(bool value) async {
+    state = state.copyWith(enableGradient: value);
+    final prefs = ref.read(sharedPreferencesProvider);
+    await prefs.setBool(enableGradientKey, value);
+  }
+
+  Future<void> setEnableBlur(bool value) async {
+    state = state.copyWith(enableBlur: value);
+    final prefs = ref.read(sharedPreferencesProvider);
+    await prefs.setBool(enableBlurKey, value);
+  }
+
+  Future<void> setEnableNoise(bool value) async {
+    state = state.copyWith(enableNoise: value);
+    final prefs = ref.read(sharedPreferencesProvider);
+    await prefs.setBool(enableNoiseKey, value);
   }
 
   // ==========================================================================
-  // THÈME SOMBRE
+  // PRESETS RAPIDES
   // ==========================================================================
 
-  Future<void> setDarkTheme() async {
-    await setTheme(AppThemeMode.dark);
-  }
-
-  // ==========================================================================
-  // THÈME CLAIR
-  // ==========================================================================
-
-  Future<void> setLightTheme() async {
-    await setTheme(AppThemeMode.light);
-  }
+  Future<void> setSystemTheme() async => await setTheme(AppThemeMode.system);
+  Future<void> setDarkTheme() async => await setTheme(AppThemeMode.dark);
+  Future<void> setLightTheme() async => await setTheme(AppThemeMode.light);
+  Future<void> setAquaTheme() async => await setTheme(AppThemeMode.aqua);
+  Future<void> setClassicTheme() async => await setTheme(AppThemeMode.classic);
+  Future<void> setSageTheme() async => await setTheme(AppThemeMode.sage);
+  Future<void> setSageProTheme() async => await setTheme(AppThemeMode.sagePro); // <-- AJOUTE
+  Future<void> setSageOledTheme() async => await setTheme(AppThemeMode.sageOled); // <-- AJOUTE
+  Future<void> setSageGlassTheme() async => await setTheme(AppThemeMode.sageGlass); // <-- AJOUTE
 
   // ==========================================================================
   // BASCULER ENTRE SOMBRE ET CLAIR
   // ==========================================================================
 
   Future<void> toggleDarkLight() async {
-    if (state.mode == AppThemeMode.dark) {
-      await setLightTheme();
+    if (state.isDarkMode) {
+      await setAquaTheme(); // Aqua = light par défaut
     } else {
-      await setDarkTheme();
+      await setClassicTheme(); // Classic = dark par défaut
     }
   }
 
@@ -221,28 +208,14 @@ class ThemeNotifier extends Notifier<ThemeState> {
 
   Future<void> reset() async {
     await setSystemTheme();
+    await setEnableGradient(true);
+    await setEnableBlur(true);
+    await setEnableNoise(true);
   }
 }
 
 // ============================================================================
 // PROVIDER GLOBAL DU THÈME
-// ============================================================================
-//
-// Riverpod 3.x :
-//   NotifierProvider
-//
-// Utilisation :
-//
-// final state = ref.watch(themeProvider);
-//
-// ou :
-//
-// final mode = ref.watch(
-//   themeProvider.select(
-//     (state) => state.materialThemeMode,
-//   ),
-// );
-//
 // ============================================================================
 
 final themeProvider = NotifierProvider<ThemeNotifier, ThemeState>(
@@ -252,20 +225,19 @@ final themeProvider = NotifierProvider<ThemeNotifier, ThemeState>(
 // ============================================================================
 // PROVIDER MATERIAL THEME MODE
 // ============================================================================
-//
-// Compatibilité avec l'ancien code.
-//
-// Permet d'utiliser directement :
-//
-// final ThemeMode themeMode = ref.watch(
-//   materialThemeModeProvider,
-// );
-//
-// ============================================================================
 
 final materialThemeModeProvider = Provider<ThemeMode>((ref) {
   return ref.watch(themeProvider.select((state) => state.materialThemeMode));
 });
+
+// ============================================================================
+// PROVIDER GLASS HELPERS
+// ============================================================================
+
+final isAquaModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isAqua)));
+final isClassicModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isClassic)));
+final isSageModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isSage)));
+final isAnySageModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isAnySage))); // <-- AJOUTE
 
 // ============================================================================
 // FIN

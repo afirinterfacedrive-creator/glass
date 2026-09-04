@@ -1,0 +1,286 @@
+[
+  {
+    "isoCode": "BF",
+    "name": "Burkina Faso",
+    "flag": "🇧🇫",
+    "dialCode": "+226",
+    "nationalDigits": [8],
+    "formatGroups": [2, 2, 2, 2],
+    "prefixes": [
+      "01", "02", "03", "05", "06", "07", 
+      "51", "52", "53", "54", "55", "56", "57", "58", "59",
+      "60", "61", "62", "63", "64", "65", "66", "67", "68", "69",
+      "70", "71", "72", "73", "74", "75", "76", "77", "78", "79"
+    ],
+    "operators": [
+      {
+        "id": "orange_bf",
+        "name": "Orange Burkina Faso",
+        "shortName": "Orange",
+        "prefixes": ["05", "06", "07", "54", "55", "56", "57", "64", "65", "66", "67", "74", "75", "76", "77"],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "moov_bf",
+        "name": "Moov Africa Burkina Faso",
+        "shortName": "Moov",
+        "prefixes": ["01", "02", "03", "51", "52", "53", "60", "61", "62", "63", "70", "71", "72", "73"],
+        "color": "#0066CC"
+      },
+      {
+        "id": "telecel_bf",
+        "name": "Telecel Faso",
+        "shortName": "Telecel",
+        "prefixes": ["58", "59", "68", "69", "78", "79"],
+        "color": "#CC0000"
+      }
+    ],
+    "example": "71 12 34 56",
+    "placeholder": "71 12 34 56"
+  },
+  {
+    "isoCode": "CI",
+    "name": "Côte d'Ivoire",
+    "flag": "🇨🇮",
+    "dialCode": "+225",
+    "nationalDigits": [10],
+    "formatGroups": [2, 2, 2, 2, 2],
+    "prefixes": ["01", "05", "07"],
+    "operators": [
+      {
+        "id": "moov_ci",
+        "name": "Moov Africa Côte d'Ivoire",
+        "shortName": "Moov",
+        "prefixes": ["01"],
+        "color": "#0066CC"
+      },
+      {
+        "id": "mtn_ci",
+        "name": "MTN Côte d'Ivoire",
+        "shortName": "MTN",
+        "prefixes": ["05"],
+        "color": "#FFCC00"
+      },
+      {
+        "id": "orange_ci",
+        "name": "Orange Côte d'Ivoire",
+        "shortName": "Orange",
+        "prefixes": ["07"],
+        "color": "#FF8C00"
+      }
+    ],
+    "example": "07 12 34 56 78",
+    "placeholder": "07 12 34 56 78"
+  },
+  {
+    "isoCode": "ML",
+    "name": "Mali",
+    "flag": "🇲🇱",
+    "dialCode": "+223",
+    "nationalDigits": [8],
+    "formatGroups": [2, 2, 2, 2],
+    "prefixes": ["50", "51", "52", "53", "55", "60", "61", "62", "63", "65", "66", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "82", "83", "89", "90", "91", "92", "93", "94", "95", "99"],
+    "operators": [
+      {
+        "id": "malitel_ml",
+        "name": "Moov Africa Malitel",
+        "shortName": "Moov",
+        "prefixes": ["50", "60", "61", "62", "63", "65", "66", "69", "70", "71", "72", "73", "74", "75", "82", "83", "90", "91", "92", "93", "94"],
+        "color": "#0066CC"
+      },
+      {
+        "id": "orange_ml",
+        "name": "Orange Mali",
+        "shortName": "Orange",
+        "prefixes": ["51", "52", "53", "55", "76", "77", "78", "79", "89", "95", "99"],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "telecel_ml",
+        "name": "Telecel Mali",
+        "shortName": "Telecel",
+        "prefixes": ["85", "86", "87", "88"],
+        "color": "#CC0000"
+      }
+    ],
+    "example": "76 12 34 56",
+    "placeholder": "76 12 34 56"
+  },
+  {
+    "isoCode": "SN",
+    "name": "Sénégal",
+    "flag": "🇸🇳",
+    "dialCode": "+221",
+    "nationalDigits": [9],
+    "formatGroups": [2, 3, 2, 2],
+    "prefixes": ["70", "75", "76", "77", "78"],
+    "operators": [
+      {
+        "id": "orange_sn",
+        "name": "Orange Sénégal",
+        "shortName": "Orange",
+        "prefixes": ["77", "78"],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "free_sn",
+        "name": "Free Sénégal",
+        "shortName": "Free",
+        "prefixes": ["76"],
+        "color": "#CC0000"
+      },
+      {
+        "id": "expresso_sn",
+        "name": "Expresso Sénégal",
+        "shortName": "Expresso",
+        "prefixes": ["70"],
+        "color": "#008080"
+      },
+      {
+        "id": "promobile_sn",
+        "name": "Promobile",
+        "shortName": "Promobile",
+        "prefixes": ["75"],
+        "color": "#990099"
+      }
+    ],
+    "example": "77 123 45 67",
+    "placeholder": "77 123 45 67"
+  },
+  {
+    "isoCode": "BJ",
+    "name": "Bénin",
+    "flag": "🇧🇯",
+    "dialCode": "+229",
+    "nationalDigits": [10],
+    "formatGroups": [2, 2, 2, 2, 2],
+    "prefixes": ["01", "02", "03"],
+    "operators": [
+      {
+        "id": "mtn_bj",
+        "name": "MTN Bénin",
+        "shortName": "MTN",
+        "prefixes": ["01"],
+        "color": "#FFCC00"
+      },
+      {
+        "id": "moov_bj",
+        "name": "Moov Africa Bénin",
+        "shortName": "Moov",
+        "prefixes": ["02"],
+        "color": "#0066CC"
+      },
+      {
+        "id": "celtiis_bj",
+        "name": "Celtiis Bénin",
+        "shortName": "Celtiis",
+        "prefixes": ["03"],
+        "color": "#008000"
+      }
+    ],
+    "example": "01 12 34 56 78",
+    "placeholder": "01 12 34 56 78"
+  },
+  {
+    "isoCode": "TG",
+    "name": "Togo",
+    "flag": "🇹🇬",
+    "dialCode": "+228",
+    "nationalDigits": [8],
+    "formatGroups": [2, 2, 2, 2],
+    "prefixes": ["70", "71", "90", "91", "92", "93", "96", "97", "98", "99"],
+    "operators": [
+      {
+        "id": "togocom_tg",
+        "name": "Togocom (Togo Cellulaire)",
+        "shortName": "Togocom",
+        "prefixes": ["90", "91", "92", "93", "70", "71"],
+        "color": "#FFCC00"
+      },
+      {
+        "id": "moov_tg",
+        "name": "Moov Africa Togo",
+        "shortName": "Moov",
+        "prefixes": ["96", "97", "98", "99"],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "90 12 34 56",
+    "placeholder": "90 12 34 56"
+  },
+  {
+    "isoCode": "NE",
+    "name": "Niger",
+    "flag": "🇳🇪",
+    "dialCode": "+227",
+    "nationalDigits": [8],
+    "formatGroups": [2, 2, 2, 2],
+    "prefixes": ["80", "84", "85", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
+    "operators": [
+      {
+        "id": "airtel_ne",
+        "name": "Airtel Niger",
+        "shortName": "Airtel",
+        "prefixes": ["90", "91", "92", "80"],
+        "color": "#CC0000"
+      },
+      {
+        "id": "moov_ne",
+        "name": "Moov Africa Niger",
+        "shortName": "Moov",
+        "prefixes": ["94", "95", "84", "85"],
+        "color": "#0066CC"
+      },
+      {
+        "id": "zamani_ne",
+        "name": "Zamani Telecom (ex-Orange)",
+        "shortName": "Zamani",
+        "prefixes": ["96", "97", "88", "89"],
+        "color": "#FF6600"
+      },
+      {
+        "id": "sahelcom_ne",
+        "name": "Niger Telecoms (SahelCom)",
+        "shortName": "SahelCom",
+        "prefixes": ["93", "98", "99"],
+        "color": "#008000"
+      }
+    ],
+    "example": "90 12 34 56",
+    "placeholder": "90 12 34 56"
+  },
+  {
+    "isoCode": "GH",
+    "name": "Ghana",
+    "flag": "🇬🇭",
+    "dialCode": "+233",
+    "nationalDigits": [9],
+    "formatGroups": [3, 3, 3],
+    "prefixes": ["20", "23", "24", "25", "26", "27", "50", "53", "54", "55", "56", "57", "59"],
+    "operators": [
+      {
+        "id": "mtn_gh",
+        "name": "MTN Ghana",
+        "shortName": "MTN",
+        "prefixes": ["24", "25", "53", "54", "55", "59"],
+        "color": "#FFCC00"
+      },
+      {
+        "id": "telecel_gh",
+        "name": "Telecel Ghana (ex-Vodafone)",
+        "shortName": "Telecel",
+        "prefixes": ["20", "50"],
+        "color": "#CC0000"
+      },
+      {
+        "id": "at_gh",
+        "name": "AT Ghana (ex-AirtelTigo)",
+        "shortName": "AT",
+        "prefixes": ["23", "26", "27", "56", "57"],
+        "color": "#003366"
+      }
+    ],
+    "example": "241 234 567",
+    "placeholder": "241 234 567"
+  }
+]

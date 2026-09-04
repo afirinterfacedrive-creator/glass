@@ -1,0 +1,10 @@
+{
+  "BF": {
+    "type": "asset",
+    "path": "assets/phone/flags/BF.png"
+  },
+  "CI": {
+    "type": "asset",
+    "path": "assets/phone/flags/CI.png"
+  }
+}

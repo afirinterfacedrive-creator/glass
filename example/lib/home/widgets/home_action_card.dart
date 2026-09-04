@@ -1,41 +1,15 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/glass.dart';
 
-// ============================================================================
-// HOME ACTION CARD
-// ============================================================================
-//
-// Carte interactive du menu Quick Access.
-//
-// Responsabilités :
-//
-// - Hover desktop
-// - Animation
-// - Icône
-// - Titre
-// - Sous-titre
-// - Flèche
-// - Interaction utilisateur
-//
-// Aucune logique de navigation ici.
-//
-// ============================================================================
-
-class HomeActionCard extends StatefulWidget {
-  final GlassThemeState theme;
-
+class HomeActionCard extends ConsumerWidget {
   final IconData icon;
-
   final String title;
-
   final String subtitle;
-
   final VoidCallback onTap;
 
   const HomeActionCard({
     super.key,
-    required this.theme,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -43,166 +17,69 @@ class HomeActionCard extends StatefulWidget {
   });
 
   @override
-  State<HomeActionCard> createState() => _HomeActionCardState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final glass = ref.watchGlassContext(context);
+    final theme = glass.theme;
+    final palette = glass.palette;
 
-class _HomeActionCardState extends State<HomeActionCard> {
-  bool _hovered = false;
+    final bool isSmallMobile = glass.isSmallMobile;
 
-  @override
-  Widget build(BuildContext context) {
-    final Color accent = widget.theme.useAquaStyle
-        ? Colors.cyanAccent
-        : Colors.orangeAccent;
+    // FIX FINAL: Utilise direct palette.accent 
+    // En sagePro/sageOled -> #E50914 auto. En aqua -> #4DD0E1 auto.
+    final Color accentColor = palette.accent;
 
-    return MouseRegion(
-      onEnter: (_) {
-        if (!_hovered) {
-          setState(() {
-            _hovered = true;
-          });
-        }
-      },
-      onExit: (_) {
-        if (_hovered) {
-          setState(() {
-            _hovered = false;
-          });
-        }
-      },
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-        child: InkWell(
-          onTap: widget.onTap,
-          borderRadius: BorderRadius.circular(20),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            curve: Curves.easeOut,
-
-            width: 250,
-
-            constraints: const BoxConstraints(minHeight: 108),
-
-            transform: Matrix4.translationValues(0, _hovered ? -3 : 0, 0),
-
-            padding: const EdgeInsets.all(17),
-
+    return GlassSurfaceContainer(
+      style: theme.glassStyle,
+      effects: glass.effects,
+      width: double.infinity, 
+      constraints: BoxConstraints(minHeight: isSmallMobile ? 86 : 102),
+      padding: EdgeInsets.all(isSmallMobile ? 12 : 16),
+      borderRadius: BorderRadius.circular(isSmallMobile ? 12 : 18),
+      liftOnHover: theme.enableHover,
+      onTap: onTap,
+      child: Row(
+        children: [
+          Container(
+            width: isSmallMobile ? 36 : 40,
+            height: isSmallMobile ? 36 : 40,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: widget.theme.useAquaStyle
-                    ? [
-                        Colors.white.withValues(alpha: _hovered ? .16 : .11),
-                        accent.withValues(alpha: .035),
-                      ]
-                    : [
-                        Colors.white.withValues(alpha: _hovered ? .12 : .075),
-                        Colors.white.withValues(alpha: .025),
-                      ],
-              ),
-
-              border: Border.all(
-                color: _hovered
-                    ? accent.withValues(alpha: .28)
-                    : Colors.white.withValues(alpha: .11),
-              ),
-
-              boxShadow: [
-                BoxShadow(
-                  color: _hovered
-                      ? accent.withValues(alpha: .10)
-                      : Colors.black.withValues(alpha: .14),
-                  blurRadius: _hovered ? 22 : 16,
-                  offset: const Offset(0, 7),
-                ),
-              ],
+              color: accentColor.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
             ),
-
-            child: Row(
+            child: Icon(icon, size: isSmallMobile ? 18 : 20, color: accentColor),
+          ),
+          SizedBox(width: isSmallMobile ? 10 : 14),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ============================================================
-                // ICÔNE
-                // ============================================================
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 180),
-
-                  width: 46,
-                  height: 46,
-
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-
-                    color: accent.withValues(alpha: _hovered ? .15 : .08),
-
-                    border: Border.all(
-                      color: accent.withValues(alpha: _hovered ? .30 : .17),
-                    ),
-                  ),
-
-                  child: Icon(widget.icon, size: 22, color: accent),
+                GlassText(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: isSmallMobile ? 13 : 14,
+                  fontWeight: FontWeight.bold,
                 ),
-
-                const SizedBox(width: 13),
-
-                // ============================================================
-                // TEXTE
-                // ============================================================
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 5),
-
-                      Text(
-                        widget.subtitle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white54,
-                          fontSize: 11,
-                          height: 1.25,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(width: 5),
-
-                // ============================================================
-                // FLÈCHE
-                // ============================================================
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 180),
-
-                  transform: Matrix4.translationValues(_hovered ? 3 : 0, 0, 0),
-
-                  child: Icon(
-                    Icons.chevron_right,
-                    size: 20,
-                    color: accent.withValues(alpha: _hovered ? .95 : .55),
-                  ),
+                const SizedBox(height: 4),
+                GlassText(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: isSmallMobile ? 10 : 11,
+                  height: 1.25,
+                  alpha: 0.7,
                 ),
               ],
             ),
           ),
-        ),
+          const SizedBox(width: 4),
+          Icon(
+            Icons.chevron_right_rounded,
+            size: isSmallMobile ? 18 : 20,
+            color: Colors.white.withValues(alpha: 0.3),
+          ),
+        ],
       ),
     );
   }

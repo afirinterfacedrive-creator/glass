@@ -1,78 +1,38 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/glass.dart';
-
-import 'sections/appearance_section.dart';
+import 'package:universal_glass_example/settings/widgets/appearance/appearance_section.dart';
 import 'sections/general_section.dart';
 
 // ============================================================================
 // SETTINGS PAGE
 // ============================================================================
-//
-// Page principale des paramètres.
-//
-// Architecture :
-//
-// SettingsPage
-//      │
-//      └── GlassScaffold
-//             │
-//             ├── UniversalAppBar
-//             │      └── Bouton retour
-//             │
-//             └── Contenu
-//                    │
-//                    ├── AppearanceSection
-//                    │      └── AquaGlassSwitch
-//                    │
-//                    └── GeneralSection
-//                           ├── Notifications
-//                           └── Sound
-//
-// ============================================================================
-//
-// RESPONSABILITÉS
-//
-// SettingsPage gère uniquement :
-//
-// - structure générale
-// - titre
-// - responsive local
-// - organisation des sections
-//
-// Elle ne gère PAS :
-//
-// - Riverpod
-// - GlassBackground
-// - UniversalAppBar
-// - bouton retour
-// - toggle Aqua
-// - cartes individuelles
-// - logique des paramètres
-//
-// ============================================================================
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // WATCH POUR REBUILD LIVE QUAND BLUR/NOISE/GRADIENT CHANGE
+    final GlassThemeState theme = ref.watch(glassThemeProvider);
+
     return GlassScaffold(
       // =======================================================================
-      // APP BAR
+      // APP BAR - MODE CUSTOM GRADIENT POUR TEST LIVE
       // =======================================================================
       title: 'Settings',
-
       subtitle: 'APPLICATION SETTINGS',
-
       showLogo: true,
-
       showBackButton: true,
-
+      useCustomGradient: true, 
+      customGradientKey: 'appbar_gradient',
+      blur: theme.blur,   
+      noise: theme.noise, 
       hideNavigation: true,
+      maxWidth: 1200, // Ajusté pour offrir un confort maximal à la double colonne PC
 
       // =======================================================================
-      // CONTENU
+      // CONTENU RESPONSIVE DE LA PAGE PARAMÈTRES
       // =======================================================================
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -80,21 +40,13 @@ class SettingsPage extends StatelessWidget {
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
-              // =================================================================
-              // TITRE
-              // =================================================================
               Text(
                 'Settings',
-
                 style: TextStyle(
                   color: Colors.white,
-
                   fontSize: compact ? 24 : 28,
-
                   fontWeight: FontWeight.bold,
-
                   shadows: const [
                     Shadow(blurRadius: 10, color: Colors.black26),
                   ],
@@ -103,18 +55,12 @@ class SettingsPage extends StatelessWidget {
 
               const SizedBox(height: 6),
 
-              // =================================================================
-              // DESCRIPTION
-              // =================================================================
               Text(
                 'Configurez l’apparence et les '
                 'préférences de l’application.',
-
                 style: TextStyle(
-                  color: Colors.white54,
-
-                  fontSize: compact ? 11 : 12,
-
+                  color: Colors.white.withValues(alpha: 0.54), 
+                  fontSize: compact ? 11 : 12, 
                   height: 1.4,
                 ),
               ),
@@ -122,16 +68,26 @@ class SettingsPage extends StatelessWidget {
               SizedBox(height: compact ? 24 : 30),
 
               // =================================================================
-              // APPEARANCE
+              // DISPOSITIF DE GRILLE RESPONSIVE SÉCURISÉ POUR LES RÉGLAGES
               // =================================================================
-              const AppearanceSection(),
+              GlassResponsiveGrid(
+                spacing: 24,       // Bel espace aéré entre les deux blocs
+                runSpacing: 24,    // Espace de sécurité lors du repli mobile
+                mobileColumns: 1,  // Écrans mobiles : Empilage vertical logique
+                tabletColumns: 1,  // Tablettes compactes en portrait
+                desktopColumns: 2, // Grands écrans : Affichage côte à côte ultra-pro
+                tabletBreakpoint: 600,
+                desktopBreakpoint: 900, // Seuil de bascule chirurgical pour la double colonne
+                children: [
+                  // BLOC ÉLÉMENT 1 : PANNEAU APPARENCE
+                  AppearanceSection(
+                    onThemeChanged: () => ref.invalidate(glassThemeProvider),
+                  ),
 
-              SizedBox(height: compact ? 20 : 24),
-
-              // =================================================================
-              // GENERAL
-              // =================================================================
-              const GeneralSection(),
+                  // BLOC ÉLÉMENT 2 : PANNEAU GÉNÉRAL
+                  const GeneralSection(),
+                ],
+              ),
 
               const SizedBox(height: 36),
             ],

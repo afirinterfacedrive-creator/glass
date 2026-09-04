@@ -26,7 +26,6 @@ enum ToggleOrientation { horizontal, vertical }
 /// - Peut être utilisé par des registres, factories ou adaptateurs.
 ///
 enum PhysicalToggleType {
-  breaker,
   metal,
   rocker,
   rotary,
@@ -73,9 +72,6 @@ extension PhysicalToggleTypeExtension on PhysicalToggleType {
   ///
   String get label {
     switch (this) {
-      case PhysicalToggleType.breaker:
-        return 'BREAKER';
-
       case PhysicalToggleType.metal:
         return 'METAL';
 

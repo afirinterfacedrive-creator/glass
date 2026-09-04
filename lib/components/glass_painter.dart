@@ -25,71 +25,50 @@ class GlassPainter extends CustomPainter {
     // ==========================================================
     // FORME
     // ==========================================================
-
     late Path shapePath;
 
     switch (shapeType) {
       // ========================================================
       // CERCLE
       // ========================================================
-
       case GlassShapeType.circle:
         final double diameter = math.min(size.width, size.height);
-
         final double left = (size.width - diameter) / 2;
-
         final double top = (size.height - diameter) / 2;
-
-        shapePath = Path()
-          ..addOval(Rect.fromLTWH(left, top, diameter, diameter));
-
+        shapePath = Path()..addOval(Rect.fromLTWH(left, top, diameter, diameter));
         break;
 
       // ========================================================
       // RECTANGLE ARRONDI
       // ========================================================
-
       case GlassShapeType.squareRounded:
         final double maxRadius = math.min(size.width, size.height) / 2;
-
         final double safeRadius = customRadius.clamp(0.0, maxRadius);
-
-        shapePath = Path()
-          ..addRRect(
-            RRect.fromRectAndRadius(rect, Radius.circular(safeRadius)),
-          );
-
+        shapePath = Path()..addRRect(RRect.fromRectAndRadius(rect, Radius.circular(safeRadius)));
         break;
 
       // ========================================================
       // CAPSULE VERTICALE
       // ========================================================
-
       case GlassShapeType.capsuleVertical:
-        final double radius = size.width / 2;
-
-        shapePath = Path()
-          ..addRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)));
-
+        final double radius = size.width / 2; // basé sur largeur
+        shapePath = Path()..addRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)));
         break;
 
       // ========================================================
-      // PILL HORIZONTALE
+      // PILL HORIZONTALE / STADIUM / PILL
       // ========================================================
-
       case GlassShapeType.pillHorizontal:
-        final double radius = size.height / 2;
-
-        shapePath = Path()
-          ..addRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)));
-
+      case GlassShapeType.pill:
+      case GlassShapeType.stadium:
+        final double radius = size.height / 2; // basé sur hauteur
+        shapePath = Path()..addRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)));
         break;
     }
 
     // ==========================================================
     // 1. OMBRE EXTÉRIEURE
     // ==========================================================
-
     final Paint shadowPaint = Paint()
       ..color = Colors.black.withValues(alpha: 0.35)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12);
@@ -99,7 +78,6 @@ class GlassPainter extends CustomPainter {
     // ==========================================================
     // 2. FOND GLASS
     // ==========================================================
-
     final Paint bgPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
@@ -113,18 +91,11 @@ class GlassPainter extends CustomPainter {
     // ==========================================================
     // 3. REFLET AQUA
     // ==========================================================
-
     if (useAquaReflect) {
       canvas.save();
-
       canvas.clipPath(shapePath);
 
-      final Rect reflectionRect = Rect.fromLTWH(
-        0,
-        0,
-        size.width,
-        size.height * 0.60,
-      );
+      final Rect reflectionRect = Rect.fromLTWH(0, 0, size.width, size.height * 0.60);
 
       final Paint reflectionPaint = Paint()
         ..shader = LinearGradient(
@@ -139,14 +110,12 @@ class GlassPainter extends CustomPainter {
         ).createShader(reflectionRect);
 
       canvas.drawRect(reflectionRect, reflectionPaint);
-
       canvas.restore();
     }
 
     // ==========================================================
     // 4. CONTOUR CRISTALLIN
     // ==========================================================
-
     final List<Color> borderColors = effects.borderGradient.isEmpty
         ? [
             Colors.white.withValues(alpha: 0.85),

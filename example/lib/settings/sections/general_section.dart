@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../widgets/setting_divider.dart';
@@ -7,33 +8,64 @@ import '../widgets/setting_tile.dart';
 // ============================================================================
 // GENERAL SECTION
 // ============================================================================
+//
+// Section générale des paramètres.
+//
+// Cette classe appartient uniquement à l'application example.
+//
+// Elle utilise les widgets de paramètres locaux :
+//
+// • SettingSection
+// • SettingTile
+// • SettingDivider
+//
+// Elle ne dépend pas directement des fichiers internes du package Glass.
+//
+// ============================================================================
 
 class GeneralSection extends StatelessWidget {
-  const GeneralSection({super.key});
+  const GeneralSection({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    const Color accent = Colors.cyanAccent;
+  Widget build(
+    BuildContext context,
+  ) {
+    const Color accent =
+        Colors.cyanAccent;
 
     return SettingSection(
-      title: 'General',
+      title:
+          'General',
 
-      accent: accent,
+      accent:
+          accent,
 
       children: [
         // ====================================================================
         // NOTIFICATIONS
         // ====================================================================
+
         SettingTile(
-          icon: Icons.notifications_outlined,
+          icon:
+              Icons.notifications_outlined,
 
-          iconColor: accent,
+          iconColor:
+              accent,
 
-          title: 'Notifications',
+          title:
+              'Notifications',
 
-          subtitle: 'Gestion des notifications',
+          subtitle:
+              'Gestion des notifications',
 
-          trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+          trailing:
+              const Icon(
+            Icons.chevron_right,
+            color:
+                Colors.white54,
+          ),
 
           onTap: () {
             // Navigation future.
@@ -43,21 +75,32 @@ class GeneralSection extends StatelessWidget {
         // ====================================================================
         // DIVIDER
         // ====================================================================
+
         const SettingDivider(),
 
         // ====================================================================
         // SOUND
         // ====================================================================
+
         SettingTile(
-          icon: Icons.volume_up_outlined,
+          icon:
+              Icons.volume_up_outlined,
 
-          iconColor: accent,
+          iconColor:
+              accent,
 
-          title: 'Sound',
+          title:
+              'Sound',
 
-          subtitle: 'Gestion du son',
+          subtitle:
+              'Gestion du son',
 
-          trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+          trailing:
+              const Icon(
+            Icons.chevron_right,
+            color:
+                Colors.white54,
+          ),
 
           onTap: () {
             // Navigation future.
@@ -67,3 +110,4 @@ class GeneralSection extends StatelessWidget {
     );
   }
 }
+

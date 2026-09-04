@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_glass/glass.dart';
 import 'package:universal_glass_example/main/app.dart';
 
-
 // ============================================================================
 // MAIN
 // ============================================================================
@@ -38,7 +37,9 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
-        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+        sharedPreferencesProvider.overrideWithValue(
+          sharedPreferences,
+        ),
       ],
       child: const GlassExampleApp(),
     ),

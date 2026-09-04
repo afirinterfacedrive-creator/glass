@@ -12,7 +12,7 @@ export 'settings_page.dart';
 // SECTIONS
 // ============================================================================
 
-export 'sections/appearance_section.dart';
+export 'widgets/appearance/appearance_section.dart';
 export 'sections/general_section.dart';
 
 // ============================================================================

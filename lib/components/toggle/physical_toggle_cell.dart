@@ -174,19 +174,6 @@ class PhysicalToggleCell extends StatelessWidget {
   Widget _buildToggle() {
     switch (type) {
       // ========================================================================
-      // BREAKER
-      // ========================================================================
-
-      case PhysicalToggleType.breaker:
-        return BreakerSwitch(
-          value: value,
-          onChanged: onChanged,
-          orientation: orientation,
-          width: width ?? 42,
-          height: height ?? 68,
-        );
-
-      // ========================================================================
       // METAL
       // ========================================================================
 

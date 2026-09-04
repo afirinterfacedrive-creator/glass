@@ -1,65 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:universal_glass/glass_exports.dart';
+import 'package:universal_glass/glass.dart';
 
 import 'sections/control_panel_section.dart';
-
-// ============================================================================
-// CONTROL PANEL PAGE
-// ============================================================================
-//
-// Centre de contrôle principal de l'interface Glass.
-//
-// Architecture :
-//
-// ControlPanelPage
-//       │
-//       └── GlassScaffold
-//              │
-//              ├── GlassBackground
-//              │
-//              ├── UniversalAppBar
-//              │      └── Bouton retour
-//              │
-//              └── Contenu
-//                     │
-//                     ├── PanelHeader
-//                     │
-//                     └── ControlPanelSection
-//                            │
-//                            ├── ControlPanelThemeCard
-//                            └── autres contrôles
-//
-// ============================================================================
-//
-// RESPONSABILITÉS
-//
-// Cette page gère uniquement :
-//
-// - Riverpod
-// - récupération du thème Glass
-// - structure générale du contenu
-//
-// Elle ne gère PAS :
-//
-// - Scaffold
-// - GlassBackground
-// - UniversalAppBar
-// - bouton retour
-// - responsive global
-// - scroll global
-// - largeur maximale
-// - dessin des cartes
-// - effets Glass individuels
-// - contrôles détaillés
-// - animations internes
-// - navigation détaillée
-// - changement du thème Aqua
-//
-// Le changement du style Aqua est centralisé dans SettingsPage.
-//
-// ============================================================================
 
 class ControlPanelPage extends ConsumerWidget {
   const ControlPanelPage({super.key});
@@ -67,28 +10,37 @@ class ControlPanelPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // =========================================================================
-    // THÈME GLASS
+    // THÈME GLASS - WATCH POUR REBUILD LIVE
     // =========================================================================
-
     final GlassThemeState theme = ref.watch(glassThemeProvider);
+
+    // =========================================================================
+    // GLASS COLOR PROVIDER
+    // =========================================================================
+    final GlassColorProvider colorProvider = ref.watch(glassColorProvider);
+
+    // =========================================================================
+    // PALETTE GLASS
+    // =========================================================================
+    final GlassColorPalette palette = colorProvider.palette;
 
     // =========================================================================
     // GLASS SCAFFOLD
     // =========================================================================
-
     return GlassScaffold(
       // =======================================================================
       // APP BAR
       // =======================================================================
       title: 'Control Panel',
-
       subtitle: 'GLASS CONTROLS',
-
       showLogo: true,
-
       showBackButton: true,
 
-      useGradientBackground: theme.useAquaStyle,
+      // ACTIVE LE MODE CUSTOM GRADIENT + BLUR + NOISE LIVE
+      useCustomGradient: true,
+      customGradientKey: 'appbar_gradient',
+      blur: theme.blur,   // <-- AJOUT 1: Passe le blur du provider
+      noise: theme.noise, // <-- AJOUT 2: Passe le noise du provider
 
       hideNavigation: true,
 
@@ -97,23 +49,13 @@ class ControlPanelPage extends ConsumerWidget {
       // =======================================================================
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-
         children: [
-          // ===================================================================
-          // HEADER
-          // ===================================================================
           const PanelHeader(
             title: 'Aesthetic Panel',
             subtitle: 'GLASS CONTROLS',
           ),
-
           const SizedBox(height: 28),
-
-          // ===================================================================
-          // SECTION PRINCIPALE
-          // ===================================================================
-          ControlPanelSection(theme: theme),
-
+          ControlPanelSection(theme: theme, palette: palette),
           const SizedBox(height: 36),
         ],
       ),

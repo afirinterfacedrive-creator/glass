@@ -1,94 +1,65 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/glass.dart';
 
 // ============================================================================
 // HOME STATUS CARD
 // ============================================================================
-//
-// Carte indiquant l'état d'un élément système.
-//
-// Exemple :
-//
-// Glass Engine     ● Ready
-// Storage          ● Available
-// System           ● Online
-//
-// ============================================================================
 
-class HomeStatusCard extends StatelessWidget {
-  final GlassThemeState theme;
-
+class HomeStatusCard extends ConsumerWidget {
   final IconData icon;
-
   final String title;
-
   final String value;
-
   final bool active;
+  final Color? iconColor;
 
   const HomeStatusCard({
     super.key,
-    required this.theme,
     required this.icon,
     required this.title,
     required this.value,
     required this.active,
+    this.iconColor,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final Color accent = theme.useAquaStyle
-        ? Colors.cyanAccent
-        : Colors.orangeAccent;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final glass = ref.watchGlassContext(context);
+    
+    // FIX: Utilise iconColor si fourni, sinon prend l'accent du theme
+    final Color accent = iconColor ?? glass.palette.accent;
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-
-      width: 250,
-
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-
-        color: Colors.white.withValues(alpha: .055),
-
-        border: Border.all(
-          color: active
-              ? accent.withValues(alpha: .12)
-              : Colors.white.withValues(alpha: .10),
-        ),
+    return GlassSurfaceContainer(
+      style: glass.effectiveGlassStyle, // <- COMME UniversalGlassTextBoxView
+      effects: glass.effects,
+      borderRadius: BorderRadius.circular(glass.isSmallMobile ? 14 : 16),
+      padding: EdgeInsets.symmetric(
+        horizontal: glass.isSmallMobile ? 12 : 16, 
+        vertical: glass.isSmallMobile ? 10 : 12,
       ),
-
+      liftOnHover: glass.theme.enableHover,
       child: Row(
         children: [
           // ==================================================================
           // ICÔNE
           // ==================================================================
           Container(
-            width: 40,
-
-            height: 40,
-
+            width: glass.isSmallMobile ? 36 : 40,
+            height: glass.isSmallMobile ? 36 : 40,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-
               color: active
-                  ? accent.withValues(alpha: .10)
+                  ? accent.withValues(alpha: .15)
                   : Colors.white.withValues(alpha: .06),
             ),
-
             child: Icon(
               icon,
-
-              size: 20,
-
+              size: glass.isSmallMobile ? 18 : 20,
               color: active ? accent : Colors.white38,
             ),
           ),
 
-          const SizedBox(width: 12),
+          SizedBox(width: glass.isSmallMobile ? 10 : 12),
 
           // ==================================================================
           // TEXTE
@@ -96,61 +67,46 @@ class HomeStatusCard extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                GlassText(
                   title,
-
                   maxLines: 1,
-
                   overflow: TextOverflow.ellipsis,
-
-                  style: const TextStyle(color: Colors.white60, fontSize: 11),
+                  fontSize: glass.isSmallMobile ? 10 : 11,
+                  alpha: 0.6,
                 ),
-
-                const SizedBox(height: 4),
-
+                const SizedBox(height: 3),
                 Row(
                   children: [
-                    // ==========================================================
-                    // INDICATEUR
-                    // ==========================================================
+                    // INDICATEUR LUMINEUX
                     Container(
-                      width: 7,
-
-                      height: 7,
-
+                      width: 6,
+                      height: 6,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-
                         color: active ? accent : Colors.white30,
-
                         boxShadow: active
                             ? [
                                 BoxShadow(
                                   color: accent.withValues(alpha: .45),
-
-                                  blurRadius: 7,
+                                  blurRadius: 6,
                                 ),
                               ]
                             : null,
                       ),
                     ),
-
                     const SizedBox(width: 6),
 
-                    // ==========================================================
                     // VALEUR
-                    // ==========================================================
-                    Text(
-                      value,
-
-                      style: TextStyle(
-                        color: active ? Colors.white : Colors.white38,
-
-                        fontSize: 12,
-
+                    Expanded(
+                      child: GlassText(
+                        value,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: glass.isSmallMobile ? 11 : 12,
                         fontWeight: FontWeight.bold,
+                        alpha: active ? 1.0 : 0.38,
                       ),
                     ),
                   ],

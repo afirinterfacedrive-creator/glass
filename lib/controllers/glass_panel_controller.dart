@@ -1,6 +1,8 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:universal_glass/provider/glass_color_provider_provider.dart';
+import 'package:universal_glass/theme/glass_color_palette.dart';
 
 import '../enums/glass_enums.dart';
 import '../provider/glass_button_provider.dart';
@@ -21,23 +23,6 @@ const List<String> defaultGlassButtonIds = [
 
 /// ============================================================================
 /// GLASS PANEL CONTROLLER
-/// ============================================================================
-///
-/// Centralise uniquement la configuration et l'état visuel commun
-/// du panel Glass.
-///
-/// Responsabilités :
-///
-/// - accès aux boutons Glass
-/// - accès au thème Glass
-/// - initialisation des boutons
-/// - lecture de l'état d'un bouton
-/// - activation / désactivation d'un bouton
-/// - lecture du style Glass actuel
-/// - lecture des effets Glass actuels
-///
-/// La logique d'action, de loading, de succès et d'erreur appartient
-/// à [GlassActionController].
 /// ============================================================================
 
 class GlassPanelController {
@@ -62,6 +47,14 @@ class GlassPanelController {
   }
 
   // ==========================================================================
+  // PALETTE DE COULEURS GLASS
+  // ==========================================================================
+
+  GlassColorPalette get colors {
+    return ref.read(glassColorProvider).palette;
+  }
+
+  // ==========================================================================
   // STYLE AQUA
   // ==========================================================================
 
@@ -78,39 +71,64 @@ class GlassPanelController {
   }
 
   // ==========================================================================
+  // COULEURS DU STYLE ACTUEL
+  // ==========================================================================
+
+  Color get accentColor => useAquaStyle? colors.aqua : colors.classic;
+  Color get accentLightColor => useAquaStyle? colors.aquaLight : colors.classicLight;
+  Color get accentDarkColor => useAquaStyle? colors.aquaDark : colors.classicDark;
+
+  // ==========================================================================
+  // SURFACE / TEXTE / BORDURE
+  // ==========================================================================
+
+  Color get surfaceColor => colors.surface;
+  Color get surfaceSecondaryColor => colors.surfaceSecondary;
+  Color get textPrimaryColor => colors.textPrimary;
+  Color get textSecondaryColor => colors.textSecondary;
+  Color get textTertiaryColor => colors.textTertiary;
+  Color get textDisabledColor => colors.textDisabled;
+  Color get borderColor => colors.border;
+
+  // ==========================================================================
+  // ÉTATS
+  // ==========================================================================
+
+  Color get successColor => colors.success;
+  Color get warningColor => colors.warning;
+  Color get errorColor => colors.error;
+  Color get infoColor => colors.info;
+
+  // ==========================================================================
   // EFFET GLASS ACTUEL
   // ==========================================================================
+  ///
+  /// AQUA = liquidAqua avec gradient
+  /// CLASSIC = classic SANS gradient pour les previews
+  /// ==========================================================================
 
   GlassEffects get containerEffect {
-    return theme.effects;
+    if (useAquaStyle) {
+      return GlassEffects.liquidAqua(colors);
+    }
+    return GlassEffects.classic; // <-- FIX: plus de gradient
   }
 
   // ==========================================================================
-  // COULEUR APP BAR
+  // EFFETS PRÉDÉFINIS
   // ==========================================================================
 
-  Color get appBarBackgroundColor {
-    return theme.appBarBackgroundColor;
-  }
+  GlassEffects get aquaEffect => GlassEffects.liquidAqua(colors);
+  GlassEffects get classicEffect => GlassEffects.classic; // <-- FIX
+  GlassEffects get blueEffect => GlassEffects.liquidBlue(colors);
+  GlassEffects get redEffect => GlassEffects.liquidRed(colors);
+  GlassEffects get greenEffect => GlassEffects.liquidGreen(colors);
+  GlassEffects get amberEffect => GlassEffects.liquidAmber(colors);
+  GlassEffects get darkEffect => GlassEffects.liquidDark(colors);
+  GlassEffects get whiteEffect => GlassEffects.liquidWhite(colors);
 
   // ==========================================================================
-  // COULEUR BORDURE APP BAR
-  // ==========================================================================
-
-  Color get appBarBorderColor {
-    return theme.appBarBorderColor;
-  }
-
-  // ==========================================================================
-  // COULEUR ICÔNE APP BAR
-  // ==========================================================================
-
-  Color get appBarIconColor {
-    return theme.appBarIconColor;
-  }
-
-  // ==========================================================================
-  // INITIALISATION
+  // INITIALISATION DES BOUTONS
   // ==========================================================================
 
   void initialize() {
@@ -127,85 +145,37 @@ class GlassPanelController {
     await ref.read(glassThemeProvider.notifier).setAquaStyle(value);
   }
 
-  // ==========================================================================
-  // TOGGLE DU STYLE
-  // ==========================================================================
-
   Future<void> toggleStyle() async {
     await ref.read(glassThemeProvider.notifier).toggleAquaStyle();
   }
-
-  // ==========================================================================
-  // RESET DU THÈME
-  // ==========================================================================
 
   Future<void> resetTheme() async {
     await ref.read(glassThemeProvider.notifier).reset();
   }
 
   // ==========================================================================
-  // ÉTAT D'UN BOUTON
+  // ÉTAT DES BOUTONS
   // ==========================================================================
 
   GlassButtonState stateOf(String buttonId) {
-    return ref.watch(
-      glassButtonProvider.select((state) {
-        return state[buttonId] ?? const GlassButtonState();
-      }),
-    );
+    return ref.watch(glassButtonProvider.select((state) => state[buttonId]?? const GlassButtonState()));
   }
-
-  // ==========================================================================
-  // BOUTON ACTIF ?
-  // ==========================================================================
 
   bool isActive(String buttonId) {
-    return ref.read(glassButtonProvider)[buttonId]?.isActive ?? false;
+    return ref.read(glassButtonProvider)[buttonId]?.isActive?? false;
   }
-
-  // ==========================================================================
-  // BOUTON EN CHARGEMENT ?
-  // ==========================================================================
 
   bool isLoading(String buttonId) {
-    return ref.read(glassButtonProvider)[buttonId]?.isLoading ?? false;
+    return ref.read(glassButtonProvider)[buttonId]?.isLoading?? false;
   }
-
-  // ==========================================================================
-  // TEXTE PERSONNALISÉ
-  // ==========================================================================
 
   String? customText(String buttonId) {
     return ref.read(glassButtonProvider)[buttonId]?.customText;
   }
 
-  // ==========================================================================
-  // TOGGLE SIMPLE
-  // ==========================================================================
-
-  void toggle(String buttonId) {
-    notifier.toggleActive(buttonId);
-  }
-
-  // ==========================================================================
-  // ACTIVER
-  // ==========================================================================
-
-  void activate(String buttonId) {
-    notifier.setActive(buttonId, true);
-  }
-
-  // ==========================================================================
-  // DÉSACTIVER
-  // ==========================================================================
-
-  void deactivate(String buttonId) {
-    notifier.setActive(buttonId, false);
-  }
-
-  // ==========================================================================
-  // RESET D'UN BOUTON
-  // ==========================================================================
+  void toggle(String buttonId) => notifier.toggleActive(buttonId);
+  void activate(String buttonId) => notifier.setActive(buttonId, true);
+  void deactivate(String buttonId) => notifier.setActive(buttonId, false);
 
   void resetButton(String buttonId, {bool active = false}) {
     notifier.resetButton(buttonId, active: active);

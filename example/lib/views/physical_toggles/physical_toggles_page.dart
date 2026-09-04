@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:universal_glass/glass.dart';
 
 import 'sections/physical_toggles_section.dart';
@@ -11,46 +10,58 @@ import 'sections/physical_toggles_section.dart';
 //
 // Page dédiée aux contrôles physiques.
 //
-// Architecture:
-//
-// GlassScaffold
-//      │
-//      ▼
-// PhysicalTogglesSection
-//      │
-//      ▼
-// PhysicalToggleRegistry
-//      │
-//      ▼
-// PhysicalToggleItem
-//      │
-//      ▼
-// PhysicalToggleCard
-//
 // ============================================================================
 
 class PhysicalTogglesPage extends ConsumerWidget {
   const PhysicalTogglesPage({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // =========================================================================
-    // THÈME GLASS
-    // =========================================================================
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
 
+  @override
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    // =========================================================================
+    // THÈME GLASS - WATCH POUR REBUILD LIVE
+    // =========================================================================
     final GlassThemeState theme = ref.watch(glassThemeProvider);
+
+    // =========================================================================
+    // COLOR PROVIDER
+    // =========================================================================
+    final GlassColorProvider colorProvider = ref.watch(glassColorProvider);
+
+    // =========================================================================
+    // PALETTE
+    // =========================================================================
+    final GlassColorPalette palette = colorProvider.palette;
 
     // =========================================================================
     // SCAFFOLD
     // =========================================================================
-
     return GlassScaffold(
       title: 'Physical Toggles',
       subtitle: 'HARDWARE CONTROLS',
       showLogo: true,
       showBackButton: true,
       hideNavigation: true,
-      child: PhysicalTogglesSection(theme: theme),
+
+      // LIVE: utilise le gradient + blur + noise du provider
+      useCustomGradient: true,
+      customGradientKey: 'appbar_gradient',
+      blur: theme.blur,   // <-- AJOUT
+      noise: theme.noise, // <-- AJOUT
+
+      // =======================================================================
+      // CONTENU
+      // =======================================================================
+      child: PhysicalTogglesSection(
+        theme: theme,
+        palette: palette,
+      ),
     );
   }
 }

@@ -1,234 +1,140 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_glass/components/surface/glass_surface_container.dart';
+import 'package:universal_glass/enums/glass_enums.dart';
+import 'package:universal_glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/theme/glass_effects.dart';
 
 import 'glass_background.dart';
 import 'package:universal_glass/core/app_bar/universal_app_bar.dart';
 
-// ============================================================================
-// GLASS SCAFFOLD
-// ============================================================================
-//
-// Scaffold commun à toutes les pages Glass.
-//
-// Architecture :
-//
-// GlassScaffold
-//      │
-//      ├── GlassBackground
-//      │
-//      ├── UniversalAppBar
-//      │      ├── Logo
-//      │      ├── Titre
-//      │      ├── Sous-titre
-//      │      ├── Bouton retour
-//      │      └── Navigation
-//      │
-//      └── SafeArea
-//             └── contenu responsive
-//
-// ============================================================================
-//
-// RESPONSABILITÉS
-//
-// GlassScaffold centralise :
-//
-// - Scaffold
-// - GlassBackground
-// - UniversalAppBar
-// - bouton retour
-// - titre
-// - sous-titre
-// - logo
-// - gradient AppBar
-// - SafeArea
-// - responsive global
-// - scroll vertical
-// - largeur maximale
-// - padding global
-//
-// Les pages n'ont plus besoin de gérer ces éléments.
-//
-// Exemple :
-//
-// GlassScaffold(
-//   title: 'Control Panel',
-//   subtitle: 'GLASS CONTROLS',
-//   showBackButton: true,
-//   child: Column(
-//     children: [...],
-//   ),
-// )
-//
-// ============================================================================
-
-class GlassScaffold extends StatelessWidget {
-  // ==========================================================================
-  // CONTENU
-  // ==========================================================================
-
+class GlassScaffold extends ConsumerWidget {
   final Widget child;
-
-  // ==========================================================================
-  // APP BAR
-  // ==========================================================================
-
   final String? title;
-
   final String? subtitle;
-
   final bool showLogo;
-
   final bool showBackButton;
-
-  final bool useGradientBackground;
-
+  final bool? useGradientBackground; 
+  final bool useCustomGradient; 
+  final String? customGradientKey; 
   final bool compactMode;
-
   final bool forceMobileLayout;
-
   final bool hideNavigation;
-
   final List<Widget>? actions;
-
-  // ==========================================================================
-  // RESPONSIVE
-  // ==========================================================================
-
   final double maxWidth;
-
   final EdgeInsetsGeometry? padding;
-
   final bool enableScroll;
-
-  // ==========================================================================
-  // CONSTRUCTEUR
-  // ==========================================================================
+  final double? blur; // <- sert uniquement pour l'appbar
+  final double? noise;
 
   const GlassScaffold({
     super.key,
-
     required this.child,
-
     this.title,
-
     this.subtitle,
-
     this.showLogo = true,
-
     this.showBackButton = false,
-
-    this.useGradientBackground = false,
-
+    this.useGradientBackground,
+    this.useCustomGradient = false,
+    this.customGradientKey = 'appbar_gradient',
     this.compactMode = false,
-
     this.forceMobileLayout = false,
-
     this.hideNavigation = true,
-
     this.actions,
-
     this.maxWidth = 1100,
-
     this.padding,
-
     this.enableScroll = true,
+    this.blur,
+    this.noise,
   });
 
-  // ==========================================================================
-  // BUILD
-  // ==========================================================================
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final GlassThemeState theme = ref.watch(glassThemeProvider);
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    
+    final bool useGradient = useGradientBackground ?? theme.useAquaStyle;
+    final GlassStyle appBarStyle = useCustomGradient 
+        ? GlassStyle.customGradient 
+        : (useGradient ? GlassStyle.gradientOpaque : GlassStyle.solidAqua);
+
+    final List<Color> currentGradient = theme.activeGradient;
+    final double currentBlur = blur ?? theme.effectiveBlur; 
+    final double currentNoise = noise ?? theme.effectiveNoise; 
+    final double bodyBlur = 0.0; // <- IMPORTANT: pas de blur sur le body
+
+    final double appBarHeight = UniversalAppBar.getAppBarHeight(screenWidth);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
-
-      // ========================================================================
-      // UNIVERSAL APP BAR
-      // ========================================================================
-      appBar: UniversalAppBar(
-        title: title,
-
-        subtitle: subtitle,
-
-        showLogo: showLogo,
-
-        showBackButton: showBackButton,
-
-        useGradientBackground: useGradientBackground,
-
-        compactMode: compactMode,
-
-        forceMobileLayout: forceMobileLayout,
-
-        hideNavigation: hideNavigation,
-
-        actions: actions,
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(appBarHeight),
+        child: GlassSurfaceContainer(
+          // ignore: unnecessary_brace_in_string_interps
+          key: ValueKey('${appBarStyle.name}_${theme.useAquaStyle}_${currentGradient.hashCode}_${currentBlur}_${currentNoise}'), 
+          style: appBarStyle,
+          customGradient: useCustomGradient ? currentGradient : null, 
+          customKey: useCustomGradient ? customGradientKey : null,
+          effects: GlassEffects(
+            bgGradient: currentGradient,
+            bgBlur: currentBlur, // <- Blur seulement ici
+            bgNoise: currentNoise,
+          ),
+          borderRadius: BorderRadius.zero,
+          width: double.infinity,
+          height: double.infinity,
+          padding: EdgeInsets.zero,
+          liftOnHover: false,
+          child: UniversalAppBar(
+            title: title,
+            subtitle: subtitle,
+            showLogo: showLogo,
+            showBackButton: showBackButton,
+            useGradientBackground: appBarStyle == GlassStyle.gradientOpaque,
+            compactMode: compactMode,
+            forceMobileLayout: forceMobileLayout,
+            hideNavigation: hideNavigation,
+            actions: actions,
+          ),
+        ),
       ),
-
-      // ========================================================================
-      // BODY
-      // ========================================================================
       body: Stack(
         children: [
-          // ======================================================================
-          // BACKGROUND GLASS
-          // ======================================================================
-          const GlassBackground(),
-
-          // ======================================================================
-          // CONTENU
-          // ======================================================================
+          GlassBackground(blur: bodyBlur, noise: currentNoise), // <- Passe 0 ici
           SafeArea(
             top: false,
-
             child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
+              builder: (context, constraints) {
                 final double width = constraints.maxWidth;
+                final bool isVerySmallMobile = width < 375;
+                final bool isStandardMobile = width >= 375 && width < 600;
 
-                // ==================================================================
-                // RESPONSIVE
-                // ==================================================================
-
-                final bool compact = width < 600;
-
-                // ==================================================================
-                // PADDING
-                // ==================================================================
-
-                final EdgeInsetsGeometry contentPadding =
-                    padding ??
+                final EdgeInsetsGeometry basePadding = padding ??
                     EdgeInsets.symmetric(
-                      horizontal: compact ? 18 : 32,
-
-                      vertical: compact ? 18 : 20,
+                      horizontal: isVerySmallMobile ? 4.0 : (isStandardMobile ? 8.0 : 24.0),
+                      vertical: isStandardMobile ? 12.0 : 20.0,
                     );
 
-                // ==================================================================
-                // CONTENU
-                // ==================================================================
+                final EdgeInsetsGeometry contentPadding = basePadding.add(
+                  EdgeInsets.only(top: appBarHeight + 8),
+                );
 
                 Widget content = Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: maxWidth),
-
                     child: child,
                   ),
                 );
 
-                // ==================================================================
-                // SCROLL
-                // ==================================================================
-
                 if (enableScroll) {
                   content = SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-
                     padding: contentPadding,
-
                     child: content,
                   );
                 } else {
-                  content = Padding(padding: contentPadding, child: content);
+                    content = Padding(padding: contentPadding, child: child);
                 }
 
                 return content;

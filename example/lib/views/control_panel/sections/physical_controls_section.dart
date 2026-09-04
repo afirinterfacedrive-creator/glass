@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:universal_glass/components/toggle/physical_toggles.dart';
-import 'package:universal_glass/components/toggle/toggle_types.dart';
-
 import 'package:universal_glass/glass.dart';
 
 import '../widgets/control_panel_section_title.dart';
@@ -55,7 +52,6 @@ class _PhysicalControlsSectionState extends State<PhysicalControlsSection> {
   // ÉTATS DE DÉMONSTRATION
   // ==========================================================================
 
-  bool _breaker = false;
   bool _metal = false;
   bool _rocker = false;
   bool _rotary = false;
@@ -98,22 +94,7 @@ class _PhysicalControlsSectionState extends State<PhysicalControlsSection> {
               runSpacing: spacing,
               alignment: WrapAlignment.start,
               children: [
-                // =============================================================
-                // BREAKER
-                // =============================================================
-                _PhysicalControlCard(
-                  title: 'Breaker',
-                  subtitle: 'Disjoncteur mural',
-                  child: BreakerSwitch(
-                    value: _breaker,
-                    orientation: ToggleOrientation.vertical,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _breaker = value;
-                      });
-                    },
-                  ),
-                ),
+               
 
                 // =============================================================
                 // METAL

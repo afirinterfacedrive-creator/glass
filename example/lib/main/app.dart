@@ -6,64 +6,128 @@ import 'package:universal_glass/glass.dart';
 import 'package:universal_glass_example/routes/app_router.dart';
 import 'package:universal_glass_example/routes/app_routes.dart';
 
+
 // ============================================================================
 // GLASS EXAMPLE APP
 // ============================================================================
 //
-// Application de démonstration du package Glass.
+// Application de démonstration du package Universal Glass.
 //
-// IMPORTANT :
+// RESPONSABILITÉS
 //
-// Cette classe appartient uniquement au dossier example.
+// Cette classe gère uniquement :
 //
-// Le package Glass fournit les composants, thèmes et providers réutilisables.
-// Le projet example reste responsable de MaterialApp, des routes et des pages.
+// • MaterialApp
+// • ThemeMode Material
+// • Routing
+//
+// UniversalGlassTheme gère :
+//
+// • Aqua / Classic global
+// • GlassThemeProvider
+// • GlassColorProvider
+// • diffusion du style aux composants Glass
 //
 // ============================================================================
 
 class GlassExampleApp extends ConsumerWidget {
-  const GlassExampleApp({super.key});
+
+  const GlassExampleApp({
+    super.key,
+  });
+
+
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+
+
     // =========================================================================
-    // THÈME DE L'APPLICATION
+    // THÈME MATERIAL
     // =========================================================================
 
-    final ThemeMode themeMode = ref.watch(
-      themeProvider.select((state) => state.materialThemeMode),
-    );
+    final ThemeMode themeMode =
+        ref.watch(
+          themeProvider.select(
+            (state) =>
+                state.materialThemeMode,
+          ),
+        );
+
+
 
     // =========================================================================
     // MATERIAL APP
     // =========================================================================
 
     return MaterialApp(
-      title: 'Glass UI Showcase',
 
-      debugShowCheckedModeBanner: false,
+      title:
+          'Glass UI Showcase',
 
-      // =======================================================================
+
+      debugShowCheckedModeBanner:
+          false,
+
+
+
+      // =========================================================================
       // THÈME CLAIR
-      // =======================================================================
-      theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
+      // =========================================================================
 
-      // =======================================================================
+      theme:
+          ThemeData(
+
+        useMaterial3:
+            true,
+
+        brightness:
+            Brightness.light,
+
+      ),
+
+
+
+      // =========================================================================
       // THÈME SOMBRE
-      // =======================================================================
-      darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
+      // =========================================================================
 
-      // =======================================================================
-      // MODE DU THÈME
-      // =======================================================================
-      themeMode: themeMode,
+      darkTheme:
+          ThemeData(
 
-      // =======================================================================
-      // ROUTING
-      // =======================================================================
-      initialRoute: AppRoutes.home,
+        useMaterial3:
+            true,
 
-      onGenerateRoute: AppRouter.generateRoute,
+        brightness:
+            Brightness.dark,
+
+      ),
+
+
+
+      // =========================================================================
+      // MODE MATERIAL
+      // =========================================================================
+
+      themeMode:
+          themeMode,
+
+
+
+      // =========================================================================
+      // ROUTES
+      // =========================================================================
+
+      initialRoute:
+          AppRoutes.home,
+
+
+      onGenerateRoute:
+          AppRouter.generateRoute,
+
     );
   }
 }

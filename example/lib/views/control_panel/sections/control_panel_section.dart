@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 
 import 'package:universal_glass/glass.dart';
+
 import 'package:universal_glass_example/views/physical_toggles/sections/physical_toggles_section.dart';
 
 import '../widgets/control_panel_section_title.dart';
@@ -12,24 +14,34 @@ import '../widgets/control_panel_theme_card.dart';
 //
 // Section principale des contrôles Glass.
 //
-// Architecture :
+// ARCHITECTURE
 //
 // ControlPanelSection
 //       │
 //       ├── GLASS CONTROLS
 //       │      │
 //       │      └── ControlPanelThemeCard
+//       │             ├── GlassThemeState
+//       │             └── GlassColorPalette
 //       │
-//       └── PhysicalTogglesSection
+//       └── PHYSICAL CONTROLS
+//              │
+//              └── PhysicalTogglesSection
+//                     ├── GlassThemeState
+//                     └── GlassColorPalette
 //
 // ============================================================================
 //
 // RESPONSABILITÉS
 //
 // - afficher les contrôles Glass
-// - afficher la carte de thème
+// - recevoir le thème Glass
+// - recevoir la palette Glass
+// - transmettre les données aux composants enfants
 // - afficher la section Physical Toggles
 // - gérer uniquement la disposition générale
+//
+// ============================================================================
 //
 // NE GÈRE PAS
 //
@@ -39,18 +51,45 @@ import '../widgets/control_panel_theme_card.dart';
 // - AppBar
 // - logique des Physical Toggles
 // - logique du thème
+// - création de la palette
+// - création des effets Glass
 //
 // ============================================================================
 
 class ControlPanelSection extends StatelessWidget {
+  // ==========================================================================
+  // THÈME
+  // ==========================================================================
+
   final GlassThemeState theme;
 
-  const ControlPanelSection({super.key, required this.theme});
+  // ==========================================================================
+  // PALETTE
+  // ==========================================================================
+
+  final GlassColorPalette palette;
+
+  // ==========================================================================
+  // CONSTRUCTEUR
+  // ==========================================================================
+
+  const ControlPanelSection({
+    super.key,
+    required this.theme,
+    required this.palette,
+  });
+
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
+      builder: (
+        BuildContext context,
+        BoxConstraints constraints,
+      ) {
         final double width = constraints.maxWidth;
 
         final bool compact = width < 600;
@@ -61,6 +100,7 @@ class ControlPanelSection extends StatelessWidget {
             // =================================================================
             // GLASS CONTROLS
             // =================================================================
+
             ControlPanelSectionTitle(
               theme: theme,
               title: 'GLASS CONTROLS',
@@ -69,29 +109,51 @@ class ControlPanelSection extends StatelessWidget {
                   'visuels de votre interface.',
             ),
 
-            SizedBox(height: compact ? 16 : 18),
+            SizedBox(
+              height: compact ? 16 : 18,
+            ),
 
             // =================================================================
             // THEME CARD
             // =================================================================
+
             Wrap(
               spacing: compact ? 14 : 20,
               runSpacing: compact ? 14 : 20,
-              children: [ControlPanelThemeCard(theme: theme)],
+              children: [
+                ControlPanelThemeCard(
+                  theme: theme,
+                  palette: palette,
+                ),
+              ],
             ),
 
             // =================================================================
             // ESPACEMENT
             // =================================================================
-            SizedBox(height: compact ? 30 : 36),
+
+            SizedBox(
+              height: compact ? 30 : 36,
+            ),
 
             // =================================================================
             // PHYSICAL TOGGLES
             // =================================================================
-            PhysicalTogglesSection(theme: theme),
+            //
+            // IMPORTANT :
+            //
+            // La palette doit être transmise à PhysicalTogglesSection.
+            //
+            // =================================================================
+
+            PhysicalTogglesSection(
+              theme: theme,
+              palette: palette,
+            ),
           ],
         );
       },
     );
   }
 }
+

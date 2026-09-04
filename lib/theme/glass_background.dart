@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/provider/glass_theme_provider.dart';
@@ -23,17 +25,12 @@ import 'package:universal_glass/provider/glass_theme_provider.dart';
 /// ============================================================================
 
 class GlassBackground extends ConsumerWidget {
-  /// Contenu éventuellement placé au-dessus du fond.
   final Widget? child;
-
-  /// Afficher les halos lumineux.
   final bool showGlow;
-
-  /// Afficher la lumière diffuse.
   final bool showLight;
-
-  /// Opacité générale du fond.
   final double opacity;
+  final double blur; // <- AJOUT
+  final double noise; // <- AJOUT
 
   const GlassBackground({
     super.key,
@@ -41,6 +38,8 @@ class GlassBackground extends ConsumerWidget {
     this.showGlow = true,
     this.showLight = true,
     this.opacity = 1.0,
+    this.blur = 0.0, // <- DEFAULT 0
+    this.noise = 0.0,
   });
 
   @override
@@ -51,27 +50,17 @@ class GlassBackground extends ConsumerWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // ================================================================
-          // FOND PRINCIPAL
-          // ================================================================
           _GlassGradientBackground(
             useAquaStyle: theme.useAquaStyle,
             opacity: opacity,
           ),
-
-          // ================================================================
-          // HALOS
-          // ================================================================
+          if (blur > 0) // <- AJOUT: Blur conditionnel
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+              child: Container(color: Colors.transparent),
+            ),
           if (showGlow) _GlassGlow(useAquaStyle: theme.useAquaStyle),
-
-          // ================================================================
-          // LUMIÈRE DIFFUSE
-          // ================================================================
           if (showLight) _GlassLight(useAquaStyle: theme.useAquaStyle),
-
-          // ================================================================
-          // CONTENU
-          // ================================================================
           if (child != null) child!,
         ],
       ),

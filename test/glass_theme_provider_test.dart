@@ -1,166 +1,710 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:universal_glass/provider/glass_theme_provider.dart';
 import 'package:universal_glass/providers/shared_preferences_provider.dart';
-import 'package:universal_glass/theme/glass_effects.dart';
+
+/// ============================================================================
+/// GLASS THEME PROVIDER TESTS
+/// ============================================================================
+///
+/// Vérifie uniquement la gestion du STYLE global Universal Glass.
+///
+/// RESPONSABILITÉS TESTÉES
+///
+/// • style Aqua par défaut
+/// • GlassStyle correspondant
+/// • changement Aqua / Classic
+/// • persistance SharedPreferences
+/// • restauration du style
+/// • toggle
+/// • reset
+/// • copyWith
+///
+/// IMPORTANT
+///
+/// Les couleurs et effets ne sont volontairement PAS testés ici.
+///
+/// Ils appartiennent maintenant à :
+///
+///     GlassColorPalette
+///     GlassColorProvider
+///     glassColorProvider
+///
+/// ============================================================================
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('GlassThemeProvider', () {
-    late SharedPreferences prefs;
-    late ProviderContainer container;
+  // ==========================================================================
+  // GLASS THEME PROVIDER
+  // ==========================================================================
 
-    setUp(() async {
-      SharedPreferences.setMockInitialValues({});
+  group(
+    'GlassThemeProvider',
+    () {
+      late SharedPreferences prefs;
+      late ProviderContainer container;
 
-      prefs = await SharedPreferences.getInstance();
+      // ======================================================================
+      // SETUP
+      // ======================================================================
 
-      container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
-      );
-    });
+      setUp(
+        () async {
+          SharedPreferences.setMockInitialValues({});
 
-    tearDown(() {
-      container.dispose();
-    });
+          prefs =
+              await SharedPreferences.getInstance();
 
-    test('default style is Aqua', () {
-      final state = container.read(glassThemeProvider);
-
-      expect(state.useAquaStyle, isTrue);
-    });
-
-    test('default style is transparent Aqua', () {
-      final state = container.read(glassThemeProvider);
-
-      expect(state.style, GlassStyle.transparentAqua);
-    });
-
-    test('default effects are liquid white', () {
-      final state = container.read(glassThemeProvider);
-
-      expect(state.effects, GlassEffects.liquidWhite);
-    });
-
-    test('Aqua app bar background is correct', () {
-      final state = container.read(glassThemeProvider);
-
-      expect(state.appBarBackgroundColor, const Color(0xE610242A));
-    });
-
-    test('Aqua app bar icon color is cyan', () {
-      final state = container.read(glassThemeProvider);
-
-      expect(state.appBarIconColor, Colors.cyanAccent);
-    });
-
-    test('setAquaStyle disables Aqua style', () async {
-      final notifier = container.read(glassThemeProvider.notifier);
-
-      await notifier.setAquaStyle(false);
-
-      final state = container.read(glassThemeProvider);
-
-      expect(state.useAquaStyle, isFalse);
-
-      expect(state.style, GlassStyle.opaqueMat);
-
-      expect(state.effects, GlassEffects.liquidDark);
-    });
-
-    test('setAquaStyle persists value', () async {
-      final notifier = container.read(glassThemeProvider.notifier);
-
-      await notifier.setAquaStyle(false);
-
-      expect(prefs.getBool('glass_use_aqua_style'), isFalse);
-    });
-
-    test('setAquaStyle does nothing when value is unchanged', () async {
-      final notifier = container.read(glassThemeProvider.notifier);
-
-      await notifier.setAquaStyle(true);
-
-      expect(container.read(glassThemeProvider).useAquaStyle, isTrue);
-    });
-
-    test('toggleAquaStyle switches the style', () async {
-      final notifier = container.read(glassThemeProvider.notifier);
-
-      expect(container.read(glassThemeProvider).useAquaStyle, isTrue);
-
-      await notifier.toggleAquaStyle();
-
-      expect(container.read(glassThemeProvider).useAquaStyle, isFalse);
-
-      await notifier.toggleAquaStyle();
-
-      expect(container.read(glassThemeProvider).useAquaStyle, isTrue);
-    });
-
-    test('theme is restored from SharedPreferences', () async {
-      await prefs.setBool('glass_use_aqua_style', false);
-
-      container.dispose();
-
-      container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+          container =
+              ProviderContainer(
+            overrides: [
+              sharedPreferencesProvider
+                  .overrideWithValue(
+                prefs,
+              ),
+            ],
+          );
+        },
       );
 
-      final state = container.read(glassThemeProvider);
+      // ======================================================================
+      // TEARDOWN
+      // ======================================================================
 
-      expect(state.useAquaStyle, isFalse);
+      tearDown(
+        () {
+          container.dispose();
+        },
+      );
 
-      expect(state.style, GlassStyle.opaqueMat);
-    });
+      // ======================================================================
+      // 1. STYLE PAR DÉFAUT
+      // ======================================================================
 
-    test('reset restores Aqua style', () async {
-      final notifier = container.read(glassThemeProvider.notifier);
+      test(
+        'default style is Aqua',
+        () {
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
 
-      await notifier.setAquaStyle(false);
+          expect(
+            state.useAquaStyle,
+            isTrue,
+          );
+        },
+      );
 
-      expect(container.read(glassThemeProvider).useAquaStyle, isFalse);
+      // ======================================================================
+      // 2. GLASS STYLE PAR DÉFAUT
+      // ======================================================================
 
-      await notifier.reset();
+      test(
+        'default GlassStyle is transparent Aqua',
+        () {
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
 
-      expect(container.read(glassThemeProvider).useAquaStyle, isTrue);
+          expect(
+            state.style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
 
-      expect(prefs.getBool('glass_use_aqua_style'), isTrue);
-    });
+      // ======================================================================
+      // 3. SET CLASSIC
+      // ======================================================================
 
-    test('dark app bar values are correct', () async {
-      final notifier = container.read(glassThemeProvider.notifier);
+      test(
+        'setAquaStyle(false) activates Classic',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
 
-      await notifier.setAquaStyle(false);
+          await notifier.setAquaStyle(
+            false,
+          );
 
-      final state = container.read(glassThemeProvider);
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
 
-      expect(state.appBarBackgroundColor, const Color(0xE6171717));
+          expect(
+            state.useAquaStyle,
+            isFalse,
+          );
 
-      expect(state.appBarIconColor, Colors.white);
-    });
-  });
+          expect(
+            state.style,
+            GlassStyle.opaqueMat,
+          );
+        },
+      );
 
-  group('GlassThemeState', () {
-    test('copyWith changes Aqua state', () {
-      const original = GlassThemeState(useAquaStyle: true);
+      // ======================================================================
+      // 4. SET AQUA
+      // ======================================================================
 
-      final result = original.copyWith(useAquaStyle: false);
+      test(
+        'setAquaStyle(true) activates Aqua',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
 
-      expect(result.useAquaStyle, isFalse);
-    });
+          await notifier.setAquaStyle(
+            false,
+          );
 
-    test('copyWith preserves existing value', () {
-      const original = GlassThemeState(useAquaStyle: true);
+          await notifier.setAquaStyle(
+            true,
+          );
 
-      final result = original.copyWith();
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
 
-      expect(result.useAquaStyle, isTrue);
-    });
-  });
+          expect(
+            state.useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 5. PERSISTANCE
+      // ======================================================================
+
+      test(
+        'setAquaStyle persists value',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          await notifier.setAquaStyle(
+            false,
+          );
+
+          expect(
+            prefs.getBool(
+              'glass_use_aqua_style',
+            ),
+            isFalse,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 6. PERSISTANCE AQUA
+      // ======================================================================
+
+      test(
+        'setAquaStyle(true) persists Aqua',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          await notifier.setAquaStyle(
+            true,
+          );
+
+          expect(
+            prefs.getBool(
+              'glass_use_aqua_style',
+            ),
+            isTrue,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 7. PAS DE CHANGEMENT
+      // ======================================================================
+
+      test(
+        'setAquaStyle does nothing when value is unchanged',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isTrue,
+          );
+
+          await notifier.setAquaStyle(
+            true,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isTrue,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 8. TOGGLE
+      // ======================================================================
+
+      test(
+        'toggleAquaStyle switches the style',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isTrue,
+          );
+
+          await notifier.toggleAquaStyle();
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isFalse,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .style,
+            GlassStyle.opaqueMat,
+          );
+
+          await notifier.toggleAquaStyle();
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 9. TOGGLE PERSISTANCE
+      // ======================================================================
+
+      test(
+        'toggleAquaStyle persists the new value',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          await notifier.toggleAquaStyle();
+
+          expect(
+            prefs.getBool(
+              'glass_use_aqua_style',
+            ),
+            isFalse,
+          );
+
+          await notifier.toggleAquaStyle();
+
+          expect(
+            prefs.getBool(
+              'glass_use_aqua_style',
+            ),
+            isTrue,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 10. RESTAURATION DEPUIS SHARED PREFERENCES
+      // ======================================================================
+
+      test(
+        'theme is restored from SharedPreferences',
+        () async {
+          await prefs.setBool(
+            'glass_use_aqua_style',
+            false,
+          );
+
+          container.dispose();
+
+          container =
+              ProviderContainer(
+            overrides: [
+              sharedPreferencesProvider
+                  .overrideWithValue(
+                prefs,
+              ),
+            ],
+          );
+
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
+
+          expect(
+            state.useAquaStyle,
+            isFalse,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.opaqueMat,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 11. RESTAURATION AQUA
+      // ======================================================================
+
+      test(
+        'saved Aqua style is restored',
+        () async {
+          await prefs.setBool(
+            'glass_use_aqua_style',
+            true,
+          );
+
+          container.dispose();
+
+          container =
+              ProviderContainer(
+            overrides: [
+              sharedPreferencesProvider
+                  .overrideWithValue(
+                prefs,
+              ),
+            ],
+          );
+
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
+
+          expect(
+            state.useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 12. ABSENCE DE VALEUR SAUVEGARDÉE
+      // ======================================================================
+
+      test(
+        'missing saved value defaults to Aqua',
+        () {
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
+
+          expect(
+            state.useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 13. RESET
+      // ======================================================================
+
+      test(
+        'reset restores Aqua style',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          await notifier.setAquaStyle(
+            false,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isFalse,
+          );
+
+          await notifier.reset();
+
+          final GlassThemeState state =
+              container.read(
+            glassThemeProvider,
+          );
+
+          expect(
+            state.useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.transparentAqua,
+          );
+
+          expect(
+            prefs.getBool(
+              'glass_use_aqua_style',
+            ),
+            isTrue,
+          );
+        },
+      );
+
+      // ======================================================================
+      // 14. RESET DEPUIS AQUA
+      // ======================================================================
+
+      test(
+        'reset keeps Aqua when already in Aqua',
+        () async {
+          final GlassThemeNotifier notifier =
+              container.read(
+            glassThemeProvider.notifier,
+          );
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isTrue,
+          );
+
+          await notifier.reset();
+
+          expect(
+            container
+                .read(
+                  glassThemeProvider,
+                )
+                .useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            prefs.getBool(
+              'glass_use_aqua_style',
+            ),
+            isTrue,
+          );
+        },
+      );
+    },
+  );
+
+  // ==========================================================================
+  // GLASS THEME STATE
+  // ==========================================================================
+
+  group(
+    'GlassThemeState',
+    () {
+      // ========================================================================
+      // 15. CONSTRUCTEUR PAR DÉFAUT
+      // ========================================================================
+
+      test(
+        'default constructor uses Aqua',
+        () {
+          const GlassThemeState state =
+              GlassThemeState();
+
+          expect(
+            state.useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
+
+      // ========================================================================
+      // 16. CONSTRUCTEUR CLASSIC
+      // ========================================================================
+
+      test(
+        'constructor can create Classic state',
+        () {
+          const GlassThemeState state =
+              GlassThemeState(
+            useAquaStyle: false,
+          );
+
+          expect(
+            state.useAquaStyle,
+            isFalse,
+          );
+
+          expect(
+            state.style,
+            GlassStyle.opaqueMat,
+          );
+        },
+      );
+
+      // ========================================================================
+      // 17. COPY WITH
+      // ========================================================================
+
+      test(
+        'copyWith changes Aqua state',
+        () {
+          const GlassThemeState original =
+              GlassThemeState(
+            useAquaStyle: true,
+          );
+
+          final GlassThemeState result =
+              original.copyWith(
+            useAquaStyle: false,
+          );
+
+          expect(
+            result.useAquaStyle,
+            isFalse,
+          );
+
+          expect(
+            result.style,
+            GlassStyle.opaqueMat,
+          );
+        },
+      );
+
+      // ========================================================================
+      // 18. COPY WITH SANS MODIFICATION
+      // ========================================================================
+
+      test(
+        'copyWith preserves existing value',
+        () {
+          const GlassThemeState original =
+              GlassThemeState(
+            useAquaStyle: true,
+          );
+
+          final GlassThemeState result =
+              original.copyWith();
+
+          expect(
+            result.useAquaStyle,
+            isTrue,
+          );
+
+          expect(
+            result.style,
+            GlassStyle.transparentAqua,
+          );
+        },
+      );
+
+      // ========================================================================
+      // 19. COPY WITH CLASSIC
+      // ========================================================================
+
+      test(
+        'copyWith preserves Classic when no value is provided',
+        () {
+          const GlassThemeState original =
+              GlassThemeState(
+            useAquaStyle: false,
+          );
+
+          final GlassThemeState result =
+              original.copyWith();
+
+          expect(
+            result.useAquaStyle,
+            isFalse,
+          );
+
+          expect(
+            result.style,
+            GlassStyle.opaqueMat,
+          );
+        },
+      );
+    },
+  );
 }

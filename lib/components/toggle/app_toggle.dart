@@ -20,13 +20,6 @@ class AppToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (type) {
-      case PhysicalToggleType.breaker:
-        return BreakerSwitch(
-          value: value,
-          orientation: orientation,
-          onChanged: onChanged,
-        );
-
       case PhysicalToggleType.metal:
         return MetalToggleSwitch(
           value: value,
