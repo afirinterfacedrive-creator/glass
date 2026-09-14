@@ -1,0 +1,36 @@
+# ============================================================================
+# Universal Glass - pub.dev package exclusions
+# ============================================================================
+
+# Git / repository metadata
+.git/
+.github/
+.gitignore
+.pubignore
+
+# Dart / Flutter generated files
+.dart_tool/
+.pub-cache/
+.pub/
+build/
+
+# Tests
+test/
+
+# Flutter application runners
+android/
+ios/
+linux/
+macos/
+web/
+windows/
+
+# IDE / development-only files
+*.iml
+devtools_options.yaml
+
+# Development-only scripts
+assets/phone/generer_json.py
+
+# Development-only data
+assets/data/
