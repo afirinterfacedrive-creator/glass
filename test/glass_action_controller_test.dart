@@ -19,13 +19,29 @@ void main() {
       prefs = await SharedPreferences.getInstance();
 
       container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
       );
 
-      container.read(glassButtonProvider.notifier).initButton('wifi', false);
+      container
+          .read(glassButtonProvider.notifier)
+          .initButton('wifi', false);
+
+      // Laisse les éventuelles opérations asynchrones des providers
+      // se terminer avant que les tests commencent.
+      await Future<void>.delayed(
+        const Duration(milliseconds: 10),
+      );
     });
 
-    tearDown(() {
+    tearDown(() async {
+      // Évite de disposer le container alors qu'une opération async
+      // déclenchée pendant le test est encore en cours.
+      await Future<void>.delayed(
+        const Duration(milliseconds: 10),
+      );
+
       container.dispose();
     });
 
@@ -71,16 +87,20 @@ void main() {
             successDuration: const Duration(milliseconds: 100),
           );
 
-      await Future<void>.delayed(const Duration(milliseconds: 20));
+      await Future<void>.delayed(
+        const Duration(milliseconds: 20),
+      );
 
-      final duringSuccess = container.read(glassButtonProvider)['wifi'];
+      final duringSuccess =
+          container.read(glassButtonProvider)['wifi'];
 
       expect(duringSuccess, isNotNull);
       expect(duringSuccess!.customText, 'SUCCÈS!');
 
       await future;
 
-      final finalState = container.read(glassButtonProvider)['wifi'];
+      final finalState =
+          container.read(glassButtonProvider)['wifi'];
 
       expect(finalState!.isLoading, isFalse);
       expect(finalState.customText, isNull);
@@ -150,7 +170,10 @@ void main() {
             successDuration: Duration.zero,
           );
 
-      expect(container.read(glassButtonProvider), hasLength(1));
+      expect(
+        container.read(glassButtonProvider),
+        hasLength(1),
+      );
     });
 
     test('run handles action error', () async {
@@ -164,31 +187,46 @@ void main() {
             successDuration: Duration.zero,
           );
 
-      await expectLater(future, throwsA(isA<Exception>()));
+      await expectLater(
+        future,
+        throwsA(isA<Exception>()),
+      );
 
-      final controllerState = container.read(glassActionControllerProvider);
+      final controllerState =
+          container.read(glassActionControllerProvider);
 
       expect(controllerState, isA<AsyncError>());
     });
 
     test('toggle changes button state', () {
-      final controller = container.read(glassActionControllerProvider.notifier);
+      final controller =
+          container.read(glassActionControllerProvider.notifier);
 
       controller.toggle('wifi');
 
-      expect(container.read(glassButtonProvider)['wifi']!.isActive, isTrue);
+      expect(
+        container.read(glassButtonProvider)['wifi']!.isActive,
+        isTrue,
+      );
 
       controller.toggle('wifi');
 
-      expect(container.read(glassButtonProvider)['wifi']!.isActive, isFalse);
+      expect(
+        container.read(glassButtonProvider)['wifi']!.isActive,
+        isFalse,
+      );
     });
 
     test('activate activates button', () {
-      final controller = container.read(glassActionControllerProvider.notifier);
+      final controller =
+          container.read(glassActionControllerProvider.notifier);
 
       controller.activate('wifi');
 
-      expect(container.read(glassButtonProvider)['wifi']!.isActive, isTrue);
+      expect(
+        container.read(glassButtonProvider)['wifi']!.isActive,
+        isTrue,
+      );
     });
 
     test('deactivate deactivates button', () {
@@ -196,11 +234,15 @@ void main() {
 
       notifier.setActive('wifi', true);
 
-      final controller = container.read(glassActionControllerProvider.notifier);
+      final controller =
+          container.read(glassActionControllerProvider.notifier);
 
       controller.deactivate('wifi');
 
-      expect(container.read(glassButtonProvider)['wifi']!.isActive, isFalse);
+      expect(
+        container.read(glassButtonProvider)['wifi']!.isActive,
+        isFalse,
+      );
     });
 
     test('reset resets button', () {
@@ -208,11 +250,19 @@ void main() {
 
       notifier.setActive('wifi', true);
 
-      notifier.setLoading('wifi', true, customText: 'Test');
+      notifier.setLoading(
+        'wifi',
+        true,
+        customText: 'Test',
+      );
 
-      final controller = container.read(glassActionControllerProvider.notifier);
+      final controller =
+          container.read(glassActionControllerProvider.notifier);
 
-      controller.reset('wifi', active: false);
+      controller.reset(
+        'wifi',
+        active: false,
+      );
 
       final button = container.read(glassButtonProvider)['wifi'];
 

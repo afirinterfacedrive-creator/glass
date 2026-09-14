@@ -1,3 +1,4 @@
+
 // ============================================================================
 // GLASS — THEME PROVIDER
 // ============================================================================
@@ -27,6 +28,7 @@ import 'shared_preferences_provider.dart';
 
 class ThemeState {
   final AppThemeMode mode;
+
   final bool enableGradient;
   final bool enableBlur;
   final bool enableNoise;
@@ -49,10 +51,10 @@ class ThemeState {
     bool? enableNoise,
   }) {
     return ThemeState(
-      mode?? this.mode,
-      enableGradient: enableGradient?? this.enableGradient,
-      enableBlur: enableBlur?? this.enableBlur,
-      enableNoise: enableNoise?? this.enableNoise,
+      mode ?? this.mode,
+      enableGradient: enableGradient ?? this.enableGradient,
+      enableBlur: enableBlur ?? this.enableBlur,
+      enableNoise: enableNoise ?? this.enableNoise,
     );
   }
 
@@ -64,13 +66,11 @@ class ThemeState {
     switch (mode) {
       case AppThemeMode.system:
         return ThemeMode.system;
+
       case AppThemeMode.dark:
       case AppThemeMode.classic:
-      case AppThemeMode.sage:
-      case AppThemeMode.sagePro:
-      case AppThemeMode.sageOled:
-      case AppThemeMode.sageGlass:
         return ThemeMode.dark;
+
       case AppThemeMode.light:
       case AppThemeMode.aqua:
         return ThemeMode.light;
@@ -82,14 +82,19 @@ class ThemeState {
   // ==========================================================================
 
   bool get isAqua => mode == AppThemeMode.aqua;
+
   bool get isClassic => mode == AppThemeMode.classic;
-  bool get isSage => mode == AppThemeMode.sage;
-  bool get isSagePro => mode == AppThemeMode.sagePro;
-  bool get isSageOled => mode == AppThemeMode.sageOled;
-  bool get isSageGlass => mode == AppThemeMode.sageGlass;
-  bool get isAnySage => mode.name.startsWith('sage'); // <-- Helper pour les 4
-  bool get isDarkMode => mode == AppThemeMode.dark || mode == AppThemeMode.classic || isAnySage;
-  bool get isLightMode => mode == AppThemeMode.light || mode == AppThemeMode.aqua;
+
+  bool get isDarkMode {
+    return mode == AppThemeMode.dark ||
+        mode == AppThemeMode.classic;
+  }
+
+  bool get isLightMode {
+    return mode == AppThemeMode.light ||
+        mode == AppThemeMode.aqua;
+  }
+
   bool get isSystem => mode == AppThemeMode.system;
 
   // ==========================================================================
@@ -98,7 +103,12 @@ class ThemeState {
 
   @override
   String toString() {
-    return 'ThemeState(mode: $mode, gradient: $enableGradient, blur: $enableBlur, noise: $enableNoise)';
+    return 'ThemeState('
+        'mode: $mode, '
+        'gradient: $enableGradient, '
+        'blur: $enableBlur, '
+        'noise: $enableNoise'
+        ')';
   }
 }
 
@@ -112,9 +122,15 @@ class ThemeNotifier extends Notifier<ThemeState> {
   // ==========================================================================
 
   static const String themeKey = 'app_theme_mode';
-  static const String enableGradientKey = 'app_enable_gradient';
-  static const String enableBlurKey = 'app_enable_blur';
-  static const String enableNoiseKey = 'app_enable_noise';
+
+  static const String enableGradientKey =
+      'app_enable_gradient';
+
+  static const String enableBlurKey =
+      'app_enable_blur';
+
+  static const String enableNoiseKey =
+      'app_enable_noise';
 
   // ==========================================================================
   // BUILD
@@ -124,13 +140,28 @@ class ThemeNotifier extends Notifier<ThemeState> {
   ThemeState build() {
     final prefs = ref.read(sharedPreferencesProvider);
 
-    final int savedIndex = prefs.getInt(themeKey)?? AppThemeMode.system.index;
-    final bool savedGradient = prefs.getBool(enableGradientKey)?? true;
-    final bool savedBlur = prefs.getBool(enableBlurKey)?? true;
-    final bool savedNoise = prefs.getBool(enableNoiseKey)?? true;
+    final int savedIndex =
+        prefs.getInt(themeKey) ?? AppThemeMode.system.index;
 
-    if (savedIndex < 0 || savedIndex >= AppThemeMode.values.length) {
-      return const ThemeState(AppThemeMode.system);
+    final bool savedGradient =
+        prefs.getBool(enableGradientKey) ?? true;
+
+    final bool savedBlur =
+        prefs.getBool(enableBlurKey) ?? true;
+
+    final bool savedNoise =
+        prefs.getBool(enableNoiseKey) ?? true;
+
+    // ------------------------------------------------------------------------
+    // Protection contre un index devenu invalide après une modification
+    // de l'enum AppThemeMode.
+    // ------------------------------------------------------------------------
+
+    if (savedIndex < 0 ||
+        savedIndex >= AppThemeMode.values.length) {
+      return const ThemeState(
+        AppThemeMode.system,
+      );
     }
 
     return ThemeState(
@@ -146,12 +177,20 @@ class ThemeNotifier extends Notifier<ThemeState> {
   // ==========================================================================
 
   Future<void> setTheme(AppThemeMode mode) async {
-    if (state.mode == mode) return;
+    if (state.mode == mode) {
+      return;
+    }
 
-    state = state.copyWith(mode: mode);
+    state = state.copyWith(
+      mode: mode,
+    );
 
     final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setInt(themeKey, mode.index);
+
+    await prefs.setInt(
+      themeKey,
+      mode.index,
+    );
   }
 
   // ==========================================================================
@@ -159,36 +198,67 @@ class ThemeNotifier extends Notifier<ThemeState> {
   // ==========================================================================
 
   Future<void> setEnableGradient(bool value) async {
-    state = state.copyWith(enableGradient: value);
+    state = state.copyWith(
+      enableGradient: value,
+    );
+
     final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(enableGradientKey, value);
+
+    await prefs.setBool(
+      enableGradientKey,
+      value,
+    );
   }
 
   Future<void> setEnableBlur(bool value) async {
-    state = state.copyWith(enableBlur: value);
+    state = state.copyWith(
+      enableBlur: value,
+    );
+
     final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(enableBlurKey, value);
+
+    await prefs.setBool(
+      enableBlurKey,
+      value,
+    );
   }
 
   Future<void> setEnableNoise(bool value) async {
-    state = state.copyWith(enableNoise: value);
+    state = state.copyWith(
+      enableNoise: value,
+    );
+
     final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.setBool(enableNoiseKey, value);
+
+    await prefs.setBool(
+      enableNoiseKey,
+      value,
+    );
   }
 
   // ==========================================================================
   // PRESETS RAPIDES
   // ==========================================================================
 
-  Future<void> setSystemTheme() async => await setTheme(AppThemeMode.system);
-  Future<void> setDarkTheme() async => await setTheme(AppThemeMode.dark);
-  Future<void> setLightTheme() async => await setTheme(AppThemeMode.light);
-  Future<void> setAquaTheme() async => await setTheme(AppThemeMode.aqua);
-  Future<void> setClassicTheme() async => await setTheme(AppThemeMode.classic);
-  Future<void> setSageTheme() async => await setTheme(AppThemeMode.sage);
-  Future<void> setSageProTheme() async => await setTheme(AppThemeMode.sagePro); // <-- AJOUTE
-  Future<void> setSageOledTheme() async => await setTheme(AppThemeMode.sageOled); // <-- AJOUTE
-  Future<void> setSageGlassTheme() async => await setTheme(AppThemeMode.sageGlass); // <-- AJOUTE
+  Future<void> setSystemTheme() async {
+    await setTheme(AppThemeMode.system);
+  }
+
+  Future<void> setDarkTheme() async {
+    await setTheme(AppThemeMode.dark);
+  }
+
+  Future<void> setLightTheme() async {
+    await setTheme(AppThemeMode.light);
+  }
+
+  Future<void> setAquaTheme() async {
+    await setTheme(AppThemeMode.aqua);
+  }
+
+  Future<void> setClassicTheme() async {
+    await setTheme(AppThemeMode.classic);
+  }
 
   // ==========================================================================
   // BASCULER ENTRE SOMBRE ET CLAIR
@@ -196,9 +266,11 @@ class ThemeNotifier extends Notifier<ThemeState> {
 
   Future<void> toggleDarkLight() async {
     if (state.isDarkMode) {
-      await setAquaTheme(); // Aqua = light par défaut
+      // Aqua = thème clair
+      await setAquaTheme();
     } else {
-      await setClassicTheme(); // Classic = dark par défaut
+      // Classic = thème sombre
+      await setClassicTheme();
     }
   }
 
@@ -218,7 +290,8 @@ class ThemeNotifier extends Notifier<ThemeState> {
 // PROVIDER GLOBAL DU THÈME
 // ============================================================================
 
-final themeProvider = NotifierProvider<ThemeNotifier, ThemeState>(
+final themeProvider =
+    NotifierProvider<ThemeNotifier, ThemeState>(
   ThemeNotifier.new,
 );
 
@@ -226,18 +299,36 @@ final themeProvider = NotifierProvider<ThemeNotifier, ThemeState>(
 // PROVIDER MATERIAL THEME MODE
 // ============================================================================
 
-final materialThemeModeProvider = Provider<ThemeMode>((ref) {
-  return ref.watch(themeProvider.select((state) => state.materialThemeMode));
+final materialThemeModeProvider =
+    Provider<ThemeMode>((ref) {
+  return ref.watch(
+    themeProvider.select(
+      (state) => state.materialThemeMode,
+    ),
+  );
 });
 
 // ============================================================================
 // PROVIDER GLASS HELPERS
 // ============================================================================
 
-final isAquaModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isAqua)));
-final isClassicModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isClassic)));
-final isSageModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isSage)));
-final isAnySageModeProvider = Provider<bool>((ref) => ref.watch(themeProvider.select((s) => s.isAnySage))); // <-- AJOUTE
+final isAquaModeProvider =
+    Provider<bool>((ref) {
+  return ref.watch(
+    themeProvider.select(
+      (state) => state.isAqua,
+    ),
+  );
+});
+
+final isClassicModeProvider =
+    Provider<bool>((ref) {
+  return ref.watch(
+    themeProvider.select(
+      (state) => state.isClassic,
+    ),
+  );
+});
 
 // ============================================================================
 // FIN

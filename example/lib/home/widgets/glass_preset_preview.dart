@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:universal_glass/glass.dart';
 
@@ -19,21 +20,32 @@ class GlassPresetPreview extends StatefulWidget {
   });
 
   @override
-  State<GlassPresetPreview> createState() => _GlassPresetPreviewState();
+  State<GlassPresetPreview> createState() =>
+      _GlassPresetPreviewState();
 }
 
-class _GlassPresetPreviewState extends State<GlassPresetPreview>
+class _GlassPresetPreviewState
+    extends State<GlassPresetPreview>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+
+  // ==========================================================================
+  // INIT
+  // ==========================================================================
 
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
     )..repeat();
   }
+
+  // ==========================================================================
+  // DISPOSE
+  // ==========================================================================
 
   @override
   void dispose() {
@@ -41,12 +53,20 @@ class _GlassPresetPreviewState extends State<GlassPresetPreview>
     super.dispose();
   }
 
-  // Helper pour savoir si on anime
+  // ==========================================================================
+  // ANIMATION
+  // ==========================================================================
+
   bool get _shouldAnimate {
-    return widget.style == GlassStyle.sagePro || 
-           widget.style == GlassStyle.sageGlass ||
-           widget.style == GlassStyle.transparentAqua; // garde aqua animé
+    return widget.style == GlassStyle.transparentAqua ||
+        widget.style == GlassStyle.gradientOpaque ||
+        widget.style == GlassStyle.customGradient ||
+        widget.style == GlassStyle.solidAqua;
   }
+
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +76,23 @@ class _GlassPresetPreviewState extends State<GlassPresetPreview>
       onTap: widget.onTap,
       child: AnimatedBuilder(
         animation: _controller,
-        builder: (context, child) {
+        builder: (
+          BuildContext context,
+          Widget? child,
+        ) {
+          final double angle =
+              _controller.value * 2 * pi;
+
+          final Alignment begin = Alignment(
+            0.5 + 0.5 * cos(angle),
+            0.5 + 0.5 * sin(angle),
+          );
+
+          final Alignment end = Alignment(
+            0.5 - 0.5 * cos(angle),
+            0.5 - 0.5 * sin(angle),
+          );
+
           return GlassSurfaceContainer(
             style: widget.style,
             liftOnHover: true,
@@ -64,75 +100,95 @@ class _GlassPresetPreviewState extends State<GlassPresetPreview>
             borderRadius: BorderRadius.circular(18),
             child: Stack(
               children: [
-                // 1. REFLET ANIMÉ PAR DESSUS
+                // =============================================================
+                // 1. REFLET ANIMÉ
+                // =============================================================
+
                 if (animate)
                   Positioned.fill(
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius:
+                            BorderRadius.circular(18),
                         gradient: LinearGradient(
-                          colors: widget.style.name.contains('sage') 
-                            ? [ // Glow rouge pour Sage
-                                widget.accent.withValues(alpha: .15),
-                                Colors.transparent,
-                                widget.accent.withValues(alpha: .08),
-                              ]
-                            : [ // Reflet blanc pour Aqua
-                                Colors.white.withValues(alpha: .25),
-                                Colors.transparent,
-                                Colors.white.withValues(alpha: .1),
-                              ],
-                          stops: const [0.0, 0.5, 1.0],
-                          begin: Alignment(
-                            0.5 + 0.5 * cos(_controller.value * 6.28),
-                            0.5 + 0.5 * sin(_controller.value * 6.28),
-                          ),
-                          end: Alignment(
-                            0.5 - 0.5 * cos(_controller.value * 6.28),
-                            0.5 - 0.5 * sin(_controller.value * 6.28),
-                          ),
+                          colors: [
+                            widget.accent.withValues(
+                              alpha: 0.15,
+                            ),
+                            Colors.transparent,
+                            widget.accent.withValues(
+                              alpha: 0.08,
+                            ),
+                          ],
+                          stops: const [
+                            0.0,
+                            0.5,
+                            1.0,
+                          ],
+                          begin: begin,
+                          end: end,
                         ),
                       ),
                     ),
                   ),
 
+                // =============================================================
                 // 2. CONTENU
+                // =============================================================
+
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  mainAxisAlignment:
+                      MainAxisAlignment.end,
                   children: [
                     const Spacer(),
+
                     Row(
                       children: [
+                        // =====================================================
+                        // INDICATEUR
+                        // =====================================================
+
                         Container(
                           width: 8,
                           height: 8,
                           decoration: BoxDecoration(
                             color: widget.accent,
                             shape: BoxShape.circle,
-                            boxShadow: animate ? [ // Glow sur le point
-                              BoxShadow(
-                                color: widget.accent.withValues(alpha: 0.6),
-                                blurRadius: 8,
-                                spreadRadius: 1,
-                              )
-                            ] : [],
+                            boxShadow: animate
+                                ? [
+                                    BoxShadow(
+                                      color: widget.accent
+                                          .withValues(
+                                        alpha: 0.6,
+                                      ),
+                                      blurRadius: 8,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                : [],
                           ),
                         ),
+
                         const SizedBox(width: 8),
+
+                        // =====================================================
+                        // LABEL
+                        // =====================================================
+
                         Expanded(
                           child: Text(
                             widget.label,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
+                            style: const TextStyle(
+                              fontWeight:
+                                  FontWeight.w700,
                               fontSize: 14,
                               letterSpacing: 0.3,
-                              color: widget.style == GlassStyle.sageOled 
-                                ? Colors.white 
-                                : null,
                             ),
                             maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            overflow:
+                                TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -140,17 +196,21 @@ class _GlassPresetPreviewState extends State<GlassPresetPreview>
                   ],
                 ),
 
-                // 3. BORDER DE SELECTION
+                // =============================================================
+                // 3. BORDER DE SÉLECTION
+                // =============================================================
+
                 Positioned.fill(
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(
+                      milliseconds: 200,
+                    ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
+                      borderRadius:
+                          BorderRadius.circular(18),
                       border: Border.all(
                         color: widget.selected
-                            ? widget.style.name.contains('sage')
-                                ? widget.accent // Bordure rouge pour sage
-                                : Colors.white.withValues(alpha: .9)
+                            ? widget.accent
                             : Colors.transparent,
                         width: 2,
                       ),

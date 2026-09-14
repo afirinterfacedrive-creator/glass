@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:universal_glass/utils/glass_surface_gradient_resolver.dart';
+import 'package:universal_glass/components/surface/glass_surface_gradient_resolver.dart';
 
 class GlassAnimatedSurfaceBox extends StatelessWidget {
   final Widget child;

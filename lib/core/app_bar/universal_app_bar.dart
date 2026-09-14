@@ -1,26 +1,136 @@
+
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:universal_glass/components/surface/glass_surface_container.dart';
+import 'package:universal_glass/constants/app_constants.dart';
 
 import 'package:universal_glass/core/app_bar/universal_app_bar_content.dart';
 import 'package:universal_glass/core/app_bar/universal_app_bar_decorator.dart';
 import 'package:universal_glass/core/app_bar/universal_tab_item.dart';
-import 'package:universal_glass/enums/glass_enums.dart';
+import 'package:universal_glass/core/layout/glass_layout_extensions.dart';
 import 'package:universal_glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/provider/glass_theme_state.dart';
 
-class UniversalAppBar extends ConsumerWidget implements PreferredSizeWidget {
+/// ============================================================================
+/// UNIVERSAL APP BAR
+/// ============================================================================
+///
+/// Construit uniquement le contenu de l'AppBar.
+///
+/// IMPORTANT :
+///
+/// UniversalAppBar NE crée PAS de GlassSurfaceContainer.
+///
+/// La surface visible de l'AppBar est créée par GlassScaffold.
+///
+/// Architecture :
+///
+/// GlassScaffold
+///      │
+///      └── GlassSurfaceContainer
+///                │
+///                └── UniversalAppBar
+///                          │
+///                          └── UniversalAppBarDecorator
+///                                    │
+///                                    └── UniversalAppBarContent
+///
+/// Cela garantit qu'il n'y a qu'une seule surface Glass pour l'AppBar.
+///
+/// Les paramètres visuels de l'AppBar restent génériques et optionnels.
+/// Ils permettent notamment à une application de connecter ses propres
+/// réglages d'apparence sans imposer de modèle de settings au package.
+///
+class UniversalAppBar extends ConsumerWidget
+    implements PreferredSizeWidget {
+  // ==========================================================================
+  // OPTIONS GÉNÉRALES
+  // ==========================================================================
+
   final bool showLogo;
+
   final String? title;
+
   final String? subtitle;
+
   final bool showBackButton;
+
   final VoidCallback? onBack;
+
   final List<Widget>? actions;
+
   final List<UniversalTabItem>? tabs;
+
   final bool hideNavigation;
+
+  /// Conservé pour compatibilité avec l'API existante.
+  ///
+  /// La gestion réelle du fond est effectuée par GlassScaffold.
   final bool useGradientBackground;
+
   final bool compactMode;
-  final bool forceMobileLayout;
+
+  // ==========================================================================
+  // HAUTEUR EXTERNE
+  // ==========================================================================
+
+  /// Lorsque GlassScaffold fournit cette valeur, UniversalAppBar utilise
+  /// exactement cette hauteur.
+  ///
+  /// Cela évite que GlassScaffold et UniversalAppBar calculent chacun une
+  /// hauteur différente.
+  final double? height;
+
+  // ==========================================================================
+  // STYLE DES BOUTONS D'ACTION
+  // ==========================================================================
+
+  /// Opacité du fond blanc des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionBackgroundOpacity].
+  final double? actionBackgroundOpacity;
+
+  /// Opacité de la teinte d'accent dans le fond des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionAccentOpacity].
+  final double? actionAccentOpacity;
+
+  /// Opacité de la bordure des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionBorderOpacity].
+  final double? actionBorderOpacity;
+
+  /// Épaisseur de la bordure des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionBorderWidth].
+  final double? actionBorderWidth;
+
+  /// Opacité de l'ombre des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionShadowOpacity].
+  final double? actionShadowOpacity;
+
+  /// Flou de l'ombre des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionShadowBlur].
+  final double? actionShadowBlur;
+
+  /// Décalage vertical de l'ombre des boutons d'action.
+  ///
+  /// Si null, utilise [AppConstants.appBarDefaultActionShadowOffsetY].
+  final double? actionShadowOffsetY;
+
+  /// Opacité de l'ombre générale de l'AppBar.
+  ///
+  /// Si null :
+  /// - grand desktop : [AppConstants.appBarDefaultShadowOpacity]
+  /// - autres formats : [AppConstants.appBarDefaultNormalShadowOpacity]
+  final double? shadowOpacity;
+
+  // ==========================================================================
+  // CONSTRUCTEUR
+  // ==========================================================================
 
   const UniversalAppBar({
     super.key,
@@ -32,129 +142,364 @@ class UniversalAppBar extends ConsumerWidget implements PreferredSizeWidget {
     this.actions,
     this.tabs,
     this.hideNavigation = false,
-    this.useGradientBackground = false,
+    this.useGradientBackground = true,
     this.compactMode = false,
-    this.forceMobileLayout = false,
+    this.height,
+    this.actionBackgroundOpacity,
+    this.actionAccentOpacity,
+    this.actionBorderOpacity,
+    this.actionBorderWidth,
+    this.actionShadowOpacity,
+    this.actionShadowBlur,
+    this.actionShadowOffsetY,
+    this.shadowOpacity,
   });
 
-  static double getAppBarHeight(double width) {
-    if (width >= 1600) return 100.0;
-    if (width >= 1200) return 90.0;
-    if (width >= 950) return 80.0;
+  // ==========================================================================
+  // HAUTEUR RESPONSIVE
+  // ==========================================================================
+
+  static double getAppBarHeight(
+    double width,
+  ) {
+    if (width >= 1600.0) {
+      return 100.0;
+    }
+
+    if (width >= 1200.0) {
+      return 90.0;
+    }
+
+    if (width >= 950.0) {
+      return 80.0;
+    }
+
     return kToolbarHeight;
   }
 
-  static double getScale(double width) {
-    if (width >= 1600) return 1.70;
-    if (width >= 1400) return 1.50;
-    if (width >= 1200) return 1.30;
-    if (width >= 950) return 1.15;
-    if (width >= 600) return 1.00;
-    return 0.90;
-  }
-
-  static double getCurrentViewWidth() {
-    final views = WidgetsBinding.instance.platformDispatcher.views;
-    if (views.isEmpty) return 0.0;
-    final FlutterView view = views.first;
-    final double devicePixelRatio = view.devicePixelRatio;
-    if (devicePixelRatio <= 0) return 0.0;
-    return view.physicalSize.width / devicePixelRatio;
-  }
+  // ==========================================================================
+  // PREFERRED SIZE
+  // ==========================================================================
 
   @override
   Size get preferredSize {
-    final double width = getCurrentViewWidth();
-    final double height = compactMode ? kToolbarHeight : getAppBarHeight(width);
-    return Size.fromHeight(height);
+    // ------------------------------------------------------------------------
+    // Si GlassScaffold fournit explicitement la hauteur, elle devient la
+    // source de vérité.
+    // ------------------------------------------------------------------------
+
+    if (height != null && height!.isFinite) {
+      return Size.fromHeight(
+        height!
+            .clamp(
+              AppConstants.minAppBarHeight,
+              AppConstants.maxAppBarHeight,
+            )
+            .toDouble(),
+      );
+    }
+
+    // ------------------------------------------------------------------------
+    // Fallback : comportement historique.
+    // ------------------------------------------------------------------------
+
+    final Iterable<FlutterView> views =
+        WidgetsBinding.instance.platformDispatcher.views;
+
+    if (views.isEmpty) {
+      return Size.fromHeight(
+        AppConstants.minAppBarHeight,
+      );
+    }
+
+    final FlutterView view = views.first;
+
+    final double devicePixelRatio = view.devicePixelRatio;
+
+    if (devicePixelRatio <= 0.0) {
+      return Size.fromHeight(
+        AppConstants.minAppBarHeight,
+      );
+    }
+
+    final double width =
+        view.physicalSize.width / devicePixelRatio;
+
+    final double calculatedHeight =
+        compactMode
+            ? AppConstants.minAppBarHeight
+            : getAppBarHeight(width);
+
+    return Size.fromHeight(
+      calculatedHeight.clamp(
+        AppConstants.minAppBarHeight,
+        AppConstants.maxAppBarHeight,
+      ),
+    );
   }
 
+  // ==========================================================================
+  // NORMALISATION
+  // ==========================================================================
+
+  double _normalizeOpacity(
+    double? value,
+    double fallback,
+  ) {
+    return (value ?? fallback).clamp(
+      AppConstants.minBorderOpacity,
+      AppConstants.maxBorderOpacity,
+    );
+  }
+
+  double _normalizeBorderWidth(
+    double? value,
+  ) {
+    return (value ?? AppConstants.appBarDefaultActionBorderWidth).clamp(
+      AppConstants.minAppBarActionBorderWidth,
+      AppConstants.maxAppBarActionBorderWidth,
+    );
+  }
+
+  double _normalizeShadowBlur(
+    double? value,
+  ) {
+    return (value ?? AppConstants.appBarDefaultActionShadowBlur).clamp(
+      AppConstants.minAppBarActionShadowBlur,
+      AppConstants.maxAppBarActionShadowBlur,
+    );
+  }
+
+  double _normalizeShadowOffsetY(
+    double? value,
+  ) {
+    return (value ?? AppConstants.appBarDefaultActionShadowOffsetY).clamp(
+      AppConstants.minAppBarActionShadowOffsetY,
+      AppConstants.maxAppBarActionShadowOffsetY,
+    );
+  }
+
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final GlassThemeState glassTheme = ref.watch(glassThemeProvider);
-    final ThemeData theme = Theme.of(context);
-    final double screenWidth = MediaQuery.sizeOf(context).width;
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    // =========================================================================
+    // THEME
+    // =========================================================================
 
-    // FIX 1: -8px pour éviter le BOTTOM OVERFLOWED
-    final double rawHeight = compactMode ? kToolbarHeight : getAppBarHeight(screenWidth);
-    final double appBarHeight = rawHeight - 8; 
-    final double scale = compactMode ? 0.90 : getScale(screenWidth);
+    final GlassThemeState glassTheme =
+        ref.watch(glassThemeProvider);
 
-    final bool isTv = !forceMobileLayout && screenWidth >= 1600;
-    final bool isDesktop = !forceMobileLayout && screenWidth >= 950;
-    final bool isTablet = !forceMobileLayout && screenWidth >= 600 && screenWidth < 950;
+    final ThemeData theme =
+        Theme.of(context);
 
-    final Color accentColor = glassTheme.useAquaStyle ? Colors.cyanAccent : Colors.orangeAccent;
-    final Color iconColor = glassTheme.useAquaStyle ? Colors.cyanAccent : Colors.white;
+    // =========================================================================
+    // LAYOUT CENTRAL
+    // =========================================================================
 
-    // FIX 2: Une seule source de vérité pour le glass
-    final GlassStyle glassStyle = useGradientBackground 
-        ? GlassStyle.gradientOpaque 
-        : GlassStyle.transparentAqua;
+    final layout =
+        context.glassLayout;
 
-    final BoxDecoration actionDecoration = BoxDecoration(
+    // =========================================================================
+    // HAUTEUR
+    // =========================================================================
+    //
+    // PRIORITÉ :
+    //
+    // 1. hauteur fournie par GlassScaffold
+    // 2. compactMode
+    // 3. calcul responsive historique
+    //
+    // =========================================================================
+
+    final double appBarHeight =
+        height != null && height!.isFinite
+            ? height!.clamp(
+                AppConstants.minAppBarHeight,
+                AppConstants.maxAppBarHeight,
+              ).toDouble()
+            : (
+                compactMode
+                    ? AppConstants.minAppBarHeight
+                    : getAppBarHeight(
+                        layout.screenWidth,
+                      )
+              );
+
+    // =========================================================================
+    // COULEURS
+    // =========================================================================
+
+    final Color accentColor =
+        glassTheme.useAquaStyle
+            ? AppConstants.aquaAccent
+            : AppConstants.classicAccent;
+
+    final Color iconColor =
+        glassTheme.useAquaStyle
+            ? AppConstants.aquaAccent
+            : AppConstants.white;
+
+    // =========================================================================
+    // VALEURS D'ACTION
+    // =========================================================================
+
+    final double effectiveActionBackgroundOpacity =
+        _normalizeOpacity(
+      actionBackgroundOpacity,
+      AppConstants.appBarDefaultActionBackgroundOpacity,
+    );
+
+    final double effectiveActionAccentOpacity =
+        _normalizeOpacity(
+      actionAccentOpacity,
+      AppConstants.appBarDefaultActionAccentOpacity,
+    );
+
+    final double effectiveActionBorderOpacity =
+        _normalizeOpacity(
+      actionBorderOpacity,
+      AppConstants.appBarDefaultActionBorderOpacity,
+    );
+
+    final double effectiveActionBorderWidth =
+        _normalizeBorderWidth(
+      actionBorderWidth,
+    );
+
+    final double effectiveActionShadowOpacity =
+        _normalizeOpacity(
+      actionShadowOpacity,
+      AppConstants.appBarDefaultActionShadowOpacity,
+    );
+
+    final double effectiveActionShadowBlur =
+        _normalizeShadowBlur(
+      actionShadowBlur,
+    );
+
+    final double effectiveActionShadowOffsetY =
+        _normalizeShadowOffsetY(
+      actionShadowOffsetY,
+    );
+
+    // =========================================================================
+    // OMBRE GÉNÉRALE DE L'APP BAR
+    // =========================================================================
+
+    final double effectiveShadowOpacity =
+        _normalizeOpacity(
+      shadowOpacity,
+      layout.isLargeDesktop
+          ? AppConstants.appBarDefaultShadowOpacity
+          : AppConstants.appBarDefaultNormalShadowOpacity,
+    );
+
+    // =========================================================================
+    // BOUTONS D'ACTION
+    // =========================================================================
+
+    final BoxDecoration actionDecoration =
+        BoxDecoration(
       shape: BoxShape.circle,
+
       gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        begin: AppConstants.gradientBegin,
+        end: AppConstants.gradientEnd,
         colors: [
-          Colors.white.withValues(alpha: 0.14),
-          accentColor.withValues(alpha: 0.07),
+          AppConstants.white.withValues(
+            alpha: effectiveActionBackgroundOpacity,
+          ),
+          accentColor.withValues(
+            alpha: effectiveActionAccentOpacity,
+          ),
         ],
       ),
+
       border: Border.all(
-        color: glassTheme.useAquaStyle ? Colors.white.withValues(alpha: 0.20) : Colors.white.withValues(alpha: 0.15),
-        width: 0.8,
+        color: AppConstants.white.withValues(
+          alpha: effectiveActionBorderOpacity,
+        ),
+        width: effectiveActionBorderWidth,
       ),
+
       boxShadow: [
         BoxShadow(
-          color: accentColor.withValues(alpha: 0.06),
-          blurRadius: 8,
-          spreadRadius: 0,
-          offset: const Offset(0, 1),
+          color: accentColor.withValues(
+            alpha: effectiveActionShadowOpacity,
+          ),
+          blurRadius: effectiveActionShadowBlur,
+          spreadRadius: AppConstants.transparentOpacity,
+          offset: Offset(
+            AppConstants.transparentOpacity,
+            effectiveActionShadowOffsetY,
+          ),
         ),
       ],
     );
 
-    final String currentRoute = ModalRoute.of(context)?.settings.name ?? '';
-    final List<UniversalTabItem> activeTabs = hideNavigation ? const [] : (tabs ?? const []);
-    final Color appBarShadowColor = Colors.black.withValues(alpha: isTv ? 0.10 : 0.045);
+    // =========================================================================
+    // ROUTE
+    // =========================================================================
+
+    final String currentRoute =
+        ModalRoute.of(context)?.settings.name ?? '';
 
     // =========================================================================
-    // WRAP AVEC GLASS SURFACE CONTAINER - 1 SEULE COUCHE
+    // NAVIGATION
     // =========================================================================
-    return GlassSurfaceContainer(
-      style: glassStyle,
-      borderRadius: BorderRadius.zero,
-      width: double.infinity,
+
+    final List<UniversalTabItem> activeTabs =
+        hideNavigation
+            ? const <UniversalTabItem>[]
+            : (
+                tabs ??
+                const <UniversalTabItem>[]
+              );
+
+    // =========================================================================
+    // OMBRE APP BAR
+    // =========================================================================
+
+    final Color appBarShadowColor =
+        AppConstants.black.withValues(
+      alpha: effectiveShadowOpacity,
+    );
+
+    // =========================================================================
+    // CONTENU
+    // =========================================================================
+    //
+    // Aucun GlassSurfaceContainer ici.
+    //
+    // La surface est fournie par GlassScaffold.
+    //
+    // =========================================================================
+
+    return UniversalAppBarDecorator(
       height: appBarHeight,
-      padding: EdgeInsets.zero,
-      liftOnHover: false,
-      clipBehavior: Clip.antiAlias, // <-- FIX 3: Coupe le débordement
-      child: UniversalAppBarDecorator(
-        height: appBarHeight,
-        backgroundDecoration: const BoxDecoration(), // VIDE
-        useGradientBackground: false, // <-- FIX 4: FORCE FALSE pour éviter double gradient
-        child: UniversalAppBarContent(
-          title: title,
-          subtitle: subtitle,
-          showLogo: showLogo,
-          showBackButton: showBackButton,
-          onBack: onBack,
-          actions: actions,
-          tabs: activeTabs,
-          currentRoute: currentRoute,
-          isTv: isTv,
-          isDesktop: isDesktop,
-          isTablet: isTablet,
-          scale: scale,
-          appBarHeight: appBarHeight,
-          theme: theme,
-          iconColor: iconColor,
-          accentColor: accentColor,
-          shadowColor: appBarShadowColor,
-          actionDecoration: actionDecoration,
-        ),
+      backgroundDecoration:
+          const BoxDecoration(),
+      child: UniversalAppBarContent(
+        title: title,
+        subtitle: subtitle,
+        showLogo: showLogo,
+        showBackButton: showBackButton,
+        onBack: onBack,
+        actions: actions,
+        tabs: activeTabs,
+        currentRoute: currentRoute,
+        appBarHeight: appBarHeight,
+        theme: theme,
+        iconColor: iconColor,
+        accentColor: accentColor,
+        shadowColor: appBarShadowColor,
+        actionDecoration: actionDecoration,
       ),
     );
   }

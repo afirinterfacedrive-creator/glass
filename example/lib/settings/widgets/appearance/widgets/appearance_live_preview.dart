@@ -88,39 +88,57 @@ class AppearanceLivePreview extends StatelessWidget {
   // ==========================================================================
 
   List<Color> get background {
-    // ------------------------------------------------------------------------
-    // MODES SAGE
-    // ------------------------------------------------------------------------
+    switch (mode) {
+      // ----------------------------------------------------------------------
+      // AQUA
+      // ----------------------------------------------------------------------
 
-    if (config.isSage) {
-      return config.defaultBackground;
+      case AppThemeMode.aqua:
+        return aquaColors.isNotEmpty
+            ? aquaColors
+            : config.defaultBackground;
+
+      // ----------------------------------------------------------------------
+      // CLASSIC
+      // ----------------------------------------------------------------------
+
+      case AppThemeMode.classic:
+        return classicColors.isNotEmpty
+            ? classicColors
+            : config.defaultBackground;
+
+      // ----------------------------------------------------------------------
+      // LIGHT / DARK / SYSTEM
+      // ----------------------------------------------------------------------
+
+      case AppThemeMode.light:
+      case AppThemeMode.dark:
+      case AppThemeMode.system:
+        return config.defaultBackground;
+    }
+  }
+
+  // ==========================================================================
+  // GRADIENT DU FOND
+  // ==========================================================================
+
+  Gradient get backgroundGradient {
+    final colors = background;
+
+    if (colors.length == 1) {
+      return LinearGradient(
+        colors: [
+          colors.first,
+          colors.first,
+        ],
+      );
     }
 
-    // ------------------------------------------------------------------------
-    // AQUA
-    // ------------------------------------------------------------------------
-
-    if (mode == AppThemeMode.aqua) {
-      return aquaColors.isNotEmpty
-          ? aquaColors
-          : config.defaultBackground;
-    }
-
-    // ------------------------------------------------------------------------
-    // CLASSIC
-    // ------------------------------------------------------------------------
-
-    if (mode == AppThemeMode.classic) {
-      return classicColors.isNotEmpty
-          ? classicColors
-          : config.defaultBackground;
-    }
-
-    // ------------------------------------------------------------------------
-    // SYSTEM / DARK / LIGHT
-    // ------------------------------------------------------------------------
-
-    return config.defaultBackground;
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: colors,
+    );
   }
 
   // ==========================================================================
@@ -133,12 +151,11 @@ class AppearanceLivePreview extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: background,
-          ),
+          gradient: backgroundGradient,
         ),
         padding: const EdgeInsets.all(12),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             _buildAppBarPreview(),
 
@@ -207,7 +224,7 @@ class AppearanceLivePreview extends StatelessWidget {
 
   Widget _buildSearchPreview() {
     return GlassContainer(
-      style: GlassStyle.ghost,
+      style: GlassStyle.transparentAqua,
       borderRadius: BorderRadius.circular(14),
       padding: const EdgeInsets.symmetric(
         horizontal: 14,

@@ -1,99 +1,204 @@
-import 'package:flutter/material.dart';
-import 'package:universal_glass/enums/glass_enums.dart';
+import 'package:flutter/foundation.dart';
+import 'package:universal_glass/glass.dart';
+import 'package:universal_glass_example/settings/widgets/appearance/models/appearance_operator_settings.dart';
 
-/// ============================================================================
-/// APPEARANCE SETTINGS
-/// ============================================================================
+import 'models/appearance_app_bar_settings.dart';
+import 'models/appearance_component_settings.dart';
+import 'models/appearance_form_settings.dart';
+import 'models/appearance_input_settings.dart';
+import 'models/appearance_toast_settings.dart';
+import 'models/appearance_tooltip_settings.dart';
 
+export 'models/appearance_app_bar_settings.dart';
+export 'models/appearance_component_settings.dart';
+export 'models/appearance_form_settings.dart';
+export 'models/appearance_input_settings.dart';
+export 'models/appearance_toast_settings.dart';
+export 'models/appearance_tooltip_settings.dart';
+
+/// Configuration complète de l'apparence de l'application.
+///
+/// Cette classe est le conteneur central de tous les réglages Appearance.
+///
+/// Elle distingue :
+///
+/// - les réglages globaux de Glass ;
+/// - les réglages spécifiques à l'AppBar ;
+/// - les réglages communs aux composants ;
+/// - les réglages spécifiques aux champs ;
+/// - les réglages des formulaires ;
+/// - les réglages des Toast ;
+/// - les réglages des Tooltip ;
+/// - les réglages spécifiques aux opérateurs.
+///
+/// La classe est immutable.
+///
+/// Aucune logique Riverpod, stockage ou application de thème ne doit être
+/// placée ici. Ces responsabilités appartiennent à [AppearanceController].
 @immutable
 class AppearanceSettings {
-  // MODE
-  final AppThemeMode themeMode;
-  // STYLE GLASS
-  final GlassStyle glassStyle;
+  // ===========================================================================
+  // GLOBAL — THEME
+  // ===========================================================================
 
-  // COULEURS
-  final List<Color> aquaColors;
-  final List<Color> classicColors;
+  final String themeMode;
+  final String glassStyle;
 
-  // BLUR / NOISE
+  // ===========================================================================
+  // GLOBAL — COLORS
+  // ===========================================================================
+
+  final List<int> aquaColors;
+  final List<int> classicColors;
+
+  // ===========================================================================
+  // GLOBAL — BLUR
+  // ===========================================================================
+
   final bool enableBlur;
   final double blur;
+
+  // ===========================================================================
+  // GLOBAL — NOISE
+  // ===========================================================================
+
   final bool enableNoise;
   final double noise;
 
-  // GRADIENT
+  // ===========================================================================
+  // GLOBAL — GRADIENT
+  // ===========================================================================
+
   final bool enableGradient;
   final double gradientOpacity;
-  final int gradientDensity;
+  final double gradientDensity;
 
-  // SURFACE
+  // ===========================================================================
+  // GLOBAL — SURFACE
+  // ===========================================================================
+
   final double surfaceOpacity;
   final double borderRadius;
 
-  // BORDER
+  // ===========================================================================
+  // GLOBAL — BORDER
+  // ===========================================================================
+
   final bool enableBorder;
   final double borderOpacity;
   final double borderWidth;
 
-  // GLOW
+  // ===========================================================================
+  // GLOBAL — GLOW
+  // ===========================================================================
+
   final bool enableGlow;
   final double glowOpacity;
   final double glowBlur;
 
-  // HOVER
+  // ===========================================================================
+  // GLOBAL — HOVER
+  // ===========================================================================
+
   final bool enableHover;
   final double hoverLift;
 
-  // SHADOW
+  // ===========================================================================
+  // GLOBAL — SHADOW
+  // ===========================================================================
+
   final bool enableShadow;
   final double shadowOpacity;
   final double shadowBlur;
   final double shadowOffsetY;
 
+  // ===========================================================================
+  // SPECIALIZED SETTINGS
+  // ===========================================================================
+
+  /// Réglages visuels spécifiques de l'AppBar.
+  ///
+  /// Les propriétés contextuelles comme title, tabs, showBackButton, etc.
+  /// restent dans UniversalAppBar.
+  final AppearanceAppBarSettings appBar;
+
+  /// Réglages visuels communs aux composants.
+  final AppearanceComponentSettings component;
+
+  /// Réglages visuels spécifiques aux champs et contrôles d'entrée.
+  final AppearanceInputSettings input;
+
+  /// Réglages visuels et structurels des formulaires.
+  final AppearanceFormSettings form;
+
+  /// Réglages visuels des Toast.
+  final AppearanceToastSettings toast;
+
+  /// Réglages visuels des Tooltip.
+  final AppearanceTooltipSettings tooltip;
+
+  /// Réglages spécifiques aux composants opérateurs.
+  final AppearanceOperatorSettings operator;
+
+  // ===========================================================================
+  // CONSTRUCTOR
+  // ===========================================================================
+
   const AppearanceSettings({
-    this.themeMode = AppThemeMode.aqua,
-    this.glassStyle = GlassStyle.transparentAqua,
+    this.themeMode = AppConstants.defaultThemeMode,
+    this.glassStyle = AppConstants.defaultGlassStyle,
 
-    this.aquaColors = const [Color(0xFF4DD0E1), Color(0xFF00BCD4)],
-    this.classicColors = const [Color(0xFF121212), Color(0xFF1A1A1A)],
+    this.aquaColors = AppConstants.defaultAquaColors,
+    this.classicColors = AppConstants.defaultClassicColors,
 
-    this.enableBlur = true,
-    this.blur = 12.0,
+    this.enableBlur = AppConstants.defaultEnableBlur,
+    this.blur = AppConstants.defaultBlur,
 
-    this.enableNoise = false,
-    this.noise = 0.0,
+    this.enableNoise = AppConstants.defaultEnableNoise,
+    this.noise = AppConstants.defaultNoise,
 
-    this.enableGradient = true,
-    this.gradientOpacity = 1.0,
-    this.gradientDensity = 2,
+    this.enableGradient = AppConstants.defaultEnableGradient,
+    this.gradientOpacity = AppConstants.defaultGradientOpacity,
+    this.gradientDensity = AppConstants.defaultGradientDensity,
 
-    this.surfaceOpacity = 1.0,
-    this.borderRadius = 20.0,
+    this.surfaceOpacity = AppConstants.defaultSurfaceOpacity,
+    this.borderRadius = AppConstants.defaultBorderRadius,
 
-    this.enableBorder = true,
-    this.borderOpacity = 0.18,
-    this.borderWidth = 0.72,
+    this.enableBorder = AppConstants.defaultEnableBorder,
+    this.borderOpacity = AppConstants.defaultBorderOpacity,
+    this.borderWidth = AppConstants.defaultBorderWidth,
 
-    this.enableGlow = true,
-    this.glowOpacity = 0.18,
-    this.glowBlur = 18.0,
+    this.enableGlow = AppConstants.defaultEnableGlow,
+    this.glowOpacity = AppConstants.defaultGlowOpacity,
+    this.glowBlur = AppConstants.defaultGlowBlur,
 
-    this.enableHover = true,
-    this.hoverLift = 3.0,
+    this.enableHover = AppConstants.defaultEnableHover,
+    this.hoverLift = AppConstants.defaultHoverLift,
 
-    this.enableShadow = true,
-    this.shadowOpacity = 0.18,
-    this.shadowBlur = 12.0,
-    this.shadowOffsetY = 7.0,
+    this.enableShadow = AppConstants.defaultEnableShadow,
+    this.shadowOpacity = AppConstants.defaultShadowOpacity,
+    this.shadowBlur = AppConstants.defaultShadowBlur,
+    this.shadowOffsetY = AppConstants.defaultShadowOffsetY,
+
+    this.appBar = const AppearanceAppBarSettings(),
+    this.component = const AppearanceComponentSettings(),
+    this.input = const AppearanceInputSettings(),
+    this.form = const AppearanceFormSettings(),
+    this.toast = const AppearanceToastSettings(),
+    this.tooltip = const AppearanceTooltipSettings(),
+    this.operator = const AppearanceOperatorSettings(),
   });
 
-  AppearanceSettings copyWith({
-    AppThemeMode? themeMode,
-    GlassStyle? glassStyle,
+  // ===========================================================================
+  // COPY WITH
+  // ===========================================================================
 
-    List<Color>? aquaColors,
-    List<Color>? classicColors,
+  AppearanceSettings copyWith({
+    String? themeMode,
+    String? glassStyle,
+
+    List<int>? aquaColors,
+    List<int>? classicColors,
 
     bool? enableBlur,
     double? blur,
@@ -103,7 +208,7 @@ class AppearanceSettings {
 
     bool? enableGradient,
     double? gradientOpacity,
-    int? gradientDensity,
+    double? gradientDensity,
 
     double? surfaceOpacity,
     double? borderRadius,
@@ -123,6 +228,14 @@ class AppearanceSettings {
     double? shadowOpacity,
     double? shadowBlur,
     double? shadowOffsetY,
+
+    AppearanceAppBarSettings? appBar,
+    AppearanceComponentSettings? component,
+    AppearanceInputSettings? input,
+    AppearanceFormSettings? form,
+    AppearanceToastSettings? toast,
+    AppearanceTooltipSettings? tooltip,
+    AppearanceOperatorSettings? operator,
   }) {
     return AppearanceSettings(
       themeMode: themeMode ?? this.themeMode,
@@ -159,19 +272,187 @@ class AppearanceSettings {
       shadowOpacity: shadowOpacity ?? this.shadowOpacity,
       shadowBlur: shadowBlur ?? this.shadowBlur,
       shadowOffsetY: shadowOffsetY ?? this.shadowOffsetY,
+
+      appBar: appBar ?? this.appBar,
+      component: component ?? this.component,
+      input: input ?? this.input,
+      form: form ?? this.form,
+      toast: toast ?? this.toast,
+      tooltip: tooltip ?? this.tooltip,
+      operator: operator ?? this.operator,
     );
   }
 
-  // ==========================================================================
-  // SERIALISATION POUR PERSISTANCE
-  // ==========================================================================
-  Map<String, dynamic> toJson() {
-    return {
-      'themeMode': themeMode.name,
-      'glassStyle': glassStyle.name, // <-- SAVE STYLE
+  // ===========================================================================
+  // EFFECTIVE GLOBAL VALUES
+  // ===========================================================================
 
-      'aquaColors': aquaColors.map((c) => c.value).toList(),
-      'classicColors': classicColors.map((c) => c.value).toList(),
+  /// Blur global effectif.
+  double get effectiveBlur {
+    if (!enableBlur) {
+      return 0.0;
+    }
+
+    return blur;
+  }
+
+  /// Noise global effectif.
+  double get effectiveNoise {
+    if (!enableNoise) {
+      return 0.0;
+    }
+
+    return noise;
+  }
+
+  /// Opacité du gradient effective.
+  double get effectiveGradientOpacity {
+    if (!enableGradient) {
+      return 0.0;
+    }
+
+    return gradientOpacity;
+  }
+
+  /// Densité du gradient effective.
+  double get effectiveGradientDensity {
+    if (!enableGradient) {
+      return 0.0;
+    }
+
+    return gradientDensity;
+  }
+
+  /// Opacité globale de la surface.
+  double get effectiveSurfaceOpacity {
+    return surfaceOpacity;
+  }
+
+  /// Rayon global des surfaces.
+  double get effectiveBorderRadius {
+    return borderRadius;
+  }
+
+  /// Opacité globale de la bordure.
+  double get effectiveBorderOpacity {
+    if (!enableBorder) {
+      return 0.0;
+    }
+
+    return borderOpacity;
+  }
+
+  /// Épaisseur globale de la bordure.
+  double get effectiveBorderWidth {
+    if (!enableBorder) {
+      return 0.0;
+    }
+
+    return borderWidth;
+  }
+
+  /// Opacité globale du glow.
+  double get effectiveGlowOpacity {
+    if (!enableGlow) {
+      return 0.0;
+    }
+
+    return glowOpacity;
+  }
+
+  /// Blur global du glow.
+  double get effectiveGlowBlur {
+    if (!enableGlow) {
+      return 0.0;
+    }
+
+    return glowBlur;
+  }
+
+  /// Élévation/lift global du hover.
+  double get effectiveHoverLift {
+    if (!enableHover) {
+      return 0.0;
+    }
+
+    return hoverLift;
+  }
+
+  /// Opacité globale de l'ombre.
+  double get effectiveShadowOpacity {
+    if (!enableShadow) {
+      return 0.0;
+    }
+
+    return shadowOpacity;
+  }
+
+  /// Blur global de l'ombre.
+  double get effectiveShadowBlur {
+    if (!enableShadow) {
+      return 0.0;
+    }
+
+    return shadowBlur;
+  }
+
+  /// Décalage vertical global de l'ombre.
+  double get effectiveShadowOffsetY {
+    if (!enableShadow) {
+      return 0.0;
+    }
+
+    return shadowOffsetY;
+  }
+
+  // ===========================================================================
+  // EFFECTIVE COMPONENT
+  // ===========================================================================
+
+  AppearanceComponentSettings get effectiveComponent {
+    return component;
+  }
+
+  // ===========================================================================
+  // ACTIVE COLORS
+  // ===========================================================================
+
+  /// Retourne la palette correspondant au style actuel.
+  ///
+  /// Les styles explicitement Classic utilisent [classicColors].
+  /// Les autres styles utilisent [aquaColors].
+  List<int> get activeColors {
+    switch (glassStyle.toLowerCase()) {
+      case 'solidclassic':
+      case 'classic':
+      case 'opaquemat':
+      case 'opaqueheavy':
+      case 'gradientopaque':
+      case 'classicsb':
+        return List<int>.unmodifiable(classicColors);
+
+      case 'transparentaqua':
+      case 'solidaqua':
+      case 'customgradient':
+      case 'transparentred':
+      case 'transparentgreen':
+      case 'custom':
+      default:
+        return List<int>.unmodifiable(aquaColors);
+    }
+  }
+
+  // ===========================================================================
+  // JSON
+  // ===========================================================================
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'themeMode': themeMode,
+      'glassStyle': glassStyle,
+
+      'aquaColors': List<int>.from(aquaColors),
+      'classicColors': List<int>.from(classicColors),
 
       'enableBlur': enableBlur,
       'blur': blur,
@@ -201,114 +482,300 @@ class AppearanceSettings {
       'shadowOpacity': shadowOpacity,
       'shadowBlur': shadowBlur,
       'shadowOffsetY': shadowOffsetY,
+
+      // Specialized settings.
+      'appBar': appBar.toJson(),
+      'component': component.toJson(),
+      'input': input.toJson(),
+      'form': form.toJson(),
+      'toast': toast.toJson(),
+      'tooltip': tooltip.toJson(),
+
+      // Operator settings.
+      'operator': operator.toJson(),
     };
   }
 
-  factory AppearanceSettings.fromJson(Map<String, dynamic> json) {
+  // ===========================================================================
+  // FROM JSON
+  // ===========================================================================
+
+  factory AppearanceSettings.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return AppearanceSettings(
-      themeMode: AppThemeMode.values.byName(json['themeMode'] ?? 'aqua'),
-      glassStyle: GlassStyle.values.byName(json['glassStyle'] ?? 'transparentAqua'), // <-- LOAD STYLE
+      themeMode: _readString(
+        json,
+        'themeMode',
+        AppConstants.defaultThemeMode,
+      ),
 
-      aquaColors: (json['aquaColors'] as List<dynamic>?)?.map((e) => Color(e as int)).toList() ?? const [Color(0xFF4DD0E1), Color(0xFF00BCD4)],
-      classicColors: (json['classicColors'] as List<dynamic>?)?.map((e) => Color(e as int)).toList() ?? const [Color(0xFF121212), Color(0xFF1A1A1A)],
+      glassStyle: _readString(
+        json,
+        'glassStyle',
+        AppConstants.defaultGlassStyle,
+      ),
 
-      enableBlur: json['enableBlur'] ?? true,
-      blur: (json['blur'] ?? 12.0).toDouble(),
+      aquaColors: _readIntList(
+        json,
+        'aquaColors',
+        AppConstants.defaultAquaColors,
+      ),
 
-      enableNoise: json['enableNoise'] ?? false,
-      noise: (json['noise'] ?? 0.0).toDouble(),
+      classicColors: _readIntList(
+        json,
+        'classicColors',
+        AppConstants.defaultClassicColors,
+      ),
 
-      enableGradient: json['enableGradient'] ?? true,
-      gradientOpacity: (json['gradientOpacity'] ?? 1.0).toDouble(),
-      gradientDensity: json['gradientDensity'] ?? 2,
+      enableBlur: _readBool(
+        json,
+        'enableBlur',
+        AppConstants.defaultEnableBlur,
+      ),
 
-      surfaceOpacity: (json['surfaceOpacity'] ?? 1.0).toDouble(),
-      borderRadius: (json['borderRadius'] ?? 20.0).toDouble(),
+      blur: _readDouble(
+        json,
+        'blur',
+        AppConstants.defaultBlur,
+      ),
 
-      enableBorder: json['enableBorder'] ?? true,
-      borderOpacity: (json['borderOpacity'] ?? 0.18).toDouble(),
-      borderWidth: (json['borderWidth'] ?? 0.72).toDouble(),
+      enableNoise: _readBool(
+        json,
+        'enableNoise',
+        AppConstants.defaultEnableNoise,
+      ),
 
-      enableGlow: json['enableGlow'] ?? true,
-      glowOpacity: (json['glowOpacity'] ?? 0.18).toDouble(),
-      glowBlur: (json['glowBlur'] ?? 18.0).toDouble(),
+      noise: _readDouble(
+        json,
+        'noise',
+        AppConstants.defaultNoise,
+      ),
 
-      enableHover: json['enableHover'] ?? true,
-      hoverLift: (json['hoverLift'] ?? 3.0).toDouble(),
+      enableGradient: _readBool(
+        json,
+        'enableGradient',
+        AppConstants.defaultEnableGradient,
+      ),
 
-      enableShadow: json['enableShadow'] ?? true,
-      shadowOpacity: (json['shadowOpacity'] ?? 0.18).toDouble(),
-      shadowBlur: (json['shadowBlur'] ?? 12.0).toDouble(),
-      shadowOffsetY: (json['shadowOffsetY'] ?? 7.0).toDouble(),
+      gradientOpacity: _readDouble(
+        json,
+        'gradientOpacity',
+        AppConstants.defaultGradientOpacity,
+      ),
+
+      gradientDensity: _readDouble(
+        json,
+        'gradientDensity',
+        AppConstants.defaultGradientDensity,
+      ),
+
+      surfaceOpacity: _readDouble(
+        json,
+        'surfaceOpacity',
+        AppConstants.defaultSurfaceOpacity,
+      ),
+
+      borderRadius: _readDouble(
+        json,
+        'borderRadius',
+        AppConstants.defaultBorderRadius,
+      ),
+
+      enableBorder: _readBool(
+        json,
+        'enableBorder',
+        AppConstants.defaultEnableBorder,
+      ),
+
+      borderOpacity: _readDouble(
+        json,
+        'borderOpacity',
+        AppConstants.defaultBorderOpacity,
+      ),
+
+      borderWidth: _readDouble(
+        json,
+        'borderWidth',
+        AppConstants.defaultBorderWidth,
+      ),
+
+      enableGlow: _readBool(
+        json,
+        'enableGlow',
+        AppConstants.defaultEnableGlow,
+      ),
+
+      glowOpacity: _readDouble(
+        json,
+        'glowOpacity',
+        AppConstants.defaultGlowOpacity,
+      ),
+
+      glowBlur: _readDouble(
+        json,
+        'glowBlur',
+        AppConstants.defaultGlowBlur,
+      ),
+
+      enableHover: _readBool(
+        json,
+        'enableHover',
+        AppConstants.defaultEnableHover,
+      ),
+
+      hoverLift: _readDouble(
+        json,
+        'hoverLift',
+        AppConstants.defaultHoverLift,
+      ),
+
+      enableShadow: _readBool(
+        json,
+        'enableShadow',
+        AppConstants.defaultEnableShadow,
+      ),
+
+      shadowOpacity: _readDouble(
+        json,
+        'shadowOpacity',
+        AppConstants.defaultShadowOpacity,
+      ),
+
+      shadowBlur: _readDouble(
+        json,
+        'shadowBlur',
+        AppConstants.defaultShadowBlur,
+      ),
+
+      shadowOffsetY: _readDouble(
+        json,
+        'shadowOffsetY',
+        AppConstants.defaultShadowOffsetY,
+      ),
+
+      // Specialized settings.
+      appBar: AppearanceAppBarSettings.fromJson(
+        _readMap(json, 'appBar'),
+      ),
+
+      component: AppearanceComponentSettings.fromJson(
+        _readMap(json, 'component'),
+      ),
+
+      input: AppearanceInputSettings.fromJson(
+        _readMap(json, 'input'),
+      ),
+
+      form: AppearanceFormSettings.fromJson(
+        _readMap(json, 'form'),
+      ),
+
+      toast: AppearanceToastSettings.fromJson(
+        _readMap(json, 'toast'),
+      ),
+
+      tooltip: AppearanceTooltipSettings.fromJson(
+        _readMap(json, 'tooltip'),
+      ),
+
+      // Operator settings.
+      //
+      // Si la clé n'existe pas dans une ancienne configuration,
+      // _readMap() retourne une Map vide et AppearanceOperatorSettings
+      // utilise alors ses valeurs par défaut.
+      operator: AppearanceOperatorSettings.fromJson(
+        _readMap(json, 'operator'),
+      ),
     );
   }
 
-  // ==========================================================================
-  // HELPERS
-  // ==========================================================================
-  bool get isSage {
-    switch (themeMode) {
-      case AppThemeMode.sage:
-      case AppThemeMode.sagePro:
-      case AppThemeMode.sageOled:
-      case AppThemeMode.sageGlass:
-        return true;
-      default:
-        return false;
+  // ===========================================================================
+  // JSON HELPERS
+  // ===========================================================================
+
+  static String _readString(
+    Map<String, dynamic> json,
+    String key,
+    String fallback,
+  ) {
+    final dynamic value = json[key];
+
+    if (value is String && value.isNotEmpty) {
+      return value;
     }
+
+    return fallback;
   }
 
-  bool get isAqua => themeMode == AppThemeMode.aqua;
-  bool get isClassic => themeMode == AppThemeMode.classic;
-  bool get isDark => themeMode == AppThemeMode.dark;
-  bool get isLight => themeMode == AppThemeMode.light;
-  bool get isSystem => themeMode == AppThemeMode.system;
+  static bool _readBool(
+    Map<String, dynamic> json,
+    String key,
+    bool fallback,
+  ) {
+    final dynamic value = json[key];
 
-  List<Color> get activeColors {
-    if (isAqua) return aquaColors;
-    if (isClassic) return classicColors;
-    if (isSage) return sageBackground;
-    switch (themeMode) {
-      case AppThemeMode.light:
-        return const [Color(0xFFF5F5F5), Color(0xFFE8E8E8)];
-      case AppThemeMode.dark:
-      case AppThemeMode.system:
-        return const [Color(0xFF121212), Color(0xFF1E1E1E)];
-      default:
-        return const [Color(0xFF121212), Color(0xFF1E1E1E)];
+    if (value is bool) {
+      return value;
     }
+
+    return fallback;
   }
 
-  List<Color> get sageBackground {
-    switch (themeMode) {
-      case AppThemeMode.sage: return const [Color(0xFF121212), Color(0xFF1E1E1E)];
-      case AppThemeMode.sagePro: return const [Color(0xFF0A0A0A), Color(0xFF151515)];
-      case AppThemeMode.sageOled: return const [Colors.black, Colors.black];
-      case AppThemeMode.sageGlass: return const [Color(0xFF0F0F0F), Color(0xFF1A1A1A)];
-      default: return const [Color(0xFF121212), Color(0xFF1E1E1E)];
+  static double _readDouble(
+    Map<String, dynamic> json,
+    String key,
+    double fallback,
+  ) {
+    final dynamic value = json[key];
+
+    if (value is num) {
+      final double result = value.toDouble();
+
+      if (result.isFinite) {
+        return result;
+      }
     }
+
+    return fallback;
   }
 
-  double get effectiveBlur =>!enableBlur? 0.0 : blur.clamp(0.0, 100.0);
-  double get effectiveNoise =>!enableNoise? 0.0 : noise.clamp(0.0, 1.0);
-  double get effectiveGradientOpacity =>!enableGradient? 0.0 : gradientOpacity.clamp(0.0, 1.0);
-  int get effectiveGradientDensity => gradientDensity.clamp(1, 10);
-  double get effectiveSurfaceOpacity => surfaceOpacity.clamp(0.0, 1.0);
-  double get effectiveBorderOpacity =>!enableBorder? 0.0 : borderOpacity.clamp(0.0, 1.0);
-  double get effectiveBorderWidth =>!enableBorder? 0.0 : borderWidth.clamp(0.0, 10.0);
-  double get effectiveBorderRadius => borderRadius.clamp(0.0, 100.0);
-  double get effectiveGlowOpacity =>!enableGlow? 0.0 : glowOpacity.clamp(0.0, 1.0);
-  double get effectiveGlowBlur =>!enableGlow? 0.0 : glowBlur.clamp(0.0, 100.0);
-  bool get effectiveHover => enableHover;
-  double get effectiveHoverLift =>!enableHover? 0.0 : hoverLift.clamp(0.0, 20.0);
-  double get effectiveShadowOpacity =>!enableShadow? 0.0 : shadowOpacity.clamp(0.0, 1.0);
-  double get effectiveShadowBlur =>!enableShadow? 0.0 : shadowBlur.clamp(0.0, 100.0);
-  double get effectiveShadowOffsetY =>!enableShadow? 0.0 : shadowOffsetY.clamp(-50.0, 50.0);
+  static List<int> _readIntList(
+    Map<String, dynamic> json,
+    String key,
+    List<int> fallback,
+  ) {
+    final dynamic value = json[key];
 
-  factory AppearanceSettings.defaults() => const AppearanceSettings();
+    if (value is List) {
+      final List<int> result = <int>[];
 
-  @override
-  String toString() {
-    return 'AppearanceSettings(themeMode: $themeMode, glassStyle: $glassStyle)';
+      for (final dynamic item in value) {
+        if (item is int) {
+          result.add(item);
+        } else if (item is num) {
+          result.add(item.toInt());
+        }
+      }
+
+      if (result.isNotEmpty) {
+        return List<int>.unmodifiable(result);
+      }
+    }
+
+    return List<int>.unmodifiable(fallback);
+  }
+
+  static Map<String, dynamic> _readMap(
+    Map<String, dynamic> json,
+    String key,
+  ) {
+    final dynamic value = json[key];
+
+    if (value is Map) {
+      return Map<String, dynamic>.from(value);
+    }
+
+    return <String, dynamic>{};
   }
 }

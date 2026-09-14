@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:universal_glass/components/inputs/fieldoutlined/outlined_field_decoration.dart';
 import 'package:universal_glass/components/surface/glass_surface_container.dart';
 import 'package:universal_glass/enums/glass_enums.dart';
+import 'package:universal_glass/utils/glass_input_decoration.dart';
+import 'package:universal_glass/utils/glass_input_state_style.dart';
+import 'package:universal_glass/utils/glass_input_utils.dart';
 import 'package:universal_glass/utils/glass_layout_calibrator.dart';
-import 'package:universal_glass/utils/glass_theme_extension.dart';
-import '../../utils/glass_input_utils.dart';
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
 
 class GlassDatePickerTextField extends ConsumerStatefulWidget {
   final double fieldHeight;
@@ -15,6 +19,14 @@ class GlassDatePickerTextField extends ConsumerStatefulWidget {
   final DateTime? selectedDate;
   final void Function(DateTime date)? onDateSelected;
 
+  /// Layout explicite utilisé lorsque le contrôle est affiché
+  /// dans une route séparée comme un Dialog ou un Modal.
+  ///
+  /// Dans une utilisation normale, ce paramètre peut rester null :
+  /// le contrôle récupère automatiquement le layout depuis
+  /// GlassLayoutScope.
+  final GlassLayoutContext? layout;
+
   const GlassDatePickerTextField({
     super.key,
     this.fieldHeight = 55.0,
@@ -23,69 +35,216 @@ class GlassDatePickerTextField extends ConsumerStatefulWidget {
     this.hintText = 'Sélectionner une date...',
     this.selectedDate,
     this.onDateSelected,
+    this.layout,
   });
 
   @override
-  ConsumerState<GlassDatePickerTextField> createState() => _GlassDatePickerTextFieldState();
+  ConsumerState<GlassDatePickerTextField> createState() =>
+      _GlassDatePickerTextFieldState();
 }
 
-class _GlassDatePickerTextFieldState extends ConsumerState<GlassDatePickerTextField> {
+class _GlassDatePickerTextFieldState
+    extends ConsumerState<GlassDatePickerTextField> {
   bool _isPickerActive = false;
 
-  Future<void> _openDatePicker(dynamic glass, Color focusColor) async {
-    setState(() => _isPickerActive = true);
-    
-    // FIX : Utilisation du showDatePicker natif habillé aux couleurs de ton package
-    final DateTime? picked = await showDatePicker(
+  // ===========================================================================
+  // LAYOUT
+  // ===========================================================================
+
+  GlassLayoutContext _resolveLayout(BuildContext context) {
+    return widget.layout ?? GlassLayoutScope.of(context);
+  }
+
+  // ===========================================================================
+  // DATE PICKER
+  // ===========================================================================
+
+  Future<void> _openDatePicker(
+    GlassLayoutContext glass,
+  ) async {
+    if (_isPickerActive) {
+      return;
+    }
+
+    final GlassInputDecoration decoration =
+        glass.inputDecoration(
+      hasError: false,
+      isFocused: true,
+    );
+
+    final GlassInputStateStyle inputState =
+        GlassInputStateStyle.resolve(
+      decoration: decoration,
+      isFocused: true,
+      enabled: true,
+    );
+
+    setState(() {
+      _isPickerActive = true;
+    });
+
+    final DateTime now = DateTime.now();
+
+    final DateTime initialDate =
+        _normalizeInitialDate(
+      widget.selectedDate ?? now,
+    );
+
+    final DateTime? picked =
+        await showDatePicker(
       context: context,
-      initialDate: widget.selectedDate ?? DateTime.now(),
+      initialDate: initialDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      builder: (BuildContext context, Widget? child) {
+      builder: (
+        BuildContext context,
+        Widget? child,
+      ) {
+        if (child == null) {
+          return const SizedBox.shrink();
+        }
+
+        final ThemeData theme =
+            Theme.of(context);
+
+        final Color surfaceColor =
+            glass.palette.darkForStyle(
+          glass.theme.useAquaStyle,
+        );
+
         return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: focusColor, // Couleur de l'en-tête et du jour sélectionné (cyan ou orange)
-              surface: glass.palette.darkForStyle(glass.theme.useAquaStyle), // Fond sombre du calendrier
-              onSurface: glass.palette.textPrimary, // Couleur des numéros de jours
+          data: theme.copyWith(
+            colorScheme:
+                theme.colorScheme.copyWith(
+              primary:
+                  inputState.borderColor,
+              onPrimary:
+                  inputState.iconColorInBubble,
+              surface: surfaceColor,
+              onSurface:
+                  inputState.textColor,
             ),
-            // ignore: deprecated_member_use
-            dialogBackgroundColor: glass.palette.darkForStyle(glass.theme.useAquaStyle),
+            dialogTheme:
+                DialogThemeData(
+              backgroundColor:
+                  surfaceColor,
+            ),
           ),
-          child: child!,
+          child: child,
         );
       },
     );
 
-    setState(() => _isPickerActive = false);
-    if (picked != null && widget.onDateSelected != null) {
-      widget.onDateSelected!(picked);
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _isPickerActive = false;
+    });
+
+    if (picked != null) {
+      widget.onDateSelected?.call(picked);
     }
   }
 
+  // ===========================================================================
+  // DATE NORMALIZATION
+  // ===========================================================================
+
+  DateTime _normalizeInitialDate(
+    DateTime date,
+  ) {
+    final DateTime firstDate =
+        DateTime(2000);
+
+    final DateTime lastDate =
+        DateTime(2100);
+
+    if (date.isBefore(firstDate)) {
+      return firstDate;
+    }
+
+    if (date.isAfter(lastDate)) {
+      return lastDate;
+    }
+
+    return date;
+  }
+
+  // ===========================================================================
+  // DATE FORMAT
+  // ===========================================================================
+
+  String _formatDate(DateTime date) {
+    final String day =
+        date.day.toString().padLeft(2, '0');
+
+    final String month =
+        date.month.toString().padLeft(2, '0');
+
+    return '$day/$month/${date.year}';
+  }
+
+  // ===========================================================================
+  // BUILD
+  // ===========================================================================
+
   @override
   Widget build(BuildContext context) {
-    final glass = ref.watchGlassContext(context);
-    final bool useAqua = glass.theme.useAquaStyle;
-    final Color focusColor = useAqua ? Colors.cyanAccent : Colors.orangeAccent;
+    // -------------------------------------------------------------------------
+    // IMPORTANT
+    //
+    // Utilisation normale :
+    //   widget.layout == null
+    //   -> GlassLayoutScope.of(context)
+    //
+    // Dialog / Modal :
+    //   widget.layout != null
+    //   -> utilisation du layout transmis par le parent.
+    // -------------------------------------------------------------------------
+
+    final GlassLayoutContext glass =
+        _resolveLayout(context);
+
+    final GlassInputDecoration decoration =
+        glass.inputDecoration(
+      hasError: false,
+      isFocused: _isPickerActive,
+    );
+
+    final GlassInputStateStyle inputState =
+        GlassInputStateStyle.resolve(
+      decoration: decoration,
+      isFocused: _isPickerActive,
+      enabled: true,
+    );
+
     const double baseFontSize = 15.0;
 
-    final calibrator = GlassLayoutCalibrator(
+    final GlassLayoutCalibrator calibrator =
+        GlassLayoutCalibrator(
       fieldHeight: widget.fieldHeight,
       fontSize: baseFontSize,
       hasPrefixIcon: true,
     );
 
-    final bool hasValue = widget.selectedDate != null;
-    final bool isFloating = _isPickerActive || hasValue;
+    final bool hasValue =
+        widget.selectedDate != null;
 
-    // Formate la date au format local lisible (ex: 02/09/2026)
-    final String formattedDate = hasValue 
-        ? "${widget.selectedDate!.day.toString().padLeft(2, '0')}/${widget.selectedDate!.month.toString().padLeft(2, '0')}/${widget.selectedDate!.year}"
-        : '';
+    final bool isFloating =
+        _isPickerActive || hasValue;
+
+    final String formattedDate =
+        hasValue
+            ? _formatDate(
+                widget.selectedDate!,
+              )
+            : '';
 
     return GestureDetector(
-      onTap: () => _openDatePicker(glass, focusColor),
+      behavior: HitTestBehavior.opaque,
+      onTap: () => _openDatePicker(glass),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: SizedBox(
@@ -94,39 +253,98 @@ class _GlassDatePickerTextFieldState extends ConsumerState<GlassDatePickerTextFi
           child: Stack(
             clipBehavior: Clip.none,
             children: [
+              // ----------------------------------------------------------------
+              // SURFACE
+              // ----------------------------------------------------------------
+
               ClipPath(
-                clipper: isFloating ? NotchClipper(notchStart: calibrator.notchStart, notchWidth: calibrator.getLabelWidth(widget.label)) : null,
+                clipper: isFloating
+                    ? NotchClipper(
+                        notchStart:
+                            calibrator.notchStart,
+                        notchWidth:
+                            calibrator.getLabelWidth(
+                          widget.label,
+                        ),
+                      )
+                    : null,
                 child: GlassSurfaceContainer(
                   isFocused: _isPickerActive,
                   height: widget.fieldHeight,
-                  style: glass.effectiveGlassStyle,
-                  shape: GlassShapeType.squareRounded,
+                  style:
+                      glass.effectiveGlassStyle,
+                  shape:
+                      GlassShapeType.squareRounded,
                   effects: glass.effects,
                   enabled: true,
-                  decoration: glass.inputDecoration(hasError: false, isFocused: _isPickerActive),
-                  borderRadius: BorderRadius.circular(glass.isSmallMobile ? 12 : 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  clipBehavior: Clip.none,
+                  decoration: decoration,
+                  borderRadius:
+                      BorderRadius.circular(
+                    glass.isSmallMobile
+                        ? 12.0
+                        : 16.0,
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                  ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.center,
                     children: [
+                      // --------------------------------------------------------
+                      // CALENDAR ICON
+                      // --------------------------------------------------------
+
                       context.buildInputIcon(
-                        icon: Icons.calendar_month_outlined,
-                        isActive: _isPickerActive,
+                        layout: glass,
+                        icon: Icons
+                            .calendar_month_outlined,
+                        isActive:
+                            _isPickerActive,
                         enabled: true,
-                        onTap: () => _openDatePicker(glass, focusColor),
-                        fieldHeight: widget.fieldHeight,
+                        onTap: () =>
+                            _openDatePicker(
+                          glass,
+                        ),
+                        fieldHeight:
+                            widget.fieldHeight,
                       ),
-                      const SizedBox(width: 8),
+
+                      const SizedBox(
+                        width: 8.0,
+                      ),
+
+                      // --------------------------------------------------------
+                      // DATE TEXT
+                      // --------------------------------------------------------
+
                       Expanded(
                         child: Padding(
-                          padding: calibrator.contentPadding,
+                          padding:
+                              calibrator
+                                  .contentPadding,
                           child: Text(
-                            isFloating ? (hasValue ? formattedDate : widget.hintText) : '',
+                            isFloating
+                                ? (hasValue
+                                    ? formattedDate
+                                    : widget
+                                        .hintText)
+                                : '',
                             style: TextStyle(
-                              color: hasValue ? glass.palette.textPrimary : glass.palette.textSecondary.withValues(alpha: 0.5),
-                              fontSize: baseFontSize,
+                              color: hasValue
+                                  ? inputState
+                                      .textColor
+                                  : inputState
+                                      .hintColor,
+                              fontSize:
+                                  baseFontSize,
+                              fontWeight:
+                                  FontWeight.w400,
                             ),
+                            maxLines: 1,
+                            overflow:
+                                TextOverflow.ellipsis,
                           ),
                         ),
                       ),
@@ -134,22 +352,54 @@ class _GlassDatePickerTextFieldState extends ConsumerState<GlassDatePickerTextFi
                   ),
                 ),
               ),
+
+              // ----------------------------------------------------------------
+              // FLOATING LABEL
+              // ----------------------------------------------------------------
+
               AnimatedPositioned(
-                duration: const Duration(milliseconds: 180),
-                curve: Curves.easeInOutQuad,
-                top: isFloating ? -8.5 : calibrator.labelTopAtRest,
-                left: calibrator.getLabelLeft(isFloating),
+                duration:
+                    const Duration(
+                  milliseconds: 180,
+                ),
+                curve:
+                    Curves.easeInOutQuad,
+                top: isFloating
+                    ? -8.5
+                    : calibrator
+                        .labelTopAtRest,
+                left:
+                    calibrator.getLabelLeft(
+                  isFloating,
+                ),
                 child: IgnorePointer(
-                  child: AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 180),
-                    style: TextStyle(
-                      color: _isPickerActive ? focusColor : Colors.white.withValues(alpha: isFloating ? 0.6 : 0.4),
-                      fontSize: isFloating ? 10.5 : (calibrator.isVeryCompact ? 14 : baseFontSize),
-                      fontWeight: isFloating ? FontWeight.w700 : FontWeight.w500,
-                      letterSpacing: 0.2,
-                      backgroundColor: Colors.transparent,
+                  child:
+                      AnimatedDefaultTextStyle(
+                    duration:
+                        const Duration(
+                      milliseconds: 180,
                     ),
-                    child: Text(widget.label),
+                    curve:
+                        Curves.easeInOut,
+                    style: TextStyle(
+                      color: inputState
+                          .effectiveLabelColor,
+                      fontSize: isFloating
+                          ? 10.5
+                          : (calibrator
+                                  .isVeryCompact
+                              ? 14.0
+                              : baseFontSize),
+                      fontWeight: isFloating
+                          ? FontWeight.w700
+                          : FontWeight.w500,
+                      letterSpacing: 0.2,
+                      backgroundColor:
+                          Colors.transparent,
+                    ),
+                    child: Text(
+                      widget.label,
+                    ),
                   ),
                 ),
               ),

@@ -105,24 +105,6 @@ class AppearanceModeConfig {
   // UTILITAIRES
   // ==========================================================================
 
-  /// Indique si ce mode appartient à la famille SAGE.
-  bool get isSage {
-    switch (mode) {
-      case AppThemeMode.sage:
-      case AppThemeMode.sagePro:
-      case AppThemeMode.sageOled:
-      case AppThemeMode.sageGlass:
-        return true;
-
-      case AppThemeMode.system:
-      case AppThemeMode.dark:
-      case AppThemeMode.light:
-      case AppThemeMode.aqua:
-      case AppThemeMode.classic:
-        return false;
-    }
-  }
-
   /// Indique si le mode est Aqua.
   bool get isAqua => mode == AppThemeMode.aqua;
 
@@ -134,10 +116,6 @@ class AppearanceModeConfig {
     switch (mode) {
       case AppThemeMode.dark:
       case AppThemeMode.classic:
-      case AppThemeMode.sage:
-      case AppThemeMode.sagePro:
-      case AppThemeMode.sageOled:
-      case AppThemeMode.sageGlass:
         return true;
 
       case AppThemeMode.system:
@@ -288,143 +266,41 @@ class AppearanceModeConfig {
           defaultGlowOpacity: 0.22,
           enableHover: true,
         );
-
-      // ======================================================================
-      // SAGE
-      // ======================================================================
-
-      case AppThemeMode.sage:
-        return const AppearanceModeConfig(
-          mode: AppThemeMode.sage,
-          label: 'Sage',
-          icon: Icons.local_florist,
-          glassStyle: GlassStyle.sage,
-          defaultBackground: [
-            Color(0xFF121212),
-            Color(0xFF1E1E1E),
-          ],
-          supportsGradient: false,
-          supportsBlur: false,
-          supportsNoise: false,
-          defaultBlur: 0.0,
-          defaultNoise: 0.0,
-          defaultOpacity: 0.20,
-          defaultBorderOpacity: 0.35,
-          defaultGlowOpacity: 0.35,
-          enableHover: false,
-        );
-
-      // ======================================================================
-      // SAGE PRO
-      // ======================================================================
-
-      case AppThemeMode.sagePro:
-        return const AppearanceModeConfig(
-          mode: AppThemeMode.sagePro,
-          label: 'Sage Pro',
-          icon: Icons.workspace_premium,
-          glassStyle: GlassStyle.sagePro,
-          defaultBackground: [
-            Color(0xFF0A0A0A),
-            Color(0xFF151515),
-          ],
-          supportsGradient: false,
-          supportsBlur: false,
-          supportsNoise: false,
-          defaultBlur: 0.0,
-          defaultNoise: 0.0,
-          defaultOpacity: 0.30,
-          defaultBorderOpacity: 0.40,
-          defaultGlowOpacity: 0.40,
-          enableHover: false,
-        );
-
-      // ======================================================================
-      // SAGE OLED
-      // ======================================================================
-
-      case AppThemeMode.sageOled:
-        return const AppearanceModeConfig(
-          mode: AppThemeMode.sageOled,
-          label: 'Sage OLED',
-          icon: Icons.brightness_1,
-          glassStyle: GlassStyle.sageOled,
-          defaultBackground: [
-            Colors.black,
-            Colors.black,
-          ],
-          supportsGradient: false,
-          supportsBlur: false,
-          supportsNoise: false,
-          defaultBlur: 0.0,
-          defaultNoise: 0.0,
-          defaultOpacity: 1.0,
-          defaultBorderOpacity: 0.45,
-          defaultGlowOpacity: 0.45,
-          enableHover: false,
-        );
-
-      // ======================================================================
-      // SAGE GLASS
-      // ======================================================================
-
-      case AppThemeMode.sageGlass:
-        return const AppearanceModeConfig(
-          mode: AppThemeMode.sageGlass,
-          label: 'Sage Glass',
-          icon: Icons.blur_on,
-          glassStyle: GlassStyle.sageGlass,
-          defaultBackground: [
-            Color(0xFF0F0F0F),
-            Color(0xFF1A1A1A),
-          ],
-          supportsGradient: false,
-          supportsBlur: false,
-          supportsNoise: false,
-          defaultBlur: 0.0,
-          defaultNoise: 0.0,
-          defaultOpacity: 0.15,
-          defaultBorderOpacity: 0.35,
-          defaultGlowOpacity: 0.35,
-          enableHover: false,
-        );
     }
   }
 
   // ==========================================================================
-  // LISTE DES MODES UTILISÉS PAR L'INTERFACE
+  // MODES UTILISÉS PAR L'INTERFACE APPEARANCE
   // ==========================================================================
 
-  static List<AppearanceModeConfig> get all => const [
-        // Les objets sont générés par fromMode.
-      ];
-
-  /// Liste dynamique officielle des modes disponibles.
+  /// Liste officielle des modes proposés dans l'interface Appearance.
   ///
-  /// Cette liste est volontairement limitée aux modes proposés
-  /// dans AppearanceSection.
+  /// L'interface utilisateur expose uniquement les deux styles principaux :
+  /// Aqua et Classic.
   static List<AppearanceModeConfig> get selectableModes => [
         fromMode(AppThemeMode.aqua),
         fromMode(AppThemeMode.classic),
-        fromMode(AppThemeMode.sage),
-        fromMode(AppThemeMode.sagePro),
-        fromMode(AppThemeMode.sageOled),
-        fromMode(AppThemeMode.sageGlass),
       ];
 
-  /// Tous les modes de AppThemeMode.
+  // ==========================================================================
+  // TOUS LES MODES
+  // ==========================================================================
+
+  /// Tous les modes actuellement disponibles dans AppThemeMode.
   ///
-  /// Utile pour les tests, debug ou futures interfaces.
+  /// Utile pour les tests, le debug ou les futures interfaces.
   static List<AppearanceModeConfig> get allModes => [
         fromMode(AppThemeMode.system),
         fromMode(AppThemeMode.light),
         fromMode(AppThemeMode.dark),
         fromMode(AppThemeMode.aqua),
         fromMode(AppThemeMode.classic),
-        fromMode(AppThemeMode.sage),
-        fromMode(AppThemeMode.sagePro),
-        fromMode(AppThemeMode.sageOled),
-        fromMode(AppThemeMode.sageGlass),
       ];
-}
 
+  // ==========================================================================
+  // ALIAS
+  // ==========================================================================
+
+  /// Alias pratique pour obtenir toutes les configurations.
+  static List<AppearanceModeConfig> get all => allModes;
+}

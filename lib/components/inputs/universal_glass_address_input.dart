@@ -3,7 +3,7 @@ import 'package:universal_glass/components/glass_action_icon.dart';
 import 'package:universal_glass/components/surface/glass_surface_container.dart';
 
 import '../../enums/glass_enums.dart';
-import 'glass_input_decoration.dart';
+import '../../utils/glass_input_decoration.dart';
 
 /// ============================================================================
 /// UNIVERSAL GLASS ADDRESS INPUT

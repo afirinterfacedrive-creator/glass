@@ -6,7 +6,7 @@ import 'package:universal_glass/components/surface/glass_surface_container.dart'
 import 'package:universal_glass/utils/glass_layout_calibrator.dart';
 
 import '../../../enums/glass_enums.dart';
-import '../glass_input_decoration.dart';
+import '../../../utils/glass_input_decoration.dart';
 
 
 class PhoneInputVisual extends StatelessWidget {

@@ -1,16 +1,196 @@
-# glass
+# Universal Glass
 
-A new Flutter project.
+A reusable Flutter UI library for building modern glassmorphism interfaces with customizable themes, effects, surfaces, controls, dialogs, forms, and more.
 
-## Getting Started
+[![pub package](https://img.shields.io/pub/v/universal_glass.svg)](https://pub.dev/packages/universal_glass)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+Universal Glass provides reusable glass-style components designed to help you build consistent and customizable Flutter interfaces.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Glassmorphism surfaces and effects
+- Customizable Aqua and Classic glass styles
+- Light, Dark, Aqua, Classic, and System appearance modes
+- Persistent appearance and theme settings
+- Configurable blur, gradients, borders, shadows, glow, and hover effects
+- Reusable glass buttons and controls
+- Glass toggles and physical controls
+- Universal app bar and tab components
+- Reusable dialogs and modals
+- Glass forms and input components
+- Toast and tooltip components
+- Phone input with country and operator data
+- Flutter and Riverpod integration
+- Responsive glass UI components
+- Customizable colors and appearance settings
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+
+Add `universal_glass` to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  universal_glass: ^2.1.1
+```
+
+Then run:
+
+```bash
+flutter pub get
+```
+
+## Import
+
+Import the public package API:
+
+```dart
+import 'package:universal_glass/glass.dart';
+```
+
+The package is designed to expose its reusable functionality through the public `glass.dart` entry point.
+
+## Basic Usage
+
+A simple glass surface can be created using the package components:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:universal_glass/glass.dart';
+
+class GlassExample extends StatelessWidget {
+  const GlassExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GlassSurface(
+      child: const Padding(
+        padding: EdgeInsets.all(24),
+        child: Text(
+          'Universal Glass',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Appearance
+
+Universal Glass supports multiple appearance modes:
+
+- `system`
+- `aqua`
+- `classic`
+- `light`
+- `dark`
+
+Appearance settings can be customized and persisted independently for the supported modes.
+
+The glass appearance can be configured through options such as:
+
+- Blur
+- Background opacity
+- Gradient
+- Gradient density
+- Border
+- Border opacity and width
+- Glow
+- Hover effects
+- Shadows
+- Border radius
+- Custom glass colors
+
+## Glass Effects
+
+The package provides reusable glass effects that can be applied to surfaces and components.
+
+```dart
+final effect = GlassEffects.aqua();
+```
+
+Additional predefined effects are available for different visual styles.
+
+## Glass Components
+
+Universal Glass includes reusable components for common application interfaces, including:
+
+- App bars
+- Buttons
+- Tabs
+- Surfaces
+- Toggles
+- Dialogs
+- Modals
+- Forms
+- Inputs
+- Toasts
+- Tooltips
+- Physical controls
+
+Components are designed to work together so that applications can maintain a consistent glass visual language.
+
+## Phone Input
+
+Universal Glass also provides a reusable phone number input with country and operator support.
+
+The phone input system supports:
+
+- Country selection
+- Country flags
+- Country calling codes
+- Operator prefixes
+- Custom country data
+- Custom operator data
+- Persistent custom phone data
+
+## Example Application
+
+The repository includes an example application demonstrating the package components and appearance system.
+
+The example showcases:
+
+- Glass surfaces
+- Buttons and controls
+- Appearance settings
+- Glass effects
+- Dialogs and modals
+- Forms and inputs
+- Phone input
+- Theme customization
+
+## Requirements
+
+Universal Glass is built for Flutter applications and uses Flutter's standard widget system.
+
+Make sure your Flutter SDK satisfies the SDK constraints defined in `pubspec.yaml`.
+
+## Documentation
+
+API documentation is available on pub.dev:
+
+https://pub.dev/packages/universal_glass
+
+Source code and examples are available on GitHub:
+
+https://github.com/afirinterfacedrive-creator/glass
+
+## License
+
+Universal Glass is released under the MIT License.
+
+See the [LICENSE](LICENSE) file for the complete license text.
+
+## Contributing
+
+Contributions, bug reports, feature requests, and improvements are welcome.
+
+Please open an issue or pull request on the GitHub repository.
+
+---
+
+Made with Flutter and Universal Glass.

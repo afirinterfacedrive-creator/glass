@@ -23,10 +23,10 @@ class BreakerSwitchPreview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final glass = ref.watchGlassContext(context);
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
     final bool isSmall = glass.isSmallMobile;
-    final palette = glass.theme.useAquaStyle 
-        ? GlassColorPalette.aquaPreset() 
+    final palette = glass.theme.useAquaStyle
+        ? GlassColorPalette.aquaPreset()
         : GlassColorPalette.classicPreset();
 
     return Column(

@@ -1,105 +1,55 @@
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// ============================================================================
-/// GLASS MODE CHIP
-/// ============================================================================
-///
-/// Chip moderne de sélection de mode pour Universal Glass.
-///
-/// Caractéristiques :
-/// - Surface glassmorphism.
-/// - Forme capsule moderne.
-/// - Bordure subtile.
-/// - Icône intégrée dans une capsule secondaire.
-/// - État sélectionné avec accent + glow.
-/// - Animation fluide lors du changement d'état.
-/// - Entièrement générique grâce à [T].
-///
-/// Le widget ne dépend d'aucune page ou logique externe.
-///
-/// Exemple :
-///
-// ignore: unintended_html_in_doc_comment
-/// GlassModeChip<AppThemeMode>(
-///   label: 'Aqua',
-///   icon: Icons.water_drop,
-///   mode: AppThemeMode.aqua,
-///   selected: currentMode,
-///   onSelected: onModeChanged,
-/// );
-///
-/// ============================================================================
-class GlassModeChip<T> extends StatefulWidget {
-  /// Texte affiché.
+import 'package:universal_glass/components/surface/glass_surface_container.dart';
+import 'package:universal_glass/theme/glass_effects.dart';
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
+
+import '../../enums/glass_enums.dart';
+
+class GlassModeChip<T> extends ConsumerStatefulWidget {
   final String label;
-
-  /// Icône du mode.
   final IconData icon;
 
-  /// Valeur représentée par ce chip.
   final T mode;
-
-  /// Valeur actuellement sélectionnée.
   final T selected;
 
-  /// Callback exécuté lors de la sélection.
   final ValueChanged<T> onSelected;
 
-  /// Couleur d'accent utilisée lorsque le chip est sélectionné.
-  final Color accent;
+  /// Couleur d'accent explicite.
+  ///
+  /// Si elle n'est pas fournie, la couleur active
+  /// du GlassLayoutContext est utilisée.
+  final Color? accent;
 
-  /// Hauteur du chip.
   final double height;
-
-  /// Padding horizontal.
   final double horizontalPadding;
-
-  /// Rayon du chip.
   final double borderRadius;
 
-  /// Taille de l'icône.
   final double iconSize;
-
-  /// Taille de la zone de l'icône.
   final double iconContainerSize;
 
-  /// Couleur de fond non sélectionnée.
-  final Color backgroundColor;
-
-  /// Opacité du fond glass.
+  /// Conservé pour compatibilité avec l'ancienne API.
+  final Color? backgroundColor;
   final double backgroundOpacity;
 
-  /// Couleur de la bordure non sélectionnée.
-  final Color borderColor;
-
-  /// Opacité de la bordure non sélectionnée.
+  /// Conservé pour compatibilité avec l'ancienne API.
+  final Color? borderColor;
   final double borderOpacity;
 
-  /// Couleur du texte non sélectionné.
-  final Color textColor;
+  final Color? textColor;
+  final Color? selectedTextColor;
 
-  /// Couleur du texte sélectionné.
-  final Color selectedTextColor;
-
-  /// Active ou non le blur.
   final bool enableBlur;
-
-  /// Intensité du blur horizontal.
   final double blurSigmaX;
-
-  /// Intensité du blur vertical.
   final double blurSigmaY;
 
-  /// Active ou non le glow de sélection.
   final bool enableGlow;
-
-  /// Rayon du glow.
   final double glowRadius;
 
-  /// Callback optionnel lorsque le pointeur entre dans le chip.
+  final bool enabled;
+
   final VoidCallback? onHover;
 
   const GlassModeChip({
@@ -109,171 +59,179 @@ class GlassModeChip<T> extends StatefulWidget {
     required this.mode,
     required this.selected,
     required this.onSelected,
-    this.accent = const Color(0xFFE50914),
-    this.height = 48,
-    this.horizontalPadding = 8,
-    this.borderRadius = 16,
-    this.iconSize = 18,
-    this.iconContainerSize = 32,
-    this.backgroundColor = Colors.white,
+    this.accent,
+    this.height = 48.0,
+    this.horizontalPadding = 8.0,
+    this.borderRadius = 16.0,
+    this.iconSize = 18.0,
+    this.iconContainerSize = 32.0,
+    this.backgroundColor,
     this.backgroundOpacity = 0.055,
-    this.borderColor = Colors.white,
+    this.borderColor,
     this.borderOpacity = 0.16,
-    this.textColor = Colors.white70,
-    this.selectedTextColor = Colors.white,
+    this.textColor,
+    this.selectedTextColor,
     this.enableBlur = true,
-    this.blurSigmaX = 12,
-    this.blurSigmaY = 12,
+    this.blurSigmaX = 12.0,
+    this.blurSigmaY = 12.0,
     this.enableGlow = true,
-    this.glowRadius = 14,
+    this.glowRadius = 14.0,
+    this.enabled = true,
     this.onHover,
   });
 
   @override
-  State<GlassModeChip<T>> createState() => _GlassModeChipState<T>();
+  ConsumerState<GlassModeChip<T>> createState() => _GlassModeChipState<T>();
 }
 
-class _GlassModeChipState<T> extends State<GlassModeChip<T>> {
+class _GlassModeChipState<T> extends ConsumerState<GlassModeChip<T>> {
   bool _hovered = false;
   bool _pressed = false;
 
   bool get _isSelected => widget.mode == widget.selected;
 
   void _handleTap() {
+    if (!widget.enabled) return;
+
     widget.onSelected(widget.mode);
   }
 
   @override
   Widget build(BuildContext context) {
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
+
     final bool selected = _isSelected;
+    final bool enabled = widget.enabled;
 
-    final Color surfaceColor = selected
-        ? Color.alphaBlend(
-            widget.accent.withValues(alpha: 0.16),
-            widget.backgroundColor.withValues(
-              alpha: widget.backgroundOpacity,
-            ),
-          )
-        : widget.backgroundColor.withValues(
-            alpha: widget.backgroundOpacity,
-          );
+    /*
+     * ------------------------------------------------------------
+     * COULEURS
+     * ------------------------------------------------------------
+     *
+     * Le thème global fournit la couleur active.
+     *
+     * Un accent explicitement fourni par le composant
+     * reste prioritaire.
+     */
+    final Color accent = widget.accent ?? glass.focusColor;
 
-    final Color effectiveBorderColor = selected
-        ? widget.accent
-        : widget.borderColor;
+    final Color resolvedTextColor = widget.textColor ?? Colors.white70;
 
-    final double effectiveBorderOpacity = selected
-        ? 0.72
-        : widget.borderOpacity;
+    final Color resolvedSelectedTextColor =
+        widget.selectedTextColor ?? Colors.white;
 
     final Color effectiveTextColor = selected
-        ? widget.selectedTextColor
-        : widget.textColor;
+        ? resolvedSelectedTextColor
+        : resolvedTextColor;
 
-    final Color effectiveIconColor = selected
-        ? widget.accent
-        : widget.textColor;
+    final Color iconColor = selected ? accent : resolvedTextColor;
 
+    /*
+     * ------------------------------------------------------------
+     * EFFETS
+     * ------------------------------------------------------------
+     *
+     * Les effets sont construits à partir du contexte.
+     *
+     * Le Chip ne recrée pas son propre BackdropFilter.
+     */
+    final GlassEffects chipEffects = glass.effects.copyWith(
+      bgBlur: widget.enableBlur ? widget.blurSigmaX : 0.0,
+      blur: widget.enableBlur ? widget.blurSigmaY : 0.0,
+      surfaceOpacity: widget.backgroundOpacity,
+      enableGlow: widget.enableGlow && selected,
+      glowOpacity: selected ? glass.effects.glowOpacity : 0.0,
+      glowBlur: widget.glowRadius,
+      borderOpacity: selected ? 0.72 : widget.borderOpacity,
+      borderWidth: selected ? 1.2 : 1.0,
+    );
+
+    /*
+     * ------------------------------------------------------------
+     * ANIMATION
+     * ------------------------------------------------------------
+     */
+    final double scale = !enabled
+        ? 1.0
+        : _pressed
+        ? 0.97
+        : _hovered
+        ? 1.01
+        : 1.0;
+
+    /*
+     * ------------------------------------------------------------
+     * CONTENU
+     * ------------------------------------------------------------
+     */
     final Widget content = AnimatedScale(
-      scale: _pressed ? 0.97 : (_hovered ? 1.01 : 1.0),
+      scale: scale,
       duration: const Duration(milliseconds: 120),
       curve: Curves.easeOutCubic,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(widget.borderRadius),
-        child: BackdropFilter(
-          filter: widget.enableBlur
-              ? ImageFilter.blur(
-                  sigmaX: widget.blurSigmaX,
-                  sigmaY: widget.blurSigmaY,
-                )
-              : ImageFilter.blur(
-                  sigmaX: 0,
-                  sigmaY: 0,
-                ),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 220),
-            curve: Curves.easeOutCubic,
-            height: widget.height,
-            padding: EdgeInsets.symmetric(
-              horizontal: widget.horizontalPadding,
-            ),
-            decoration: BoxDecoration(
-              color: surfaceColor,
-              borderRadius: BorderRadius.circular(
-                widget.borderRadius,
-              ),
-              border: Border.all(
-                color: effectiveBorderColor.withValues(
-                  alpha: effectiveBorderOpacity,
-                ),
-                width: selected ? 1.2 : 1.0,
-              ),
-              boxShadow: [
-                if (selected && widget.enableGlow)
-                  BoxShadow(
-                    color: widget.accent.withValues(
-                      alpha: 0.20,
-                    ),
-                    blurRadius: widget.glowRadius,
-                    spreadRadius: 0,
+      child: SizedBox(
+        height: widget.height,
+        child: GlassSurfaceContainer(
+          role: GlassSurfaceRole.card,
+          style: glass.effectiveGlassStyle,
+          effects: chipEffects,
+          shape: GlassShapeType.squareRounded,
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          padding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
+          enabled: enabled,
+          liftOnHover: enabled,
+          onTap: enabled ? _handleTap : null,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              /*
+               * --------------------------------------------------
+               * ICON CONTAINER
+               * --------------------------------------------------
+               */
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeOutCubic,
+                width: widget.iconContainerSize,
+                height: widget.iconContainerSize,
+                decoration: BoxDecoration(
+                  color: selected
+                      ? accent.withValues(alpha: 0.15)
+                      : Colors.white.withValues(alpha: 0.045),
+                  borderRadius: BorderRadius.circular(
+                    widget.borderRadius * 0.65,
                   ),
-                if (_hovered && !selected)
-                  BoxShadow(
-                    color: Colors.white.withValues(
-                      alpha: 0.055,
-                    ),
-                    blurRadius: 10,
-                    spreadRadius: 0,
-                  ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // ============================================================
-                // ICON CONTAINER
-                // ============================================================
-
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 220),
-                  curve: Curves.easeOutCubic,
-                  width: widget.iconContainerSize,
-                  height: widget.iconContainerSize,
-                  decoration: BoxDecoration(
+                  border: Border.all(
                     color: selected
-                        ? widget.accent.withValues(alpha: 0.15)
-                        : Colors.white.withValues(alpha: 0.045),
-                    borderRadius: BorderRadius.circular(
-                      widget.borderRadius * 0.65,
-                    ),
-                    border: Border.all(
-                      color: selected
-                          ? widget.accent.withValues(alpha: 0.30)
-                          : Colors.white.withValues(alpha: 0.08),
-                    ),
-                  ),
-                  child: Icon(
-                    widget.icon,
-                    size: widget.iconSize,
-                    color: effectiveIconColor,
+                        ? accent.withValues(alpha: 0.30)
+                        : Colors.white.withValues(alpha: 0.08),
                   ),
                 ),
+                child: Icon(
+                  widget.icon,
+                  size: widget.iconSize,
+                  color: enabled
+                      ? iconColor
+                      : iconColor.withValues(alpha: 0.40),
+                ),
+              ),
 
-                const SizedBox(width: 9),
+              const SizedBox(width: 9),
 
-                // ============================================================
-                // LABEL
-                // ============================================================
-
-                AnimatedDefaultTextStyle(
+              /*
+               * --------------------------------------------------
+               * LABEL
+               * --------------------------------------------------
+               */
+              Flexible(
+                child: AnimatedDefaultTextStyle(
                   duration: const Duration(milliseconds: 180),
                   curve: Curves.easeOut,
                   style: TextStyle(
-                    color: effectiveTextColor,
+                    color: enabled
+                        ? effectiveTextColor
+                        : effectiveTextColor.withValues(alpha: 0.40),
                     fontSize: 13.5,
-                    fontWeight: selected
-                        ? FontWeight.w700
-                        : FontWeight.w500,
+                    fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                     letterSpacing: 0.05,
                   ),
                   child: Text(
@@ -282,91 +240,97 @@ class _GlassModeChipState<T> extends State<GlassModeChip<T>> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+              ),
 
-                // ============================================================
-                // SELECTED INDICATOR
-                // ============================================================
-
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 180),
-                  transitionBuilder: (child, animation) {
-                    return ScaleTransition(
-                      scale: animation,
-                      child: FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: selected
-                      ? Padding(
-                          key: const ValueKey('selected'),
-                          padding: const EdgeInsets.only(
-                            left: 8,
+              /*
+               * --------------------------------------------------
+               * INDICATEUR SELECTED
+               * --------------------------------------------------
+               */
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 180),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(
+                    scale: animation,
+                    child: FadeTransition(opacity: animation, child: child),
+                  );
+                },
+                child: selected
+                    ? Padding(
+                        key: const ValueKey('selected'),
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: accent,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: accent.withValues(alpha: 0.65),
+                                blurRadius: 6,
+                              ),
+                            ],
                           ),
-                          child: Container(
-                            width: 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              color: widget.accent,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: widget.accent.withValues(
-                                    alpha: 0.65,
-                                  ),
-                                  blurRadius: 6,
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      : const SizedBox(
-                          key: ValueKey('unselected'),
                         ),
-                ),
-              ],
-            ),
+                      )
+                    : const SizedBox(key: ValueKey('unselected')),
+              ),
+            ],
           ),
         ),
       ),
     );
 
+    /*
+     * ------------------------------------------------------------
+     * INTERACTION
+     * ------------------------------------------------------------
+     */
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) {
-        setState(() {
-          _hovered = true;
-        });
+      cursor: enabled ? SystemMouseCursors.click : SystemMouseCursors.basic,
+      onEnter: enabled
+          ? (_) {
+              setState(() {
+                _hovered = true;
+              });
 
-        widget.onHover?.call();
-      },
-      onExit: (_) {
-        setState(() {
-          _hovered = false;
-        });
-      },
+              widget.onHover?.call();
+            }
+          : null,
+      onExit: enabled
+          ? (_) {
+              setState(() {
+                _hovered = false;
+              });
+            }
+          : null,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTapDown: (_) {
-          setState(() {
-            _pressed = true;
-          });
-        },
-        onTapUp: (_) {
-          setState(() {
-            _pressed = false;
-          });
-        },
-        onTapCancel: () {
-          setState(() {
-            _pressed = false;
-          });
-        },
-        onTap: _handleTap,
+        onTapDown: enabled
+            ? (_) {
+                setState(() {
+                  _pressed = true;
+                });
+              }
+            : null,
+        onTapUp: enabled
+            ? (_) {
+                setState(() {
+                  _pressed = false;
+                });
+              }
+            : null,
+        onTapCancel: enabled
+            ? () {
+                setState(() {
+                  _pressed = false;
+                });
+              }
+            : null,
+        onTap: enabled ? _handleTap : null,
         child: content,
       ),
     );
   }
 }
-

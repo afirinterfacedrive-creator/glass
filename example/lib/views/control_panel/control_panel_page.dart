@@ -37,8 +37,7 @@ class ControlPanelPage extends ConsumerWidget {
       showBackButton: true,
 
       // ACTIVE LE MODE CUSTOM GRADIENT + BLUR + NOISE LIVE
-      useCustomGradient: true,
-      customGradientKey: 'appbar_gradient',
+    
       blur: theme.blur,   // <-- AJOUT 1: Passe le blur du provider
       noise: theme.noise, // <-- AJOUT 2: Passe le noise du provider
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:universal_glass/provider/glass_color_provider_provider.dart';
+import 'package:universal_glass/provider/glass_theme_state.dart';
 import 'package:universal_glass/theme/glass_color_palette.dart';
 
 import '../enums/glass_enums.dart';

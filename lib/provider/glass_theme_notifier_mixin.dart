@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/components/surface/glass_surface_container.dart';
 import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:universal_glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/provider/glass_theme_state.dart';
 import 'package:universal_glass/theme/glass_effects.dart';
 import 'package:universal_glass/theme/glass_scaffold.dart';
 
@@ -30,8 +31,7 @@ class GlassGlobalSettingsPage extends ConsumerWidget {
           tooltip: 'Reset to Default',
         )
       ],
-      useCustomGradient: true,
-      customGradientKey: 'settings_gradient',
+      
       blur: theme.enableBlur ? theme.blur : 0,   // <- Important: respecter le toggle
       noise: theme.enableNoise ? theme.noise : 0,
 
@@ -191,12 +191,43 @@ class GlassGlobalSettingsPage extends ConsumerWidget {
     ], theme);
   }
 
-  Widget _buildGradientCard(GlassThemeState theme, GlassThemeNotifier notifier, Color textColor, Color accentColor, BuildContext context) {
-    return _buildCard('Gradient', [
-      _slider('Gradient Density', theme.gradientDensity.toDouble(), 2, 4, (v) => notifier.setGradientDensity(v.toInt()), textColor, accentColor, context, divisions: 2, enabled: theme.enableGradient),
-      _slider('Gradient Opacity', theme.gradientOpacity, 0, 1, notifier.setGradientOpacity, textColor, accentColor, context, enabled: theme.enableGradient),
-    ], theme);
-  }
+  Widget _buildGradientCard(
+  GlassThemeState theme,
+  GlassThemeNotifier notifier,
+  Color textColor,
+  Color accentColor,
+  BuildContext context,
+) {
+  return _buildCard(
+    'Gradient',
+    [
+      _slider(
+        'Gradient Density',
+        theme.gradientDensity,
+        2.0,
+        4.0,
+        notifier.setGradientDensity,
+        textColor,
+        accentColor,
+        context,
+        divisions: 2,
+        enabled: theme.enableGradient,
+      ),
+      _slider(
+        'Gradient Opacity',
+        theme.gradientOpacity,
+        0.0,
+        1.0,
+        notifier.setGradientOpacity,
+        textColor,
+        accentColor,
+        context,
+        enabled: theme.enableGradient,
+      ),
+    ],
+    theme,
+  );
+}
 
   Widget _switch(String label, bool value, ValueChanged<bool> onChanged, Color textColor, Color accentColor) =>
       SwitchListTile(

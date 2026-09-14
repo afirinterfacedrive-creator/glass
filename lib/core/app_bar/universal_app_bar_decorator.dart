@@ -1,24 +1,22 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
-// ============================================================================
-// UNIVERSAL APP BAR DECORATOR
-// ============================================================================
-//
-// Responsable uniquement du rendu visuel.
-//
-// - BackdropFilter
-// - Blur
-// - Glass
-// - Gradient
-// - Bordure
-// - Transparence
-//
-// Aucune logique de navigation ici.
-//
-// ============================================================================
-
+/// ============================================================================
+/// UNIVERSAL APP BAR DECORATOR
+/// ============================================================================
+///
+/// Décoration légère du contenu de l'AppBar.
+///
+/// Les effets Glass principaux ne sont PAS gérés ici.
+///
+/// Ils sont gérés par GlassSurfaceContainer dans GlassScaffold.
+///
+/// Cette classe sert uniquement à :
+///
+/// - imposer la hauteur
+/// - imposer la largeur
+/// - appliquer une décoration éventuelle
+/// - contenir le contenu de l'AppBar
+///
 class UniversalAppBarDecorator extends StatelessWidget {
   final double height;
 
@@ -26,36 +24,39 @@ class UniversalAppBarDecorator extends StatelessWidget {
 
   final BoxDecoration backgroundDecoration;
 
-  final bool useGradientBackground;
-
   const UniversalAppBarDecorator({
     super.key,
-
     required this.height,
-
     required this.child,
-
     required this.backgroundDecoration,
-
-    this.useGradientBackground = false,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return SizedBox(
-      height: height,
+      width:
+          double.infinity,
 
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+      height:
+          height,
 
-          child: Container(
-            height: height,
+      child:
+          DecoratedBox(
+        decoration:
+            backgroundDecoration,
 
-            decoration: backgroundDecoration,
+        child:
+            SizedBox(
+          width:
+              double.infinity,
 
-            child: child,
-          ),
+          height:
+              height,
+
+          child:
+              child,
         ),
       ),
     );

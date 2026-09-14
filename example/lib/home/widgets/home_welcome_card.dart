@@ -5,69 +5,194 @@ import 'package:universal_glass/glass.dart';
 // ============================================================================
 // HOME WELCOME CARD
 // ============================================================================
+//
+// RESPONSABILITÉ
+// -----------------------------------------------------------------------------
+// Carte d'accueil de la page Home.
+//
+// La surface Glass est entièrement gérée par GlassSurfaceContainer.
+//
+// Le responsive est fourni par GlassLayoutContext.
+//
+// GlassDisplaySettings contient les paramètres globaux d'affichage.
+// GlassLayoutContext transforme ces paramètres en valeurs adaptées au contexte
+// courant.
+//
+// Architecture :
+//
+// GlassScaffold
+//      ↓
+// GlassScaleScope
+//      ↓
+// GlassLayoutScope
+//      ↓
+// HomeWelcomeCard
+//      ↓
+// GlassSurfaceContainer
+//      ↓
+// contenu
+//
+// ============================================================================
 
 class HomeWelcomeCard extends StatelessWidget {
-  final GlassThemeState theme;
-  final bool compact;
-
   const HomeWelcomeCard({
     super.key,
-    required this.theme,
-    required this.compact,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = theme.useAquaStyle
-        ? Colors.cyanAccent
-        : Colors.orangeAccent;
+    final GlassLayoutContext glass =
+        context.glassLayout;
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      width: double.infinity,
-      padding: EdgeInsets.all(compact ? 20 : 28),
-      
-      // UTILISATION DE LA CLASSE UTILE EXTRAITE :
-      decoration: GlassClassicSbDecoration.resolve(
-        useAquaStyle: theme.useAquaStyle,
-        borderRadius: 26.0,
+    final GlassThemeState theme =
+        glass.theme;
+
+    final GlassDisplaySettings display =
+        glass.display;
+
+    final bool compact =
+        glass.isSmallMobile ||
+        glass.isMobile;
+
+    final Color accent =
+        glass.focusColor;
+
+    // ------------------------------------------------------------------------
+    // DIMENSIONS RESPONSIVE
+    // ------------------------------------------------------------------------
+    //
+    // Les valeurs de base restent définies ici pour le composant.
+    // Leur mise à l'échelle est ensuite gérée par GlassLayoutContext.
+    //
+    // ------------------------------------------------------------------------
+
+    final double horizontalSpacing =
+        glass.spacing(
+      compact ? 16.0 : 30.0,
+    );
+
+    final double iconContainerSize =
+        glass.size(
+      compact ? 64.0 : 100.0,
+    );
+
+    final double iconSize =
+        glass.size(
+      compact ? 38.0 : 62.0,
+    );
+
+    // ------------------------------------------------------------------------
+    // PADDING GLOBAL
+    // ------------------------------------------------------------------------
+
+    final double cardPadding =
+        compact
+            ? display.mobilePadding
+            : display.desktopPadding;
+
+    return GlassSurfaceContainer(
+      // ----------------------------------------------------------------------
+      // STYLE GLASS
+      // ----------------------------------------------------------------------
+
+      style: theme.glassStyle,
+
+      // ----------------------------------------------------------------------
+      // EFFETS GLASS
+      // ----------------------------------------------------------------------
+
+      effects: glass.effects,
+
+      // ----------------------------------------------------------------------
+      // RAYON
+      // ----------------------------------------------------------------------
+
+      borderRadius: BorderRadius.circular(
+        glass.radius(26.0),
       ),
 
+      // ----------------------------------------------------------------------
+      // PADDING
+      // ----------------------------------------------------------------------
+       padding: EdgeInsets.all(cardPadding),
+/*
+      padding: EdgeInsets.all(
+        glass.spacing(
+          compact ? 20.0 : 28.0,
+        ),
+      ),*/
+
+      // ----------------------------------------------------------------------
+      // INTERACTION
+      // ----------------------------------------------------------------------
+
+      liftOnHover:
+          theme.enableHover,
+
+      // ----------------------------------------------------------------------
+      // CONTENU
+      // ----------------------------------------------------------------------
+
       child: Row(
+        crossAxisAlignment:
+            CrossAxisAlignment.center,
         children: [
           // ==================================================================
           // TEXTE
           // ==================================================================
+
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              mainAxisSize:
+                  MainAxisSize.min,
               children: [
                 Text(
                   'BIENVENUE',
                   style: TextStyle(
                     color: accent,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.6,
+                    fontSize:
+                        glass.fontSize(12.0),
+                    fontWeight:
+                        FontWeight.bold,
+                    letterSpacing:
+                        glass.fontSize(1.6),
                   ),
                 ),
-                const SizedBox(height: 9),
+
+                SizedBox(
+                  height:
+                      glass.spacing(9.0),
+                ),
+
                 Text(
                   'Votre espace de contrôle Glass',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: compact ? 20 : 23,
-                    fontWeight: FontWeight.bold,
+                    fontSize: glass.fontSize(
+                      compact
+                          ? 20.0
+                          : 23.0,
+                    ),
+                    fontWeight:
+                        FontWeight.bold,
                     height: 1.15,
                   ),
                 ),
-                const SizedBox(height: 9),
-                const Text(
+
+                SizedBox(
+                  height:
+                      glass.spacing(9.0),
+                ),
+
+                Text(
                   'Accédez rapidement à vos contrôles, '
                   'réglages et outils.',
                   style: TextStyle(
                     color: Colors.white54,
-                    fontSize: 13,
+                    fontSize:
+                        glass.fontSize(13.0),
                     height: 1.45,
                   ),
                 ),
@@ -76,24 +201,45 @@ class HomeWelcomeCard extends StatelessWidget {
           ),
 
           // ==================================================================
+          // ESPACEMENT TEXTE → ICÔNE
+          // ==================================================================
+
+          SizedBox(
+            width:
+                horizontalSpacing,
+          ),
+
+          // ==================================================================
           // ICÔNE
           // ==================================================================
-          if (!compact) ...[
-            const SizedBox(width: 30),
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: accent.withValues(alpha: .045),
-              ),
-              child: Icon(
-                Icons.dashboard_customize_outlined,
-                size: 62,
-                color: accent.withValues(alpha: .32),
+
+          Container(
+            width:
+                iconContainerSize,
+            height:
+                iconContainerSize,
+
+            decoration:
+                BoxDecoration(
+              shape:
+                  BoxShape.circle,
+
+              color:
+                  accent.withValues(
+                alpha: .045,
               ),
             ),
-          ],
+
+            child: Icon(
+              Icons.dashboard_customize_outlined,
+              size:
+                  iconSize,
+              color:
+                  accent.withValues(
+                alpha: .32,
+              ),
+            ),
+          ),
         ],
       ),
     );

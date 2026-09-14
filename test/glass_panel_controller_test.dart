@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_glass/controllers/glass_panel_controller.dart';
 import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:universal_glass/provider/glass_button_provider.dart';
-import 'package:universal_glass/provider/glass_theme_provider.dart';
+import 'package:universal_glass/provider/glass_theme_state.dart';
 import 'package:universal_glass/providers/shared_preferences_provider.dart';
 
 /// ============================================================================
@@ -78,8 +78,7 @@ void main() {
               WidgetRef ref,
               Widget? child,
             ) {
-              controller =
-                  GlassPanelController(ref);
+              controller = GlassPanelController(ref);
 
               return const SizedBox.shrink();
             },
@@ -88,7 +87,15 @@ void main() {
       ),
     );
 
+    // Laisse le ProviderScope et le GlassThemeProvider terminer
+    // leur initialisation asynchrone.
     await tester.pump();
+
+    // Laisse également le microtask lancé par GlassThemeNotifier.build()
+    // terminer avant de retourner le controller.
+    await tester.pump(
+      const Duration(milliseconds: 10),
+    );
 
     return controller;
   }
@@ -393,8 +400,7 @@ void main() {
 
       await tester.pump();
 
-      for (final String id
-          in defaultGlassButtonIds) {
+      for (final String id in defaultGlassButtonIds) {
         expect(
           controller.isActive(id),
           isFalse,
@@ -694,6 +700,11 @@ void main() {
       expect(
         controller.theme.useAquaStyle,
         isTrue,
+      );
+
+      expect(
+        controller.currentStyle,
+        GlassStyle.transparentAqua,
       );
     },
   );

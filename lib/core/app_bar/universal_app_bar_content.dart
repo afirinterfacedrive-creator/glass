@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:universal_glass/core/app_bar/universal_tab_item.dart';
 
-// ============================================================================
-// CONTENU DE L'APP BAR
-// ============================================================================
-//
-// Responsable uniquement du contenu.
-//
-// - bouton retour
-// - logo
-// - titre
-// - sous-titre
-// - navigation
-// - actions
-//
-// Le blur, le background et la décoration sont gérés par
-// UniversalAppBarDecorator.
-//
-// ============================================================================
+import 'package:universal_glass/core/app_bar/universal_tab_item.dart';
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_extensions.dart';
+
+/// ============================================================================
+/// CONTENU DE L'APP BAR
+/// ============================================================================
+///
+/// Responsable uniquement du contenu visuel :
+///
+/// - bouton retour
+/// - logo
+/// - titre
+/// - sous-titre
+/// - navigation
+/// - actions
+///
+/// Le background, le blur et la décoration globale sont gérés par :
+///
+///     UniversalAppBar
+///     UniversalAppBarDecorator
+///     GlassSurfaceContainer
+///
+/// Le responsive est fourni exclusivement par GlassLayoutContext.
+/// ============================================================================
 
 class UniversalAppBarContent extends StatelessWidget {
   final String? title;
@@ -33,11 +40,6 @@ class UniversalAppBarContent extends StatelessWidget {
   final List<UniversalTabItem> tabs;
   final String currentRoute;
 
-  final bool isTv;
-  final bool isDesktop;
-  final bool isTablet;
-
-  final double scale;
   final double appBarHeight;
 
   final ThemeData theme;
@@ -58,10 +60,6 @@ class UniversalAppBarContent extends StatelessWidget {
     this.actions,
     required this.tabs,
     required this.currentRoute,
-    required this.isTv,
-    required this.isDesktop,
-    required this.isTablet,
-    required this.scale,
     required this.appBarHeight,
     required this.theme,
     required this.iconColor,
@@ -76,52 +74,83 @@ class UniversalAppBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final GlassLayoutContext layout =
+        context.glassLayout;
+
+    // --------------------------------------------------------------------------
+    // SOURCE DE VÉRITÉ RESPONSIVE
+    // --------------------------------------------------------------------------
+    //
+    // Toutes les dimensions et tous les breakpoints viennent de
+    // GlassLayoutContext.
+    //
+    // --------------------------------------------------------------------------
+
+    final bool showNavigation =
+        layout.isWideScreen &&
+        tabs.isNotEmpty;
+
+    return SizedBox(
       height: appBarHeight,
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: _horizontalPadding(layout),
+        ),
+        child: Row(
+          crossAxisAlignment:
+              CrossAxisAlignment.center,
+          children: [
+            // ==================================================================
+            // RETOUR
+            // ==================================================================
 
-      padding: EdgeInsets.symmetric(
-        horizontal: _horizontalPadding(),
-      ),
+            if (showBackButton)
+              _buildBackButton(
+                context,
+                layout,
+              ),
 
-      child: Row(
-        children: [
-          // ==================================================================
-          // RETOUR
-          // ==================================================================
+            // ==================================================================
+            // LOGO
+            // ==================================================================
 
-          if (showBackButton) _buildBackButton(context),
+            if (showLogo)
+              _buildLogo(layout),
 
-          // ==================================================================
-          // LOGO
-          // ==================================================================
+            // ==================================================================
+            // TITRE
+            // ==================================================================
 
-          if (showLogo) _buildLogo(),
+            if (title != null)
+              Expanded(
+                child: _buildTitle(layout),
+              )
+            else
+              const Spacer(),
 
-          // ==================================================================
-          // TITRE
-          // ==================================================================
+            // ==================================================================
+            // NAVIGATION
+            // ==================================================================
 
-          if (title != null)
-            Expanded(
-              child: _buildTitle(),
-            )
-          else
-            const Spacer(),
+            if (showNavigation)
+              Flexible(
+                fit: FlexFit.loose,
+                child: _buildNavigation(
+                  context,
+                  layout,
+                ),
+              ),
 
-          // ==================================================================
-          // NAVIGATION
-          // ==================================================================
+            // ==================================================================
+            // ACTIONS
+            // ==================================================================
 
-          if (isDesktop && tabs.isNotEmpty)
-            _buildNavigation(context),
-
-          // ==================================================================
-          // ACTIONS
-          // ==================================================================
-
-          if (actions != null && actions!.isNotEmpty)
-            _buildActions(),
-        ],
+            if (actions != null &&
+                actions!.isNotEmpty)
+              _buildActions(layout),
+          ],
+        ),
       ),
     );
   }
@@ -130,43 +159,57 @@ class UniversalAppBarContent extends StatelessWidget {
   // PADDING HORIZONTAL
   // ==========================================================================
 
-  double _horizontalPadding() {
-    if (isTv) {
-      return 40;
+  double _horizontalPadding(
+    GlassLayoutContext layout,
+  ) {
+    if (layout.isLargeDesktop) {
+      return layout.spacing(28.0);
     }
 
-    if (isDesktop) {
-      return 28;
+    if (layout.isDesktop) {
+      return layout.spacing(20.0);
     }
 
-    if (isTablet) {
-      return 20;
+    if (layout.isTablet) {
+      return layout.spacing(14.0);
     }
 
-    return 14;
+    if (layout.isSmallMobile) {
+      return layout.spacing(8.0);
+    }
+
+    return layout.spacing(10.0);
   }
 
   // ==========================================================================
   // BOUTON RETOUR
   // ==========================================================================
 
-  Widget _buildBackButton(BuildContext context) {
+  Widget _buildBackButton(
+    BuildContext context,
+    GlassLayoutContext layout,
+  ) {
+    final double iconSize =
+        layout.size(20.0).clamp(
+          16.0,
+          24.0,
+        );
+
+    final double spacing =
+        layout.spacing(10.0).clamp(
+          6.0,
+          14.0,
+        );
+
     return Padding(
       padding: EdgeInsets.only(
-        right: 10 * scale,
+        right: spacing,
       ),
-
       child: _GlassIconButton(
         decoration: actionDecoration,
         icon: Icons.arrow_back,
         color: iconColor,
-
-        // --------------------------------------------------------------------
-        // Taille maîtrisée.
-        // --------------------------------------------------------------------
-
-        size: 20 * scale,
-
+        size: iconSize,
         onTap:
             onBack ??
             () {
@@ -180,80 +223,99 @@ class UniversalAppBarContent extends StatelessWidget {
   // LOGO
   // ==========================================================================
 
-  Widget _buildLogo() {
-    final double size = (appBarHeight * .62).clamp(
-      38.0,
+  Widget _buildLogo(
+    GlassLayoutContext layout,
+  ) {
+    final double size =
+        (appBarHeight * 0.62).clamp(
+      34.0,
       76.0,
     );
 
+    final double rightPadding =
+        layout.spacing(14.0);
+
     return Padding(
       padding: EdgeInsets.only(
-        right: 14 * scale,
+        right: rightPadding,
       ),
-
-      child: Container(
+      child: SizedBox(
         width: size,
         height: size,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
 
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
+            // ------------------------------------------------------------------
+            // GLASS
+            // ------------------------------------------------------------------
 
-          // ------------------------------------------------------------------
-          // GLASS
-          // ------------------------------------------------------------------
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.white.withValues(
+                  alpha: .20,
+                ),
+                accentColor.withValues(
+                  alpha: .14,
+                ),
+                Colors.black.withValues(
+                  alpha: .10,
+                ),
+              ],
+            ),
 
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            // ------------------------------------------------------------------
+            // BORDURE
+            // ------------------------------------------------------------------
 
-            colors: [
-              Colors.white.withValues(alpha: .20),
-              accentColor.withValues(alpha: .14),
-              Colors.black.withValues(alpha: .10),
+            border: Border.all(
+              color: Colors.white.withValues(
+                alpha: .30,
+              ),
+              width: 1.0,
+            ),
+
+            // ------------------------------------------------------------------
+            // OMBRES
+            // ------------------------------------------------------------------
+
+            boxShadow: [
+              BoxShadow(
+                color: accentColor.withValues(
+                  alpha: .16,
+                ),
+                blurRadius: 16,
+                spreadRadius: .3,
+              ),
+              BoxShadow(
+                color: Colors.black.withValues(
+                  alpha: .14,
+                ),
+                blurRadius: 7,
+                offset: const Offset(
+                  0,
+                  2,
+                ),
+              ),
             ],
           ),
-
-          // ------------------------------------------------------------------
-          // BORDURE
-          // ------------------------------------------------------------------
-
-          border: Border.all(
-            color: Colors.white.withValues(alpha: .30),
-            width: 1,
+          child: Center(
+            child: Icon(
+              Icons.blur_on,
+              size: size * .48,
+              color: accentColor,
+              shadows: [
+                Shadow(
+                  color: accentColor.withValues(
+                    alpha: .30,
+                  ),
+                  blurRadius: 7,
+                ),
+              ],
+            ),
           ),
-
-          // ------------------------------------------------------------------
-          // OMBRES DOUCES
-          // ------------------------------------------------------------------
-
-          boxShadow: [
-            BoxShadow(
-              color: accentColor.withValues(alpha: .16),
-              blurRadius: 16,
-              spreadRadius: .3,
-            ),
-
-            BoxShadow(
-              color: Colors.black.withValues(alpha: .14),
-              blurRadius: 7,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-
-        child: Icon(
-          Icons.blur_on,
-
-          size: size * .48,
-
-          color: accentColor,
-
-          shadows: [
-            Shadow(
-              color: accentColor.withValues(alpha: .30),
-              blurRadius: 7,
-            ),
-          ],
         ),
       ),
     );
@@ -263,111 +325,122 @@ class UniversalAppBarContent extends StatelessWidget {
   // TITRE
   // ==========================================================================
 
-  Widget _buildTitle() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildTitle(
+    GlassLayoutContext layout,
+  ) {
+    final double titleSize =
+        layout.fontSize(18.0).clamp(
+      16.0,
+      27.0,
+    );
 
-      children: [
-        // ====================================================================
-        // TITRE PRINCIPAL
-        // ====================================================================
+    final double subtitleSize =
+        layout.fontSize(11.0).clamp(
+      10.0,
+      16.0,
+    );
 
-        Text(
-          title!,
+    final double subtitleGap =
+        layout.spacing(4.0);
 
-          maxLines: 1,
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: layout.spacing(2.0),
+        ),
+        child: Column(
+          mainAxisAlignment:
+              MainAxisAlignment.center,
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          mainAxisSize:
+              MainAxisSize.min,
+          children: [
+            // ==================================================================
+            // TITRE PRINCIPAL
+            // ==================================================================
 
-          overflow: TextOverflow.ellipsis,
-
-          style: TextStyle(
-            color: Colors.white,
-
-            // ----------------------------------------------------------------
-            // IMPORTANT :
-            //
-            // On conserve le responsive mais on évite que la typographie
-            // devienne excessivement grosse sur les grandes fenêtres.
-            // ----------------------------------------------------------------
-
-            fontSize: (18 * scale).clamp(
-              16.0,
-              27.0,
+            Text(
+              title!,
+              maxLines: 1,
+              overflow:
+                  TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: titleSize,
+                fontWeight:
+                    FontWeight.w700,
+                height: 1.0,
+                letterSpacing: .10,
+                shadows: [
+                  Shadow(
+                    color:
+                        Colors.black.withValues(
+                      alpha: .28,
+                    ),
+                    blurRadius: 3,
+                    offset:
+                        const Offset(
+                      0,
+                      1,
+                    ),
+                  ),
+                  Shadow(
+                    color:
+                        shadowColor.withValues(
+                      alpha: .16,
+                    ),
+                    blurRadius: 6,
+                  ),
+                ],
+              ),
             ),
 
-            // ----------------------------------------------------------------
-            // Plus élégant que w900 sur Windows.
-            // ----------------------------------------------------------------
+            // ==================================================================
+            // SOUS-TITRE
+            // ==================================================================
 
-            fontWeight: FontWeight.w700,
-
-            height: 1.0,
-
-            letterSpacing: .10,
-
-            // ----------------------------------------------------------------
-            // Ombre douce.
-            //
-            // L'ancien système utilisait deux ombres assez fortes.
-            // Cela pouvait donner un rendu plus lourd sur Windows.
-            // ----------------------------------------------------------------
-
-            shadows: [
-              Shadow(
-                color: Colors.black.withValues(alpha: .28),
-                blurRadius: 3,
-                offset: const Offset(0, 1),
+            if (subtitle != null) ...[
+              SizedBox(
+                height: subtitleGap,
               ),
-
-              Shadow(
-                color: shadowColor.withValues(alpha: .16),
-                blurRadius: 6,
+              Text(
+                subtitle!,
+                maxLines: 1,
+                overflow:
+                    TextOverflow.ellipsis,
+                style: TextStyle(
+                  color:
+                      Colors.white.withValues(
+                    alpha: .76,
+                  ),
+                  fontSize:
+                      subtitleSize,
+                  fontWeight:
+                      FontWeight.w500,
+                  letterSpacing: .55,
+                  height: 1.0,
+                  shadows: [
+                    Shadow(
+                      color:
+                          Colors.black.withValues(
+                        alpha: .30,
+                      ),
+                      blurRadius: 2,
+                      offset:
+                          const Offset(
+                        0,
+                        1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
-          ),
+          ],
         ),
-
-        // ====================================================================
-        // SOUS-TITRE
-        // ====================================================================
-
-        if (subtitle != null) ...[
-          SizedBox(
-            height: 4 * scale,
-          ),
-
-          Text(
-            subtitle!,
-
-            maxLines: 1,
-
-            overflow: TextOverflow.ellipsis,
-
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: .76),
-
-              fontSize: (11 * scale).clamp(
-                10.0,
-                16.0,
-              ),
-
-              fontWeight: FontWeight.w500,
-
-              letterSpacing: .55,
-
-              height: 1.0,
-
-              shadows: [
-                Shadow(
-                  color: Colors.black.withValues(alpha: .30),
-                  blurRadius: 2,
-                  offset: const Offset(0, 1),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ],
+      ),
     );
   }
 
@@ -375,19 +448,23 @@ class UniversalAppBarContent extends StatelessWidget {
   // NAVIGATION
   // ==========================================================================
 
-  Widget _buildNavigation(BuildContext context) {
+  Widget _buildNavigation(
+    BuildContext context,
+    GlassLayoutContext layout,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 12 * scale,
+        horizontal: layout.spacing(8.0),
       ),
-
       child: Row(
-        mainAxisSize: MainAxisSize.min,
-
+        mainAxisSize:
+            MainAxisSize.min,
         children: [
-          for (final tab in tabs)
+          for (final UniversalTabItem tab
+              in tabs)
             _buildTab(
               context,
+              layout,
               tab,
             ),
         ],
@@ -401,150 +478,180 @@ class UniversalAppBarContent extends StatelessWidget {
 
   Widget _buildTab(
     BuildContext context,
+    GlassLayoutContext layout,
     UniversalTabItem tab,
   ) {
-    final bool selected = currentRoute == tab.route;
+    final bool selected =
+        currentRoute == tab.route;
 
-    final Color textColor = selected
-        ? Colors.white
-        : Colors.white.withValues(alpha: .82);
+    final Color textColor =
+        selected
+            ? Colors.white
+            : Colors.white.withValues(
+                alpha: .82,
+              );
 
-    final Color tabIconColor = selected
-        ? accentColor
-        : Colors.white.withValues(alpha: .78);
+    final Color tabIconColor =
+        selected
+            ? accentColor
+            : Colors.white.withValues(
+                alpha: .78,
+              );
+
+    final double tabRadius =
+        layout.radius(14.0);
+
+    final double horizontalPadding =
+        layout.spacing(12.0);
+
+    final double verticalPadding =
+        layout.spacing(7.0);
+
+    final double iconSize =
+        layout.size(16.0);
+
+    final double iconLabelGap =
+        layout.spacing(6.0);
+
+    final double fontSize =
+        layout.fontSize(12.0).clamp(
+      11.0,
+      17.0,
+    );
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 4 * scale,
+        horizontal: layout.spacing(4.0),
       ),
-
       child: Material(
         color: Colors.transparent,
-
         child: InkWell(
-          borderRadius: BorderRadius.circular(14),
-
+          borderRadius:
+              BorderRadius.circular(
+            tabRadius,
+          ),
           onTap: () {
             if (selected) {
               return;
             }
 
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context)
+                .pushReplacementNamed(
               tab.route,
             );
           },
-
           child: AnimatedContainer(
-            duration: const Duration(
+            duration:
+                const Duration(
               milliseconds: 180,
             ),
-
             curve: Curves.easeOut,
-
             padding: EdgeInsets.symmetric(
-              horizontal: 12 * scale,
-              vertical: 8 * scale,
+              horizontal:
+                  horizontalPadding,
+              vertical:
+                  verticalPadding,
             ),
-
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-
-              // --------------------------------------------------------------
-              // FOND
-              // --------------------------------------------------------------
-
+              borderRadius:
+                  BorderRadius.circular(
+                tabRadius,
+              ),
               color: selected
-                  ? accentColor.withValues(alpha: .14)
-                  : Colors.black.withValues(alpha: .06),
-
-              // --------------------------------------------------------------
-              // BORDURE
-              // --------------------------------------------------------------
-
+                  ? accentColor.withValues(
+                      alpha: .14,
+                    )
+                  : Colors.black.withValues(
+                      alpha: .06,
+                    ),
               border: Border.all(
                 color: selected
-                    ? accentColor.withValues(alpha: .34)
-                    : Colors.white.withValues(alpha: .12),
-
-                width: selected ? 1.0 : .7,
+                    ? accentColor.withValues(
+                        alpha: .34,
+                      )
+                    : Colors.white.withValues(
+                        alpha: .12,
+                      ),
+                width:
+                    selected ? 1.0 : .7,
               ),
-
-              // --------------------------------------------------------------
-              // OMBRE
-              // --------------------------------------------------------------
-
               boxShadow: [
                 if (selected)
                   BoxShadow(
-                    color: accentColor.withValues(alpha: .12),
+                    color:
+                        accentColor.withValues(
+                      alpha: .12,
+                    ),
                     blurRadius: 10,
                     spreadRadius: .1,
                   ),
-
                 if (!selected)
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: .08),
+                    color:
+                        Colors.black.withValues(
+                      alpha: .08,
+                    ),
                     blurRadius: 4,
-                    offset: const Offset(0, 2),
+                    offset:
+                        const Offset(
+                      0,
+                      2,
+                    ),
                   ),
               ],
             ),
-
             child: Row(
-              mainAxisSize: MainAxisSize.min,
-
+              mainAxisSize:
+                  MainAxisSize.min,
               children: [
-                // ============================================================
-                // ICÔNE
-                // ============================================================
-
                 if (tab.icon != null) ...[
                   Icon(
                     tab.icon,
-
-                    size: 16 * scale,
-
+                    size: iconSize,
                     color: tabIconColor,
-
                     shadows: [
                       Shadow(
-                        color: Colors.black.withValues(alpha: .25),
+                        color:
+                            Colors.black.withValues(
+                          alpha: .25,
+                        ),
                         blurRadius: 2,
                       ),
                     ],
                   ),
-
-                  const SizedBox(width: 6),
+                  SizedBox(
+                    width: iconLabelGap,
+                  ),
                 ],
 
-                // ============================================================
-                // LABEL
-                // ============================================================
-
-                Text(
-                  tab.label,
-
-                  style: TextStyle(
-                    color: textColor,
-
-                    fontSize: (12 * scale).clamp(
-                      11.0,
-                      17.0,
+                Flexible(
+                  child: Text(
+                    tab.label,
+                    maxLines: 1,
+                    overflow:
+                        TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: fontSize,
+                      fontWeight: selected
+                          ? FontWeight.w700
+                          : FontWeight.w500,
+                      letterSpacing: .10,
+                      shadows: [
+                        Shadow(
+                          color:
+                              Colors.black.withValues(
+                            alpha: .28,
+                          ),
+                          blurRadius: 2,
+                          offset:
+                              const Offset(
+                            0,
+                            1,
+                          ),
+                        ),
+                      ],
                     ),
-
-                    fontWeight: selected
-                        ? FontWeight.w700
-                        : FontWeight.w500,
-
-                    letterSpacing: .10,
-
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withValues(alpha: .28),
-                        blurRadius: 2,
-                        offset: const Offset(0, 1),
-                      ),
-                    ],
                   ),
                 ),
               ],
@@ -559,17 +666,19 @@ class UniversalAppBarContent extends StatelessWidget {
   // ACTIONS
   // ==========================================================================
 
-  Widget _buildActions() {
+  Widget _buildActions(
+    GlassLayoutContext layout,
+  ) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
-
+      mainAxisSize:
+          MainAxisSize.min,
       children: [
-        for (final action in actions!)
+        for (final Widget action
+            in actions!)
           Padding(
             padding: EdgeInsets.only(
-              left: 8 * scale,
+              left: layout.spacing(8.0),
             ),
-
             child: action,
           ),
       ],
@@ -579,6 +688,17 @@ class UniversalAppBarContent extends StatelessWidget {
 
 // ============================================================================
 // BOUTON GLASS INTERNE
+// ============================================================================
+//
+// CORRECTION IMPORTANTE
+// ----------------------------------------------------------------------------
+//
+// La zone interactive reste toujours 44 x 44.
+//
+// Le zoom ne doit pas réduire la zone de hit-test du bouton retour.
+//
+// Le rendu visuel interne peut cependant continuer à utiliser la taille
+// calculée par GlassLayoutContext.
 // ============================================================================
 
 class _GlassIconButton extends StatelessWidget {
@@ -600,36 +720,53 @@ class _GlassIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double dimension = size + 20;
+    const double hitDimension = 44.0;
 
-    return Material(
-      color: Colors.transparent,
+    final double visualDimension =
+        (size + 20.0).clamp(
+      32.0,
+      48.0,
+    );
 
-      child: InkWell(
-        onTap: onTap,
-
-        borderRadius: BorderRadius.circular(100),
-
-        child: Container(
-          width: dimension,
-          height: dimension,
-
-          decoration: decoration,
-
-          child: Icon(
-            icon,
-
-            size: size,
-
-            color: color,
-
-            shadows: [
-              Shadow(
-                color: Colors.black.withValues(alpha: .28),
-                blurRadius: 3,
-                offset: const Offset(0, 1),
+    return SizedBox(
+      width: hitDimension,
+      height: hitDimension,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          customBorder:
+              const CircleBorder(),
+          child: Center(
+            child: Container(
+              width: visualDimension,
+              height: visualDimension,
+              decoration:
+                  decoration.copyWith(
+                shape: BoxShape.circle,
               ),
-            ],
+              alignment:
+                  Alignment.center,
+              child: Icon(
+                icon,
+                size: size,
+                color: color,
+                shadows: [
+                  Shadow(
+                    color:
+                        Colors.black.withValues(
+                      alpha: .28,
+                    ),
+                    blurRadius: 3,
+                    offset:
+                        const Offset(
+                      0,
+                      1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

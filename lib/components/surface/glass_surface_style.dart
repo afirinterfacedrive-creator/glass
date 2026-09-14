@@ -1,50 +1,73 @@
 import 'package:flutter/material.dart';
 
 import 'package:universal_glass/enums/glass_enums.dart';
-import 'package:universal_glass/provider/glass_theme_provider.dart';
-import 'package:universal_glass/theme/glass_effects.dart';
+import 'package:universal_glass/provider/glass_theme_state.dart';
 
+/// Décrit la nature visuelle d'une surface Glass.
+///
+/// [GlassSurfaceStyle] définit l'identité visuelle du matériau.
+///
+/// [GlassSurfaceRole] définit le contexte d'utilisation.
+///
+/// Les deux notions sont volontairement séparées.
+///
+/// Exemple :
+///
+/// transparentAqua + card
+/// transparentAqua + dialog
+///
+/// conservent la même identité Aqua, mais avec une densité,
+/// un blur, une profondeur et un contraste différents.
 class GlassSurfaceStyle {
   final GlassStyle style;
 
   const GlassSurfaceStyle(this.style);
 
-  // ==========================================================================
-  // TYPES DE STYLE
-  // ==========================================================================
+  // ===========================================================================
+  // IDENTITÉ DU STYLE
+  // ===========================================================================
 
-  bool get isGhost =>
-      style == GlassStyle.ghost;
-
+  /// Surface totalement ou fortement opaque.
   bool get isOpaque =>
       style == GlassStyle.opaqueHeavy ||
       style == GlassStyle.opaqueMat;
 
-  bool get isGradientOpaque =>
-      style == GlassStyle.gradientOpaque;
+  /// Surface opaque avec dégradé.
+  bool get isGradientOpaque => style == GlassStyle.gradientOpaque;
 
-  bool get isCustomGradient =>
-      style == GlassStyle.customGradient;
+  /// Surface basée sur un dégradé personnalisé.
+  bool get isCustomGradient => style == GlassStyle.customGradient;
 
-  bool get isSageStyle =>
-      style == GlassStyle.sage ||
-      style == GlassStyle.sagePro ||
-      style == GlassStyle.sageOled ||
-      style == GlassStyle.sageGlass;
+  /// Surface translucide avec une teinte.
+  bool get isTransparentTinted =>
+      style == GlassStyle.transparentAqua ||
+      style == GlassStyle.transparentRed ||
+      style == GlassStyle.transparentGreen;
 
-  bool get isClassicSb =>
-      style == GlassStyle.classicSb;
+  /// Style Classic SB.
+  ///
+  /// Ce style reste volontairement dense et non translucide.
+  bool get isClassicSb => style == GlassStyle.classicSb;
 
-  // ==========================================================================
-  // ALPHA DE BASE DU STYLE
-  // ==========================================================================
-  //
-  // Cette valeur représente l'identité visuelle du style.
-  //
-  // Elle ne remplace PAS surfaceOpacity du thème.
-  // Les deux valeurs sont combinées dans le renderer.
-  // ==========================================================================
+  /// Indique si le style participe au système Glass.
+  ///
+  /// Classic SB reste exclu du vrai Glass.
+  bool get isGlass =>
+      isTransparentTinted ||
+      style == GlassStyle.custom;
 
+  // ===========================================================================
+  // ALPHA DE BASE
+  // ===========================================================================
+
+  /// Opacité intrinsèque du style.
+  ///
+  /// Cette valeur décrit uniquement le matériau.
+  ///
+  /// Elle ne prend pas encore en compte :
+  /// - le rôle ;
+  /// - l'opacité globale du thème ;
+  /// - l'état disabled.
   double get baseAlpha {
     switch (style) {
       case GlassStyle.opaqueHeavy:
@@ -66,25 +89,13 @@ class GlassSurfaceStyle {
         return 0.75;
 
       case GlassStyle.transparentAqua:
-        return 0.15;
+        return 0.08;
 
-      case GlassStyle.ghost:
-        return 0.03;
+      case GlassStyle.transparentRed:
+        return 0.08;
 
-      case GlassStyle.sage:
-        return 0.20;
-
-      case GlassStyle.sagePro:
-        return 0.30;
-
-      case GlassStyle.sageOled:
-        return 1.0;
-
-      case GlassStyle.sageGlass:
-        return 0.15;
-
-      case GlassStyle.appBar:
-        return 0.75;
+      case GlassStyle.transparentGreen:
+        return 0.08;
 
       case GlassStyle.classicSb:
         return 0.95;
@@ -94,79 +105,328 @@ class GlassSurfaceStyle {
     }
   }
 
-  // ==========================================================================
+  // ===========================================================================
+  // DENSITÉ SELON LE RÔLE
+  // ===========================================================================
+
+  /// Multiplicateur d'opacité selon le rôle de la surface.
+  ///
+  /// Les éléments flottants et structurels sont volontairement
+  /// plus denses que les cartes ordinaires.
+  double getRoleAlphaMultiplier(GlassSurfaceRole role) {
+    switch (role) {
+      case GlassSurfaceRole.card:
+        return 1.0;
+
+      case GlassSurfaceRole.field:
+        return 1.10;
+
+      case GlassSurfaceRole.panel:
+        return 1.20;
+
+      case GlassSurfaceRole.header:
+        return 1.25;
+
+      case GlassSurfaceRole.body:
+        return 1.15;
+
+      case GlassSurfaceRole.footer:
+        return 1.25;
+
+      case GlassSurfaceRole.dialog:
+        return 1.65;
+
+      case GlassSurfaceRole.modal:
+        return 1.80;
+
+      case GlassSurfaceRole.tooltip:
+        return 1.45;
+
+      case GlassSurfaceRole.menu:
+        return 1.50;
+
+        case GlassSurfaceRole.appBar:
+         return 1.27;
+    }
+  }
+
+  /// Calcule l'opacité finale de la surface.
+  double getEffectiveAlpha({
+    required GlassSurfaceRole role,
+    required double surfaceOpacity,
+  }) {
+    final double roleMultiplier = getRoleAlphaMultiplier(role);
+
+    return (
+      baseAlpha *
+      roleMultiplier *
+      surfaceOpacity.clamp(0.0, 1.0)
+    ).clamp(0.0, 1.0);
+  }
+
+  // ===========================================================================
   // BLUR
-  // ==========================================================================
+  // ===========================================================================
 
+  /// Multiplicateur de blur selon le rôle.
+  double getRoleBlurMultiplier(GlassSurfaceRole role) {
+    switch (role) {
+      case GlassSurfaceRole.card:
+        return 1.0;
+
+      case GlassSurfaceRole.field:
+        return 0.85;
+
+      case GlassSurfaceRole.panel:
+        return 1.10;
+
+      case GlassSurfaceRole.header:
+        return 1.15;
+
+      case GlassSurfaceRole.body:
+        return 1.05;
+
+      case GlassSurfaceRole.footer:
+        return 1.10;
+
+      case GlassSurfaceRole.dialog:
+        return 1.35;
+
+      case GlassSurfaceRole.modal:
+        return 1.45;
+
+      case GlassSurfaceRole.tooltip:
+        return 1.20;
+
+      case GlassSurfaceRole.menu:
+        return 1.25;
+
+        case GlassSurfaceRole.appBar:
+         return 1.00;
+    }
+  }
+
+  /// Résout le blur final.
+  ///
+  /// Le thème reste la source globale du blur.
+  /// Le rôle adapte ensuite son intensité.
+  ///
+  /// La responsabilité de [GlassEffects] reste dans le
+  /// `GlassSurfaceContainer` / `GlassSurfaceRenderer`.
+  ///
+  /// Ici, [GlassSurfaceStyle] ne fait qu'adapter la valeur
+  /// globale du thème au rôle de la surface.
   double getBgBlur({
-    required GlassEffects? effects,
     required GlassThemeState theme,
+    GlassSurfaceRole role = GlassSurfaceRole.card,
   }) {
-    // Ghost = pas de blur.
-    if (isGhost) {
+    if (!theme.enableBlur) {
       return 0.0;
     }
 
-    // Sage historique : pas de blur.
-    //
-    // On conserve ici le comportement existant uniquement pour `sage`.
-    // sagePro / sageOled / sageGlass peuvent utiliser le blur live.
-    if (style == GlassStyle.sage) {
+    final double themeBlur =
+        theme.effectiveBlur.clamp(0.0, 100.0);
+
+    if (themeBlur <= 0.0) {
       return 0.0;
     }
 
-    // Le thème est la source de vérité.
-    //
-    // effectiveBlur tient compte de enableBlur.
-    return theme.effectiveBlur.clamp(0.0, 100.0);
+    final double multiplier =
+        getRoleBlurMultiplier(role);
+
+    return (
+      themeBlur * multiplier
+    ).clamp(0.0, 100.0);
   }
 
-  // ==========================================================================
+  // ===========================================================================
   // NOISE
-  // ==========================================================================
+  // ===========================================================================
 
-  double getBgNoise({
-    required GlassEffects? effects,
-    required GlassThemeState theme,
-  }) {
-    if (isGhost) {
-      return 0.0;
+  /// Multiplicateur de noise selon le rôle.
+  double getRoleNoiseMultiplier(GlassSurfaceRole role) {
+    switch (role) {
+      case GlassSurfaceRole.card:
+        return 1.0;
+
+      case GlassSurfaceRole.field:
+        return 0.75;
+
+      case GlassSurfaceRole.panel:
+        return 1.0;
+
+      case GlassSurfaceRole.header:
+        return 0.90;
+
+      case GlassSurfaceRole.body:
+        return 0.90;
+
+      case GlassSurfaceRole.footer:
+        return 0.90;
+
+      case GlassSurfaceRole.dialog:
+        return 0.85;
+
+      case GlassSurfaceRole.modal:
+        return 0.80;
+
+      case GlassSurfaceRole.tooltip:
+        return 0.75;
+
+      case GlassSurfaceRole.menu:
+        return 0.75;
+
+        case GlassSurfaceRole.appBar:
+         return 0.53;
     }
-
-    if (style == GlassStyle.sage) {
-      return 0.0;
-    }
-
-    // Le thème est la source de vérité.
-    //
-    // effectiveNoise tient compte de enableNoise.
-    return theme.effectiveNoise.clamp(0.0, 1.0);
   }
 
-  // ==========================================================================
-  // TEXTE
-  // ==========================================================================
+  /// Résout le niveau de noise final.
+  ///
+  /// Le thème fournit l'intensité globale.
+  /// Le rôle adapte ensuite cette intensité.
+  double getBgNoise({
+    required GlassThemeState theme,
+    GlassSurfaceRole role = GlassSurfaceRole.card,
+  }) {
+    if (!theme.enableNoise) {
+      return 0.0;
+    }
 
+    final double themeNoise =
+        theme.effectiveNoise.clamp(0.0, 1.0);
+
+    if (themeNoise <= 0.0) {
+      return 0.0;
+    }
+
+    final double multiplier =
+        getRoleNoiseMultiplier(role);
+
+    return (
+      themeNoise * multiplier
+    ).clamp(0.0, 1.0);
+  }
+
+  // ===========================================================================
+  // PROFONDEUR
+  // ===========================================================================
+
+  /// Multiplicateur de profondeur.
+  ///
+  /// Utilisé par le renderer pour renforcer :
+  /// - l'ombre ;
+  /// - le glow ;
+  /// - les reflets ;
+  /// - la séparation visuelle.
+  double getRoleDepthMultiplier(GlassSurfaceRole role) {
+    switch (role) {
+      case GlassSurfaceRole.card:
+        return 1.0;
+
+      case GlassSurfaceRole.field:
+        return 0.75;
+
+      case GlassSurfaceRole.panel:
+        return 1.10;
+
+      case GlassSurfaceRole.header:
+        return 1.10;
+
+      case GlassSurfaceRole.body:
+        return 1.0;
+
+      case GlassSurfaceRole.footer:
+        return 1.10;
+
+      case GlassSurfaceRole.dialog:
+        return 1.45;
+
+      case GlassSurfaceRole.modal:
+        return 1.60;
+
+      case GlassSurfaceRole.tooltip:
+        return 1.20;
+
+      case GlassSurfaceRole.menu:
+        return 1.25;
+
+        case GlassSurfaceRole.appBar:
+         return 1.00;
+    }
+  }
+
+  // ===========================================================================
+  // CONTRASTE
+  // ===========================================================================
+
+  /// Multiplicateur de contraste visuel.
+  ///
+  /// Les surfaces flottantes obtiennent davantage de séparation
+  /// avec l'arrière-plan.
+  double getRoleContrastMultiplier(GlassSurfaceRole role) {
+    switch (role) {
+      case GlassSurfaceRole.card:
+        return 1.0;
+
+      case GlassSurfaceRole.field:
+        return 1.05;
+
+      case GlassSurfaceRole.panel:
+        return 1.10;
+
+      case GlassSurfaceRole.header:
+        return 1.10;
+
+      case GlassSurfaceRole.body:
+        return 1.05;
+
+      case GlassSurfaceRole.footer:
+        return 1.10;
+
+      case GlassSurfaceRole.dialog:
+        return 1.30;
+
+      case GlassSurfaceRole.modal:
+        return 1.40;
+
+      case GlassSurfaceRole.tooltip:
+        return 1.20;
+
+      case GlassSurfaceRole.menu:
+        return 1.25;
+
+        case GlassSurfaceRole.appBar:
+         return 1.00;
+    }
+  }
+
+  // ===========================================================================
+  // TEXTE
+  // ===========================================================================
+
+  /// Indique si le contenu doit privilégier un texte clair.
   bool get forceLightText =>
       isOpaque ||
       isGradientOpaque ||
       isCustomGradient ||
-      isSageStyle ||
       style == GlassStyle.solidAqua ||
       isClassicSb;
 
-  // ==========================================================================
-  // DISABLED
-  // ==========================================================================
+  // ===========================================================================
+  // ÉTAT DISABLED
+  // ===========================================================================
 
+  /// Alpha appliqué à une surface désactivée.
   double getDisabledAlpha(bool enabled) {
     return enabled ? 1.0 : 0.45;
   }
 
-  // ==========================================================================
+  // ===========================================================================
   // PADDING RESPONSIVE
-  // ==========================================================================
+  // ===========================================================================
 
+  /// Résout le padding en tenant compte des petits écrans.
   EdgeInsetsGeometry getResponsivePadding({
     required BuildContext context,
     required EdgeInsetsGeometry? padding,
@@ -181,7 +441,7 @@ class GlassSurfaceStyle {
         MediaQuery.sizeOf(context).width;
 
     final bool isSmallMobile =
-        screenWidth < 375;
+        screenWidth < 375.0;
 
     return EdgeInsets.symmetric(
       horizontal: isSmallMobile
@@ -193,16 +453,16 @@ class GlassSurfaceStyle {
     );
   }
 
-  // ==========================================================================
-  // GRADIENT ANIMÉ
-  // ==========================================================================
+  // ===========================================================================
+  // ANIMATION
+  // ===========================================================================
 
+  /// Indique si le style possède un gradient animé.
+  ///
+  /// Réservé à une future implémentation de gradient dynamique.
   bool get hasAnimatedGradient => false;
 
-  // ==========================================================================
-  // HOVER
-  // ==========================================================================
-
+  /// Indique si le hover peut être animé.
   bool shouldAnimateHover({
     required bool liftOnHover,
     required bool enabled,
@@ -211,23 +471,12 @@ class GlassSurfaceStyle {
       return false;
     }
 
-    if (isOpaque) {
-      return false;
-    }
-
-    if (isGradientOpaque) {
-      return false;
-    }
-
-    if (isCustomGradient) {
-      return false;
-    }
-
-    if (isGhost) {
-      return false;
-    }
-
-    if (isClassicSb) {
+    // Les surfaces opaques et Classic SB ne participent
+    // pas au comportement de hover du vrai Glass.
+    if (isOpaque ||
+        isGradientOpaque ||
+        isCustomGradient ||
+        isClassicSb) {
       return false;
     }
 

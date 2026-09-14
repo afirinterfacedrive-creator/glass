@@ -1,15 +1,71 @@
 import 'package:flutter/material.dart';
 
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
+
+/// ============================================================================
+/// GLASS RESPONSIVE GRID
+/// ============================================================================
+///
+/// Grille responsive basée sur le contexte de layout Glass.
+///
+/// Responsabilités :
+///
+/// - déterminer le nombre de colonnes ;
+/// - utiliser les breakpoints définis par GlassLayoutContext ;
+/// - calculer la largeur réelle disponible ;
+/// - distribuer les widgets dans un Wrap.
+///
+/// Les breakpoints ne sont volontairement PAS configurables directement
+/// dans cette grille.
+///
+/// Ils proviennent de GlassDisplaySettings -> GlassLayoutContext.
+///
+/// Les colonnes restent configurables par grille, car chaque grille peut
+/// avoir un besoin différent.
+///
+/// Exemple :
+///
+/// GlassResponsiveGrid(
+///   mobileColumns: 1,
+///   tabletColumns: 2,
+///   desktopColumns: 4,
+///   children: [...],
+/// )
+///
+/// ============================================================================
+
 class GlassResponsiveGrid extends StatelessWidget {
+  // ==========================================================================
+  // PROPRIÉTÉS
+  // ==========================================================================
+
+  /// Widgets à afficher dans la grille.
   final List<Widget> children;
+
+  /// Espacement horizontal entre les éléments.
   final double spacing;
+
+  /// Espacement vertical entre les lignes.
   final double runSpacing;
+
+  /// Nombre de colonnes sur mobile.
   final int mobileColumns;
+
+  /// Nombre de colonnes sur tablette.
   final int tabletColumns;
+
+  /// Nombre de colonnes sur desktop.
   final int desktopColumns;
-  final double tabletBreakpoint;
-  final double desktopBreakpoint;
-  final bool expandItems; // <- AJOUT: true pour inputs, false pour switchs
+
+  /// Si true, chaque élément occupe toute la largeur de sa cellule.
+  ///
+  /// Si false, les éléments conservent leur largeur intrinsèque.
+  final bool expandItems;
+
+  // ==========================================================================
+  // CONSTRUCTEUR
+  // ==========================================================================
 
   const GlassResponsiveGrid({
     super.key,
@@ -18,48 +74,130 @@ class GlassResponsiveGrid extends StatelessWidget {
     this.runSpacing = 16.0,
     this.mobileColumns = 1,
     this.tabletColumns = 2,
-    this.desktopColumns = 3,
-    this.tabletBreakpoint = 550.0,
-    this.desktopBreakpoint = 850.0,
-    this.expandItems = true, // <- defaut: etirer comme les inputs
+    this.desktopColumns = 4,
+    this.expandItems = true,
   });
+
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
 
   @override
   Widget build(BuildContext context) {
+    final GlassLayoutContext layout =
+        GlassLayoutScope.of(context);
+
     return LayoutBuilder(
-      builder: (context, constraints) {
-        final double maxWidth = constraints.maxWidth;
+      builder: (
+        BuildContext context,
+        BoxConstraints constraints,
+      ) {
+        final double availableWidth =
+            _resolveAvailableWidth(
+          constraints,
+          layout,
+        );
 
-        int columns = mobileColumns;
-        if (maxWidth >= desktopBreakpoint) {
-          columns = desktopColumns;
-        } else if (maxWidth >= tabletBreakpoint) {
-          columns = tabletColumns;
-        }
+        final int columns =
+            _resolveColumns(layout);
 
-        final double safeWidth = (maxWidth.isFinite && maxWidth > 0) 
-            ? maxWidth 
-            : 500.0;
-
-        double itemWidth = (safeWidth - (spacing * (columns - 1))) / columns;
-        if (itemWidth <= 0) itemWidth = 10.0;
+        final double itemWidth =
+            _resolveItemWidth(
+          availableWidth: availableWidth,
+          columns: columns,
+        );
 
         return Wrap(
           spacing: spacing,
           runSpacing: runSpacing,
           alignment: WrapAlignment.start,
           crossAxisAlignment: WrapCrossAlignment.start,
-          children: children.map((child) {
+          children: children.map((Widget child) {
             if (expandItems) {
-              // Mode Input: prend toute la largeur de la colonne
-              return SizedBox(width: itemWidth, child: child);
-            } else {
-              // Mode Switch: prend seulement la largeur du contenu
-              return IntrinsicWidth(child: child);
+              return SizedBox(
+                width: itemWidth,
+                child: child,
+              );
             }
+
+            return IntrinsicWidth(
+              child: child,
+            );
           }).toList(),
         );
       },
     );
+  }
+
+  // ==========================================================================
+  // LARGEUR DISPONIBLE
+  // ==========================================================================
+
+  double _resolveAvailableWidth(
+    BoxConstraints constraints,
+    GlassLayoutContext layout,
+  ) {
+    double width = constraints.maxWidth;
+
+    if (!width.isFinite || width <= 0.0) {
+      width = layout.effectiveMaxWidth;
+    }
+
+    if (!width.isFinite || width <= 0.0) {
+      width = 500.0;
+    }
+
+    return width;
+  }
+
+  // ==========================================================================
+  // COLONNES
+  // ==========================================================================
+
+  int _resolveColumns(
+    GlassLayoutContext layout,
+  ) {
+    if (layout.isLargeDesktop || layout.isDesktop) {
+      return _safeColumns(desktopColumns);
+    }
+
+    if (layout.isTablet) {
+      return _safeColumns(tabletColumns);
+    }
+
+    return _safeColumns(mobileColumns);
+  }
+
+  // ==========================================================================
+  // LARGEUR DES CELLULES
+  // ==========================================================================
+
+  double _resolveItemWidth({
+    required double availableWidth,
+    required int columns,
+  }) {
+    if (columns <= 1) {
+      return availableWidth;
+    }
+
+    final double totalSpacing =
+        spacing * (columns - 1);
+
+    final double width =
+        availableWidth - totalSpacing;
+
+    if (width <= 0.0) {
+      return 10.0;
+    }
+
+    return width / columns;
+  }
+
+  // ==========================================================================
+  // SÉCURITÉ
+  // ==========================================================================
+
+  int _safeColumns(int value) {
+    return value.clamp(1, 100).toInt();
   }
 }

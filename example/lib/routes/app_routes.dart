@@ -40,6 +40,18 @@ abstract final class AppRoutes {
   // ==========================================================================
   // APPEARANCE
   // ==========================================================================
+  //
+  // Configuration de l'apparence :
+  //
+  // • Aqua
+  // • Classic
+  // • Light
+  // • Dark
+  //
+  // Le mode System utilise le profil Aqua comme fallback mais ne constitue
+  // pas un profil personnalisable.
+  //
+  // ==========================================================================
 
   static const String appearance = '/appearance';
 
@@ -53,7 +65,8 @@ abstract final class AppRoutes {
   //
   // • formatage 71 20 00 00
   // • normalisation 71200000
-  // • limitation à 8 chiffres
+  // • limitation à 8 chiffres selon le pays
+  // • détection dynamique des opérateurs
   // • collage
   // • suppression
   // • curseur
@@ -65,33 +78,94 @@ abstract final class AppRoutes {
   static const String phoneInput = '/phone-input';
 
   // ==========================================================================
-  // DEMOS - OPTIONS POUR LES 6 NOUVEAUX GRADIENTS
+  // GLASS PHONE CRUD
   // ==========================================================================
   //
-  // Pages de test pour valider les 3 options :
+  // Panneau d'administration et de gestion dynamique des préfixes réseau.
   //
-  // A. Animation Gradient au hover
-  // B. Export/Import des presets
-  // C. Picker animé dans Appearance
-  //
-  // ==========================================================================
-
-  static const String gradientAnimationDemo = '/demo-gradient-animation';
-
-  static const String presetExportImportDemo = '/demo-preset-export-import';
-
-  static const String presetPickerDemo = '/demo-preset-picker';
-
-  // ==========================================================================
-  // GALERIE DES 21 STYLES GLASS
-  // ==========================================================================
-  //
-  // Page de prévisualisation et de test en direct pour l'ensemble des
-  // 21 presets visuels du package (Gamme classique, Sage et Premium).
+  // Permet de modifier la base locale des pays et territoires à chaud,
+  // sans modifier le code source du package.
   //
   // ==========================================================================
 
-  static const String styleGallery = '/demo-style-gallery';
+  static const String phoneCrud = '/phone-crud';
 
-  static const String glassGlobalSettings = '/glass-global-settings'; // <- AJOU
+  // ==========================================================================
+  // GRADIENT ANIMATION DEMO
+  // ==========================================================================
+  //
+  // Démonstration des animations de gradient.
+  //
+  // ==========================================================================
+
+  static const String gradientAnimationDemo =
+      '/demo-gradient-animation';
+
+  // ==========================================================================
+  // PRESET EXPORT / IMPORT DEMO
+  // ==========================================================================
+  //
+  // Démonstration de l'export et de l'import des presets Glass.
+  //
+  // ==========================================================================
+
+  static const String presetExportImportDemo =
+      '/demo-preset-export-import';
+
+  // ==========================================================================
+  // PRESET PICKER DEMO
+  // ==========================================================================
+  //
+  // Démonstration du sélecteur de presets Glass.
+  //
+  // ==========================================================================
+
+  static const String presetPickerDemo =
+      '/demo-preset-picker';
+
+  // ==========================================================================
+  // GLASS STYLE GALLERY
+  // ==========================================================================
+  //
+  // Galerie de prévisualisation des styles Glass disponibles dans le package.
+  //
+  // Le nombre réel de styles est obtenu dynamiquement via :
+  //
+  // GlassStyle.values.length
+  //
+  // ==========================================================================
+
+  static const String styleGallery =
+      '/demo-style-gallery';
+
+  // ==========================================================================
+  // GLASS GLOBAL SETTINGS
+  // ==========================================================================
+  //
+  // Configuration globale du système Glass.
+  //
+  // ==========================================================================
+
+  static const String glassGlobalSettings =
+      '/glass-global-settings';
+
+  // ==========================================================================
+  // COMPONENT PREVIEWS
+  // ==========================================================================
+  //
+  // Pages de démonstration des composants interactifs Universal Glass.
+  //
+  // ==========================================================================
+
+  /// Démonstration du Glass Dialog.
+  static const String dialog =
+      '/preview-dialog';
+
+  /// Démonstration du Glass Modal.
+  static const String modal =
+      '/preview-modal';
+
+  /// Démonstration du Glass Form.
+  static const String form =
+      '/preview-form';
 }

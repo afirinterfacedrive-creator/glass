@@ -49,9 +49,7 @@ class PhysicalTogglesPage extends ConsumerWidget {
       showBackButton: true,
       hideNavigation: true,
 
-      // LIVE: utilise le gradient + blur + noise du provider
-      useCustomGradient: true,
-      customGradientKey: 'appbar_gradient',
+      
       blur: theme.blur,   // <-- AJOUT
       noise: theme.noise, // <-- AJOUT
 

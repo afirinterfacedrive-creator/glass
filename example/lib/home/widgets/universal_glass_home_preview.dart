@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/components/universal_glass_button.dart';
 import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:universal_glass/provider/glass_button_provider.dart';
-import 'package:universal_glass/utils/glass_theme_extension.dart'; // <- AJOUT
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart'; // <- AJOUT
 
 /// ============================================================================
 /// UNIVERSAL GLASS BUTTON PREVIEW
@@ -15,19 +16,28 @@ class UniversalGlassHomePreview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final glass = ref.watchGlassContext(context); // <- RECUP CONTEXTE
-    
+    final GlassLayoutContext glass = GlassLayoutScope.of(
+      context,
+    ); // <- RECUP CONTEXTE
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Universal Glass Button',
-          style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+          ),
         ),
         const SizedBox(height: 6),
         Text(
           'Test de tous les états et styles',
-          style: TextStyle(color: glass.palette.textSecondary.withValues(alpha: 0.7), fontSize: 13), // <- COULEUR DU CONTEXTE
+          style: TextStyle(
+            color: glass.palette.textSecondary.withValues(alpha: 0.7),
+            fontSize: 13,
+          ), // <- COULEUR DU CONTEXTE
         ),
         const SizedBox(height: 24),
 
@@ -108,7 +118,9 @@ class UniversalGlassHomePreview extends ConsumerWidget {
               defaultActive: true,
               label: 'Actif',
               icon: Icons.check_circle,
-              simpleOnTap: () => ref.read(glassButtonProvider.notifier).toggleActive('btn_active_1'),
+              simpleOnTap: () => ref
+                  .read(glassButtonProvider.notifier)
+                  .toggleActive('btn_active_1'),
             ),
             UniversalGlassButton(
               buttonId: 'btn_active_2',
@@ -119,7 +131,9 @@ class UniversalGlassHomePreview extends ConsumerWidget {
               style: GlassStyle.transparentAqua,
               label: 'Toggle',
               icon: Icons.toggle_on,
-              simpleOnTap: () => ref.read(glassButtonProvider.notifier).toggleActive('btn_active_2'),
+              simpleOnTap: () => ref
+                  .read(glassButtonProvider.notifier)
+                  .toggleActive('btn_active_2'),
             ),
           ],
         ),
@@ -134,39 +148,39 @@ class UniversalGlassHomePreview extends ConsumerWidget {
           spacing: 12,
           runSpacing: 12,
           children: [
-            UniversalGlassButton(
-              buttonId: 'btn_loading_left',
-              width: 170,
-              height: 48,
-              effects: glass.effects,
-              shape: GlassShapeType.squareRounded,
-              style: GlassStyle.solidAqua,
-              label: 'Loading Gauche',
-              icon: Icons.download,
-              spinnerPosition: SpinnerPosition.left,
-              iconColor: const Color(0xFF4DD0E1),
-              futureOnTap: (ref) async {
-                await Future.delayed(const Duration(seconds: 2));
-                if (context.mounted) _toast(context, 'Terminé !');
-              },
-            ),
-            UniversalGlassButton(
-              buttonId: 'btn_loading_right',
-              width: 170,
-              height: 48,
-              effects: glass.effects,
-              shape: GlassShapeType.squareRounded,
-              style: GlassStyle.solidAqua,
-              label: 'Loading Droite',
-              icon: Icons.upload,
-              spinnerPosition: SpinnerPosition.right,
-              iconColor: const Color(0xFFFF5252),
-              futureOnTap: (ref) async {
-                await Future.delayed(const Duration(seconds: 2));
-                if (context.mounted) _toast(context, 'Upload OK');
-              },
-            ),
-          ],
+  UniversalGlassButton(
+    buttonId: 'btn_loading_left',
+    width: 170,
+    height: 48,
+    effects: glass.effects,
+    shape: GlassShapeType.squareRounded,
+    style: GlassStyle.solidAqua,
+    label: 'Loading Gauche',
+    icon: Icons.download,
+    spinnerPosition: SpinnerPosition.left,
+    iconColor: const Color(0xFF4DD0E1),
+    futureOnTap: () async { // <- ENLEVE (ref)
+      await Future.delayed(const Duration(seconds: 2));
+      if (context.mounted) _toast(context, 'Terminé !');
+    },
+  ),
+  UniversalGlassButton(
+    buttonId: 'btn_loading_right',
+    width: 170,
+    height: 48,
+    effects: glass.effects,
+    shape: GlassShapeType.squareRounded,
+    style: GlassStyle.solidAqua,
+    label: 'Loading Droite',
+    icon: Icons.upload,
+    spinnerPosition: SpinnerPosition.right,
+    iconColor: const Color(0xFFFF5252),
+    futureOnTap: () async { // <- ENLEVE (ref)
+      await Future.delayed(const Duration(seconds: 2));
+      if (context.mounted) _toast(context, 'Upload OK');
+    },
+  ),
+],
         ),
         const SizedBox(height: 28),
 
@@ -238,10 +252,15 @@ class UniversalGlassHomePreview extends ConsumerWidget {
     );
   }
 
-  Widget _sectionTitle(GlassLayoutContext glass, String title) => Text( // <- AJOUT glass en param
-        title,
-        style: TextStyle(color: glass.palette.textPrimary, fontSize: 15, fontWeight: FontWeight.w700), // <- COULEUR DU CONTEXTE
-      );
+  Widget _sectionTitle(GlassLayoutContext glass, String title) => Text(
+    // <- AJOUT glass en param
+    title,
+    style: TextStyle(
+      color: glass.palette.textPrimary,
+      fontSize: 15,
+      fontWeight: FontWeight.w700,
+    ), // <- COULEUR DU CONTEXTE
+  );
 
   void _toast(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).showSnackBar(

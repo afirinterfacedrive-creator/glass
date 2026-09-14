@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:universal_glass/glass.dart';
 import 'package:universal_glass_example/main/app.dart';
+import 'package:universal_glass_example/routes/app_router.dart';
 
 // ============================================================================
 // MAIN
@@ -30,6 +31,9 @@ Future<void> main() async {
   final SharedPreferences sharedPreferences =
       await SharedPreferences.getInstance();
 
+
+  // 🟢 2. INITIALISE LE CONTROLLER ICI AVANT runApp
+  AppRouter.init(sharedPreferences);
   // ==========================================================================
   // APPLICATION
   // ==========================================================================

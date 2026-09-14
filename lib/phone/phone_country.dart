@@ -28,9 +28,17 @@ class PhoneOperator {
       name: json['name'] as String? ?? '',
       shortName: json['shortName'] as String? ?? json['name'] as String? ?? '',
       prefixes: _stringList(json['prefixes']),
-      colorHex: json['color'] as String? ?? '#888',
+      colorHex: json['colorHex'] as String? ?? json['color'] as String? ?? '#888', // compat ancien json
     );
   }
+  
+  Map<String, dynamic> toJson() => { // <- AJOUT POUR SAVE
+    'id': id,
+    'name': name,
+    'shortName': shortName,
+    'prefixes': prefixes,
+    'colorHex': colorHex,
+  };
   
   static List<String> _stringList(dynamic value) {
     if (value is! List) return const <String>[];
@@ -38,6 +46,22 @@ class PhoneOperator {
   }
   
   Color get color => Color(int.parse(colorHex.replaceFirst('#', '0xFF')));
+
+  PhoneOperator copyWith({
+    String? id,
+    String? name,
+    String? shortName,
+    List<String>? prefixes,
+    String? colorHex,
+  }) {
+    return PhoneOperator(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      shortName: shortName ?? this.shortName,
+      prefixes: prefixes ?? this.prefixes,
+      colorHex: colorHex ?? this.colorHex,
+    );
+  }
 }
 
 class PhoneCountry {
@@ -111,34 +135,66 @@ class PhoneCountry {
   bool get hasOperatorsDetailed => operatorsDetailed.isNotEmpty;
 
   PhoneOperator? operatorForPrefix(String digits) {
-    if (digits.length < 2) return null;
-    final String p2 = digits.substring(0, 2);
+    if (digits.isEmpty) return null;
+    
+    PhoneOperator? matchedOperator;
+    int longestMatchLength = 0;
+
     for (final op in operatorsDetailed) {
-      if (op.prefixes.contains(p2)) return op;
+      for (final prefix in op.prefixes) {
+        if (digits.startsWith(prefix)) {
+          if (prefix.length > longestMatchLength) {
+            longestMatchLength = prefix.length;
+            matchedOperator = op;
+          }
+        }
+      }
     }
-    return null;
+    return matchedOperator;
   }
 
   factory PhoneCountry.fromJson(Map<String, dynamic> json) {
-    final List<String> operators = _stringList(json['operators']);
-    final List<dynamic> operatorsJson = json['operators'] is List ? json['operators'] : const [];
-    final List<PhoneOperator> operatorsDetailed = operatorsJson.whereType<Map<String, dynamic>>().map(PhoneOperator.fromJson).toList(growable: false);
-    final List<PhoneOperator> finalOperatorsDetailed = operatorsDetailed.isNotEmpty ? operatorsDetailed : operators.map((name) => PhoneOperator(id: name, name: name, shortName: name, prefixes: const [], colorHex: '#888')).toList();
-    return PhoneCountry(
-      isoCode: json['isoCode'] as String,
-      name: json['name'] as String,
-      flag: json['flag'] as String,
-      flagAsset: json['flagAsset'] as String?,
-      dialCode: json['dialCode'] as String,
-      nationalDigits: (json['nationalDigits'] as List<dynamic>).whereType<num>().map((num value) => value.toInt()).toList(growable: false),
-      formatGroups: (json['formatGroups'] as List<dynamic>).whereType<num>().map((num value) => value.toInt()).toList(growable: false),
-      prefixes: _stringList(json['prefixes']),
-      operators: operators,
-      operatorsDetailed: finalOperatorsDetailed,
-      example: json['example'] as String?,
-      placeholder: json['placeholder'] as String?,
-    );
+  final List<String> operators = _stringList(json['operators']);
+  
+  // 🟢 Priorité à operatorsDetailed, sinon fallback sur operators
+  List<PhoneOperator> operatorsDetailed = [];
+  if(json['operatorsDetailed'] != null){
+    operatorsDetailed = (json['operatorsDetailed'] as List)
+        .whereType<Map<String, dynamic>>()
+        .map(PhoneOperator.fromJson)
+        .toList();
+  } else if(json['operators'] != null && json['operators'] is List && json['operators'].isNotEmpty && json['operators'].first is Map){
+    // Compat: ancien export qui avait écrasé 'operators'
+    operatorsDetailed = (json['operators'] as List)
+        .whereType<Map<String, dynamic>>()
+        .map(PhoneOperator.fromJson)
+        .toList();
+  } else {
+    // Fallback: anciens JSON avec juste des noms
+    operatorsDetailed = operators.map((name) => PhoneOperator(
+      id: name.toLowerCase().replaceAll(' ', '_'), 
+      name: name, 
+      shortName: name, 
+      prefixes: const [], 
+      colorHex: '#888'
+    )).toList();
   }
+
+  return PhoneCountry(
+    isoCode: json['isoCode'] as String,
+    name: json['name'] as String,
+    flag: json['flag'] as String,
+    flagAsset: json['flagAsset'] as String?,
+    dialCode: json['dialCode'] as String,
+    nationalDigits: (json['nationalDigits'] as List<dynamic>).whereType<num>().map((num value) => value.toInt()).toList(growable: false),
+    formatGroups: (json['formatGroups'] as List<dynamic>).whereType<num>().map((num value) => value.toInt()).toList(growable: false),
+    prefixes: _stringList(json['prefixes']),
+    operators: operators,
+    operatorsDetailed: operatorsDetailed, // <- maintenant il sera rempli
+    example: json['example'] as String?,
+    placeholder: json['placeholder'] as String?,
+  );
+}
 
   static List<String> _stringList(dynamic value) {
     if (value is! List) return const <String>[];
@@ -146,20 +202,21 @@ class PhoneCountry {
   }
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'isoCode': isoCode,
-      'name': name,
-      'flag': flag,
-      'flagAsset': flagAsset,
-      'dialCode': dialCode,
-      'nationalDigits': nationalDigits,
-      'formatGroups': formatGroups,
-      'prefixes': prefixes,
-      'operators': operators,
-      'example': example,
-      'placeholder': placeholder,
-    };
-  }
+  return <String, dynamic>{
+    'isoCode': isoCode,
+    'name': name,
+    'flag': flag,
+    'flagAsset': flagAsset,
+    'dialCode': dialCode,
+    'nationalDigits': nationalDigits,
+    'formatGroups': formatGroups,
+    'prefixes': prefixes,
+    'operators': operators, // <- garde l'ancien pour compat
+    'operatorsDetailed': operatorsDetailed.map((e) => e.toJson()).toList(), // <- SAUVE ICI
+    'example': example,
+    'placeholder': placeholder,
+  };
+}
 
   PhoneCountry copyWith({
     String? isoCode,

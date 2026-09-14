@@ -17,10 +17,10 @@
 // DIALOGS
 // ============================================================================
 
-export 'dialogs/universal_glass_dialog.dart';
-export 'dialogs/universal_glass_confirm_dialog.dart';
-export 'dialogs/universal_glass_email_input.dart';
-export 'dialogs/universal_glass_modal.dart';
+export 'dialog/universal_glass_dialog.dart';
+export 'dialog/universal_glass_confirm_dialog.dart';
+export 'dialog/universal_glass_email_input.dart';
+export 'dialog/universal_glass_modal.dart';
 
 // ============================================================================
 // FORMS
@@ -35,7 +35,7 @@ export 'forms/glass_form_section.dart';
 // INPUTS
 // ============================================================================
 
-export 'inputs/glass_input_decoration.dart';
+export '../utils/glass_input_decoration.dart';
 export 'inputs/glass_input_icon_bubble.dart';
 
 export 'inputs/universal_glass_address_input.dart';

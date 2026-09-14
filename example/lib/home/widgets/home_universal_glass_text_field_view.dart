@@ -8,10 +8,12 @@ class HomeUniversalGlassTextFieldView extends ConsumerStatefulWidget {
   const HomeUniversalGlassTextFieldView({super.key});
 
   @override
-  ConsumerState<HomeUniversalGlassTextFieldView> createState() => _HomeUniversalGlassTextFieldViewState();
+  ConsumerState<HomeUniversalGlassTextFieldView> createState() =>
+      _HomeUniversalGlassTextFieldViewState();
 }
 
-class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalGlassTextFieldView> {
+class _HomeUniversalGlassTextFieldViewState
+    extends ConsumerState<HomeUniversalGlassTextFieldView> {
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -43,7 +45,7 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
 
   @override
   Widget build(BuildContext context) {
-    final glass = ref.watchGlassContext(context);
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
 
     return GlassSurfaceContainer(
       style: glass.effectiveGlassStyle,
@@ -54,23 +56,23 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text( 
-            'Universal Glass Text Field', 
+          Text(
+            'Universal Glass Text Field',
             style: TextStyle(
-              color: Colors.white, 
-              fontSize: glass.isSmallMobile ? 16 : 18, 
+              color: Colors.white,
+              fontSize: glass.isSmallMobile ? 16 : 18,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.3,
-            ), 
-          ), 
-          const SizedBox(height: 4), 
-          Text( 
-            'Style: ${glass.effectiveGlassStyle.name}, GlassLayoutContext', 
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Style: ${glass.effectiveGlassStyle.name}, GlassLayoutContext',
             style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.6), 
+              color: Colors.white.withValues(alpha: 0.6),
               fontSize: glass.isSmallMobile ? 11 : 13,
-            ), 
-          ), 
+            ),
+          ),
 
           SizedBox(height: glass.isSmallMobile ? 16 : 24),
 
@@ -123,22 +125,38 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
           SizedBox(height: glass.isSmallMobile ? 20 : 26),
           const GlassPreviewLabel('Options'),
           const SizedBox(height: 10),
-          
+
           Wrap(
             spacing: 10,
             runSpacing: 10,
             children: [
-              GlassPreviewSwitch(label: 'Enabled', value: _enabled, onChanged: (v) => setState(() => _enabled = v)),
-              GlassPreviewSwitch(label: 'Read only', value: _readOnly, onChanged: (v) => setState(() => _readOnly = v)),
-              GlassPreviewSwitch(label: 'Validation', value: _useValidation, onChanged: (v) => setState(() => _useValidation = v)),
-              GlassPreviewSwitch(label: 'Auto validation', value: _useAutovalidation, onChanged: (v) => setState(() => _useAutovalidation = v)),
+              GlassPreviewSwitch(
+                label: 'Enabled',
+                value: _enabled,
+                onChanged: (v) => setState(() => _enabled = v),
+              ),
+              GlassPreviewSwitch(
+                label: 'Read only',
+                value: _readOnly,
+                onChanged: (v) => setState(() => _readOnly = v),
+              ),
+              GlassPreviewSwitch(
+                label: 'Validation',
+                value: _useValidation,
+                onChanged: (v) => setState(() => _useValidation = v),
+              ),
+              GlassPreviewSwitch(
+                label: 'Auto validation',
+                value: _useAutovalidation,
+                onChanged: (v) => setState(() => _useAutovalidation = v),
+              ),
             ],
           ),
 
           const SizedBox(height: 20),
           const GlassPreviewLabel('État'),
           const SizedBox(height: 8),
-          
+
           _buildStatusCard(glass: glass),
         ],
       ),
@@ -178,11 +196,15 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
       enabled: _enabled,
       readOnly: _readOnly,
       validator: validator,
-      autovalidateMode: _useAutovalidation ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+      autovalidateMode: _useAutovalidation
+          ? AutovalidateMode.onUserInteraction
+          : AutovalidateMode.disabled,
       onChanged: (value) => _lastChangedValue.value = value,
       onSubmitted: (value) => _lastSubmittedValue.value = value,
       decoration: GlassInputDecoration(
-        color: useAqua ? focusColor.withValues(alpha:0.06) : Colors.white.withValues(alpha:0.04),
+        color: useAqua
+            ? focusColor.withValues(alpha: 0.06)
+            : Colors.white.withValues(alpha: 0.04),
         backgroundOpacity: focusNode.hasFocus ? bgOpacity + 0.1 : bgOpacity,
         focusOpacity: bgOpacity + 0.14,
         borderColor: Colors.white.withValues(alpha: 0.12),
@@ -212,7 +234,10 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
             valueListenable: _lastChangedValue,
             builder: (context, value, _) => Text(
               'onChanged : ${value.isEmpty ? '—' : value}',
-              style: TextStyle(color: Colors.white.withValues(alpha:0.8), fontSize: 12),
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.8),
+                fontSize: 12,
+              ),
             ),
           ),
           const SizedBox(height: 6),
@@ -220,7 +245,10 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
             valueListenable: _lastSubmittedValue,
             builder: (context, value, _) => Text(
               'onSubmitted : ${value.isEmpty ? '—' : value}',
-              style: TextStyle(color: Colors.white.withValues(alpha:0.8), fontSize: 12),
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.8),
+                fontSize: 12,
+              ),
             ),
           ),
         ],
@@ -235,14 +263,16 @@ class _HomeUniversalGlassTextFieldViewState extends ConsumerState<HomeUniversalG
   }
 
   String? _validateEmail(String? value) {
-    if (value == null || value.trim().isEmpty) return 'L\'email est obligatoire';
+    if (value == null || value.trim().isEmpty)
+      return 'L\'email est obligatoire';
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) return 'Adresse email invalide';
     return null;
   }
 
   String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) return 'Le mot de passe est obligatoire';
+    if (value == null || value.isEmpty)
+      return 'Le mot de passe est obligatoire';
     if (value.length < 6) return 'Minimum 6 caractères';
     return null;
   }

@@ -1,7 +1,11 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:universal_glass/components/surface/glass_surface_container.dart';
-import 'package:universal_glass/utils/glass_theme_extension.dart'; // <- AJOUT
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
 
 import '../enums/glass_enums.dart';
 import '../provider/glass_button_provider.dart';
@@ -9,21 +13,38 @@ import '../theme/glass_effects.dart';
 
 class UniversalGlassButton extends ConsumerStatefulWidget {
   final String buttonId;
+
   final double? width;
   final double height;
+
   final double borderRadius;
+
   final GlassEffects effects;
   final GlassShapeType shape;
   final GlassStyle style;
+
   final bool defaultActive;
   final bool enabled;
+
   final String? label;
   final IconData? icon;
+
   final Color iconColor;
-  final double? iconSize; // <- AJOUTE ÇA
+  final double? iconSize;
+
   final SpinnerPosition spinnerPosition;
-  final Future<void> Function(WidgetRef ref)? futureOnTap;
+
+  /// Callback synchrone.
+  ///
+  /// Utilisé pour une action immédiate qui ne nécessite
+  /// pas d'état de chargement.
   final VoidCallback? simpleOnTap;
+
+  /// Callback asynchrone.
+  ///
+  /// Lorsqu'il est fourni, le bouton passe automatiquement
+  /// en état de chargement pendant l'exécution de l'action.
+  final Future<void> Function()? futureOnTap;
 
   const UniversalGlassButton({
     super.key,
@@ -39,82 +60,167 @@ class UniversalGlassButton extends ConsumerStatefulWidget {
     this.label,
     this.icon,
     this.iconColor = Colors.white,
-    this.iconSize, // <- AJOUTE ÇA
+    this.iconSize,
     this.spinnerPosition = SpinnerPosition.left,
-    this.futureOnTap,
     this.simpleOnTap,
+    this.futureOnTap,
   });
 
   @override
-  ConsumerState<UniversalGlassButton> createState() => _UniversalGlassButtonState();
+  ConsumerState<UniversalGlassButton> createState() =>
+      _UniversalGlassButtonState();
 }
 
-class _UniversalGlassButtonState extends ConsumerState<UniversalGlassButton> {
+class _UniversalGlassButtonState
+    extends ConsumerState<UniversalGlassButton> {
   bool _isPressed = false;
 
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
-      if (mounted) ref.read(glassButtonProvider.notifier).initButton(widget.buttonId, widget.defaultActive);
+      if (!mounted) return;
+
+      ref
+          .read(glassButtonProvider.notifier)
+          .initButton(
+            widget.buttonId,
+            widget.defaultActive,
+          );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final glass = ref.watchGlassContext(context); // <- CENTRALISE
-    final state = ref.watch(glassButtonProvider.select((s) => s[widget.buttonId] ?? const GlassButtonState()));
-    final bool isLoading = state.isLoading, isActive = state.isActive;
-    final bool isDisabled = !widget.enabled || isLoading;
-    final double scale = _isPressed ? 0.94 : 1.0;
+    final GlassLayoutContext glass =
+        GlassLayoutScope.of(context);
 
-    final bool useAqua = glass.theme.useAquaStyle;
-    final Color focusColor = useAqua ? Colors.cyanAccent : Colors.orangeAccent;
+    final GlassButtonState state = ref.watch(
+      glassButtonProvider.select(
+        (states) =>
+            states[widget.buttonId] ??
+            const GlassButtonState(),
+      ),
+    );
 
-    // FIX 1: Gestion stricte des formes géométriques
-    final bool isCircle = widget.shape == GlassShapeType.circle;
-    final BorderRadius radius = isCircle || widget.shape == GlassShapeType.stadium || widget.shape == GlassShapeType.pill
-        ? BorderRadius.circular(widget.height / 2)
-        : BorderRadius.circular(widget.borderRadius);
+    final bool isLoading = state.isLoading;
+    final bool isActive = state.isActive;
 
-    // Si c'est un cercle, on force un aspect carré
-    final double? effectiveWidth = isCircle ? widget.height : widget.width;
+    /*
+     * Le bouton est désactivé :
+     * - si enabled == false ;
+     * - ou pendant une action asynchrone.
+     */
+    final bool isDisabled =
+        !widget.enabled || isLoading;
 
-    // Style actif: on utilise le contexte
-    final GlassStyle effectiveStyle = isActive ? GlassStyle.solidAqua : widget.style;
-    final GlassEffects effectiveEffects = isActive 
-        ? glass.effects.copyWith(glowOpacity: glass.effects.glowOpacity + 0.2) // boost glow quand actif
-        : glass.effects;
+    final double scale =
+        _isPressed ? 0.94 : 1.0;
 
-    // TAILLE ICONE = 60% DE LA HAUTEUR * 0.66 pour rester dans la bulle
-    final double bubbleSize = widget.height * 0.6;
-    final double iconSize = (widget.iconSize ?? bubbleSize * 0.66).clamp(16.0, 28.0);
-    final double fontSize = (widget.height * 0.32).clamp(11.0, 18.0);
+    final bool isCircle =
+        widget.shape == GlassShapeType.circle;
 
-    final Color finalIconColor = isDisabled 
-        ? widget.iconColor.withValues(alpha: 0.4) 
-        : (isActive ? focusColor : widget.iconColor);
+    final bool isRoundShape =
+        isCircle ||
+        widget.shape == GlassShapeType.stadium ||
+        widget.shape == GlassShapeType.pill;
+
+    final BorderRadius radius =
+        isRoundShape
+            ? BorderRadius.circular(
+                widget.height / 2,
+              )
+            : BorderRadius.circular(
+                widget.borderRadius,
+              );
+
+    final double? effectiveWidth =
+        isCircle
+            ? widget.height
+            : widget.width;
+
+    final GlassStyle effectiveStyle =
+        widget.style;
+
+    final GlassEffects effectiveEffects =
+        isActive
+            ? widget.effects.copyWith(
+                glowOpacity:
+                    (widget.effects.glowOpacity + 0.20)
+                        .clamp(0.0, 1.0),
+              )
+            : widget.effects;
+
+    final double bubbleSize =
+        widget.height * 0.60;
+
+    final double iconSize =
+        (widget.iconSize ??
+                bubbleSize * 0.66)
+            .clamp(16.0, 28.0);
+
+    final double fontSize =
+        (widget.height * 0.32)
+            .clamp(11.0, 18.0);
+
+    final Color finalIconColor =
+        isDisabled
+            ? widget.iconColor.withValues(
+                alpha: 0.40,
+              )
+            : isActive
+                ? glass.focusColor
+                : widget.iconColor;
+
+    final Color textColor =
+        isDisabled
+            ? Colors.white.withValues(
+                alpha: 0.40,
+              )
+            : Colors.white;
 
     return Semantics(
-      button: true, enabled: !isDisabled, label: widget.label,
+      button: true,
+      enabled: !isDisabled,
+      label: widget.label,
       child: AnimatedScale(
-        scale: scale, duration: const Duration(milliseconds: 140), curve: Curves.easeOutCubic,
+        scale: scale,
+        duration: const Duration(
+          milliseconds: 140,
+        ),
+        curve: Curves.easeOutCubic,
         child: SizedBox(
           width: effectiveWidth,
           height: widget.height,
           child: GlassSurfaceContainer(
+            role: GlassSurfaceRole.card,
             style: effectiveStyle,
-            effects: effectiveEffects, // <- UTILISE CEUX DU CONTEXTE
+            effects: effectiveEffects,
             shape: widget.shape,
             borderRadius: radius,
             padding: EdgeInsets.zero,
             enabled: !isDisabled,
             liftOnHover: true,
-            onTap: isDisabled ? null : _handleTap,
+            onTap: isDisabled
+                ? null
+                : _handleTap,
             child: Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: isCircle ? 0 : 12),
-                child: _content(isLoading, isActive, state.customText, isCircle, iconSize, fontSize, finalIconColor, focusColor),
+                padding: EdgeInsets.symmetric(
+                  horizontal:
+                      isCircle ? 0.0 : 12.0,
+                ),
+                child: _content(
+                  isLoading,
+                  isActive,
+                  state.customText,
+                  isCircle,
+                  iconSize,
+                  fontSize,
+                  finalIconColor,
+                  textColor,
+                ),
               ),
             ),
           ),
@@ -123,104 +229,319 @@ class _UniversalGlassButtonState extends ConsumerState<UniversalGlassButton> {
     );
   }
 
+  /// Gère l'appui sur le bouton.
+  ///
+  /// Priorité :
+  /// 1. [futureOnTap] si fourni.
+  /// 2. [simpleOnTap] sinon.
+  ///
+  /// Cela garantit qu'un bouton ne déclenche jamais
+  /// deux actions différentes pour une seule pression.
   Future<void> _handleTap() async {
-    final notifier = ref.read(glassButtonProvider.notifier);
-    setState(() => _isPressed = true);
-    await Future.delayed(const Duration(milliseconds: 100));
-    if (mounted) setState(() => _isPressed = false);
+    if (_isPressed) return;
 
-    widget.simpleOnTap?.call();
-    if (widget.futureOnTap != null) {
-      notifier.setLoading(widget.buttonId, true);
+    /*
+     * ------------------------------------------------------------
+     * 1. Animation de pression
+     * ------------------------------------------------------------
+     */
+
+    setState(() {
+      _isPressed = true;
+    });
+
+    await Future.delayed(
+      const Duration(
+        milliseconds: 100,
+      ),
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      _isPressed = false;
+    });
+
+    /*
+     * ------------------------------------------------------------
+     * 2. Action asynchrone
+     * ------------------------------------------------------------
+     *
+     * futureOnTap est prioritaire.
+     */
+    final Future<void> Function()? futureAction =
+        widget.futureOnTap;
+
+    if (futureAction != null) {
+      final notifier =
+          ref.read(
+            glassButtonProvider.notifier,
+          );
+
+      /*
+       * Active le loading AVANT de lancer l'action.
+       */
+      notifier.setLoading(
+        widget.buttonId,
+        true,
+      );
+
       try {
-        await widget.futureOnTap!(ref);
-      } catch (e, s) {
-        debugPrint('❌ UniversalGlassButton [${widget.buttonId}] : $e');
-        debugPrintStack(stackTrace: s);
-        rethrow;
+        await futureAction();
+      } catch (error, stackTrace) {
+        debugPrint(
+          '❌ UniversalGlassButton '
+          '[${widget.buttonId}] : $error',
+        );
+
+        debugPrintStack(
+          stackTrace: stackTrace,
+        );
       } finally {
-        if (mounted) notifier.setLoading(widget.buttonId, false, clearCustomText: true);
-      }
+  if (mounted) {
+    notifier.setLoading(
+      widget.buttonId,
+      false,
+      clearCustomText: true,
+    );
+  }
+}
+
+      return;
+    }
+
+    /*
+     * ------------------------------------------------------------
+     * 3. Action synchrone
+     * ------------------------------------------------------------
+     *
+     * Elle n'est appelée que lorsqu'il n'y a
+     * aucune action asynchrone.
+     */
+    final VoidCallback? simpleAction =
+        widget.simpleOnTap;
+
+    if (simpleAction != null) {
+      simpleAction();
     }
   }
 
-  Widget _content(bool isLoading, bool isActive, String? customText, bool isCircle, double iconSize, double fontSize, Color iconColor, Color focusColor) {
-    // FIX 2: Loader pour les boutons circulaires purs
+  Widget _content(
+    bool isLoading,
+    bool isActive,
+    String? customText,
+    bool isCircle,
+    double iconSize,
+    double fontSize,
+    Color iconColor,
+    Color textColor,
+  ) {
+    /*
+     * ------------------------------------------------------------
+     * Bouton circulaire en chargement
+     * ------------------------------------------------------------
+     */
+
     if (isLoading && isCircle) {
-      return _Spinner(color: iconColor);
+      return _Spinner(
+        color: iconColor,
+      );
     }
 
-    // CAS 1: ICONE SEUL
-    if ((widget.label == null && widget.icon != null && !isLoading) || (isCircle && widget.icon != null)) {
+    /*
+     * ------------------------------------------------------------
+     * Bouton circulaire / icône seule
+     * ------------------------------------------------------------
+     */
+
+    if ((widget.label == null &&
+            widget.icon != null &&
+            !isLoading) ||
+        (isCircle &&
+            widget.icon != null)) {
       return Center(
         child: AnimatedRotation(
           turns: isActive ? 0.25 : 0.0,
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(
+            milliseconds: 250,
+          ),
           curve: Curves.easeInOut,
-          child: Icon(widget.icon, color: iconColor, size: iconSize),
+          child: Icon(
+            widget.icon,
+            color: iconColor,
+            size: iconSize,
+          ),
         ),
       );
     }
 
-    // CAS 2: AVEC TEXTE
-    final List<Widget> children = [];
+    /*
+     * ------------------------------------------------------------
+     * Contenu standard
+     * ------------------------------------------------------------
+     */
 
-    if (isLoading && widget.spinnerPosition == SpinnerPosition.left) {
-      children.add(_Spinner(color: iconColor));
-      children.add(const SizedBox(width: 8));
+    final List<Widget> children =
+        <Widget>[];
+
+    /*
+     * Spinner à gauche
+     */
+
+    if (isLoading &&
+        widget.spinnerPosition ==
+            SpinnerPosition.left) {
+      children.add(
+        _Spinner(
+          color: iconColor,
+        ),
+      );
+
+      children.add(
+        const SizedBox(
+          width: 8,
+        ),
+      );
     }
 
-    if (widget.icon != null && (!isLoading || widget.spinnerPosition == SpinnerPosition.right)) {
+    /*
+     * Icône
+     */
+
+    if (widget.icon != null &&
+        (!isLoading ||
+            widget.spinnerPosition ==
+                SpinnerPosition.right)) {
       children.add(
         AnimatedRotation(
           turns: isActive ? 0.25 : 0.0,
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(
+            milliseconds: 250,
+          ),
           curve: Curves.easeInOut,
-          child: Icon(widget.icon, color: iconColor, size: iconSize),
+          child: Icon(
+            widget.icon,
+            color: iconColor,
+            size: iconSize,
+          ),
         ),
       );
-      if (widget.label != null) children.add(const SizedBox(width: 8));
+
+      if (widget.label != null) {
+        children.add(
+          const SizedBox(
+            width: 8,
+          ),
+        );
+      }
     }
 
+    /*
+     * Label
+     */
+
     if (widget.label != null) {
-      final text = isLoading ? (customText ?? 'Chargement...') : widget.label!;
+      final String text =
+          isLoading
+              ? (customText ??
+                  'Chargement...')
+              : widget.label!;
+
       children.add(
-        Expanded(
+        Flexible(
+          fit: FlexFit.loose,
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 180),
-            transitionBuilder: (child, anim) => FadeTransition(
-              opacity: anim,
-              child: SlideTransition(position: Tween<Offset>(begin: const Offset(0, 0.12), end: Offset.zero).animate(anim), child: child),
+            duration: const Duration(
+              milliseconds: 180,
             ),
+            transitionBuilder:
+                (
+                  Widget child,
+                  Animation<double> animation,
+                ) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position:
+                      Tween<Offset>(
+                    begin:
+                        const Offset(
+                          0,
+                          0.12,
+                        ),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                ),
+              );
+            },
             child: Text(
               text,
-              key: ValueKey(text),
+              key: ValueKey<String>(
+                text,
+              ),
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: fontSize, letterSpacing: 0.2),
+              overflow:
+                  TextOverflow.ellipsis,
+              style: TextStyle(
+                color: textColor,
+                fontWeight:
+                    FontWeight.w900,
+                fontSize: fontSize,
+                letterSpacing: 0.2,
+              ),
             ),
           ),
         ),
       );
     }
 
-    if (isLoading && widget.spinnerPosition == SpinnerPosition.right) {
-      children.add(const SizedBox(width: 8));
-      children.add(_Spinner(color: iconColor));
+    /*
+     * Spinner à droite
+     */
+
+    if (isLoading &&
+        widget.spinnerPosition ==
+            SpinnerPosition.right) {
+      children.add(
+        const SizedBox(
+          width: 8,
+        ),
+      );
+
+      children.add(
+        _Spinner(
+          color: iconColor,
+        ),
+      );
     }
 
-    return Row(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.center, children: children);
+    return Row(
+      mainAxisSize:
+          MainAxisSize.min,
+      mainAxisAlignment:
+          MainAxisAlignment.center,
+      children: children,
+    );
   }
 }
 
 class _Spinner extends StatelessWidget {
   final Color color;
-  const _Spinner({required this.color});
-  
+
+  const _Spinner({
+    required this.color,
+  });
+
   @override
-  Widget build(BuildContext context) => SizedBox(
-    width: 18, 
-    height: 18, 
-    child: CircularProgressIndicator(strokeWidth: 2, color: color)
-  );
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 18,
+      height: 18,
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+        color: color,
+      ),
+    );
+  }
 }

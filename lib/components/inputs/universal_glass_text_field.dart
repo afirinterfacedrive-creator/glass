@@ -1,11 +1,14 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:universal_glass/components/surface/glass_surface_container.dart';
-import 'package:universal_glass/utils/glass_theme_extension.dart';
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
+import 'package:universal_glass/enums/glass_enums.dart';
 import 'package:universal_glass/utils/glass_input_utils.dart';
-import '../../enums/glass_enums.dart';
-import 'glass_input_decoration.dart';
+import 'package:universal_glass/utils/glass_input_decoration.dart';
 
 class UniversalGlassTextField extends ConsumerStatefulWidget {
   final TextEditingController? controller;
@@ -64,14 +67,17 @@ class UniversalGlassTextField extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<UniversalGlassTextField> createState() => _UniversalGlassTextFieldState();
+  ConsumerState<UniversalGlassTextField> createState() =>
+      _UniversalGlassTextFieldState();
 }
 
-class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextField> {
+class _UniversalGlassTextFieldState
+    extends ConsumerState<UniversalGlassTextField> {
   late final TextEditingController _internalController;
   late final FocusNode _internalFocusNode;
-  TextEditingController get _controller => widget.controller?? _internalController;
-  FocusNode get _focusNode => widget.focusNode?? _internalFocusNode;
+  TextEditingController get _controller =>
+      widget.controller ?? _internalController;
+  FocusNode get _focusNode => widget.focusNode ?? _internalFocusNode;
   bool _hasFocus = false;
   bool _isObscured = false;
   String? _errorText;
@@ -95,13 +101,14 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
   @override
   void didUpdateWidget(covariant UniversalGlassTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.focusNode!= widget.focusNode) {
+    if (oldWidget.focusNode != widget.focusNode) {
       oldWidget.focusNode?.removeListener(_handleFocusChanged);
       _focusNode.addListener(_handleFocusChanged);
       _hasFocus = _focusNode.hasFocus;
     }
-    if (oldWidget.obscureText!= widget.obscureText) _isObscured = widget.obscureText;
-    if (oldWidget.validator!= widget.validator) _validate();
+    if (oldWidget.obscureText != widget.obscureText)
+      _isObscured = widget.obscureText;
+    if (oldWidget.validator != widget.validator) _validate();
   }
 
   void _handleFocusChanged() {
@@ -109,12 +116,13 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
     final bool newFocus = _focusNode.hasFocus;
     if (_hasFocus == newFocus) return;
     setState(() => _hasFocus = newFocus);
-    if (!newFocus && widget.autovalidateMode == AutovalidateMode.onUnfocus) _validate();
+    if (!newFocus && widget.autovalidateMode == AutovalidateMode.onUnfocus)
+      _validate();
   }
 
   void _validate() {
     if (widget.validator == null) {
-      if (_errorText!= null && mounted) setState(() => _errorText = null);
+      if (_errorText != null && mounted) setState(() => _errorText = null);
       return;
     }
     final String? error = widget.validator!(_controller.text);
@@ -123,9 +131,10 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
   }
 
   void _handleChanged(String value) {
-    if (widget.autovalidateMode == AutovalidateMode.always || 
-        widget.autovalidateMode == AutovalidateMode.onUserInteraction || 
-        _errorText!= null) _validate();
+    if (widget.autovalidateMode == AutovalidateMode.always ||
+        widget.autovalidateMode == AutovalidateMode.onUserInteraction ||
+        _errorText != null)
+      _validate();
     widget.onChanged?.call(value);
   }
 
@@ -135,16 +144,18 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
   }
 
   void _handleSuffixTap() {
-    if (widget.onSuffixTap!= null) {
+    if (widget.onSuffixTap != null) {
       widget.onSuffixTap!();
       return;
     }
-    if (widget.obscureText) setState(() => _isObscured =!_isObscured);
+    if (widget.obscureText) setState(() => _isObscured = !_isObscured);
   }
 
   IconData? get _effectiveSuffixIcon {
     if (widget.obscureText && widget.onSuffixTap == null) {
-      return _isObscured? Icons.visibility_off_rounded : Icons.visibility_rounded;
+      return _isObscured
+          ? Icons.visibility_off_rounded
+          : Icons.visibility_rounded;
     }
     return widget.suffixIcon;
   }
@@ -159,12 +170,13 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
 
   @override
   Widget build(BuildContext context) {
-    final glass = ref.watchGlassContext(context);
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
     final bool useAqua = glass.theme.useAquaStyle;
     final Color focusColor = useAqua ? Colors.cyanAccent : Colors.orangeAccent;
     final GlassStyle effectiveStyle = widget.style ?? glass.effectiveGlassStyle;
-    final GlassInputDecoration effectiveDecoration = widget.decoration ?? const GlassInputDecoration();
-    final bool hasError = _errorText!= null && _errorText!.trim().isNotEmpty;
+    final GlassInputDecoration effectiveDecoration =
+        widget.decoration ?? const GlassInputDecoration();
+    final bool hasError = _errorText != null && _errorText!.trim().isNotEmpty;
 
     final double h = widget.height ?? widget.fieldHeight;
     final double verticalPadding = GlassInputUtils.verticalPadding(h);
@@ -182,19 +194,29 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
           enabled: widget.enabled,
           width: widget.width,
           height: h,
-          onTap: widget.enabled ? () { if (!widget.readOnly) _focusNode.requestFocus(); widget.onTap?.call(); } : null,
-          borderRadius: BorderRadius.circular(glass.isSmallMobile ? 14 : effectiveDecoration.safeBorderRadius),
-          padding: EdgeInsets.symmetric( // <- TOUJOURS LE MEME PADDING
-            horizontal: effectiveDecoration.safeHorizontalPadding, 
-            vertical: verticalPadding
+          onTap: widget.enabled
+              ? () {
+                  if (!widget.readOnly) _focusNode.requestFocus();
+                  widget.onTap?.call();
+                }
+              : null,
+          borderRadius: BorderRadius.circular(
+            glass.isSmallMobile ? 14 : effectiveDecoration.safeBorderRadius,
+          ),
+          padding: EdgeInsets.symmetric(
+            // <- TOUJOURS LE MEME PADDING
+            horizontal: effectiveDecoration.safeHorizontalPadding,
+            vertical: verticalPadding,
           ),
           liftOnHover: false, // <- TOUJOURS true
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if (widget.prefixIcon!= null)
+              if (widget.prefixIcon != null)
                 Padding(
-                  padding: const EdgeInsets.only(right: 12), // <- 12 au lieu de 10 pour respirer
+                  padding: const EdgeInsets.only(
+                    right: 12,
+                  ), // <- 12 au lieu de 10 pour respirer
                   child: GlassInputUtils.buildInputIcon(
                     context: context,
                     icon: widget.prefixIcon!,
@@ -204,7 +226,7 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
                     fieldHeight: h,
                     bubbleRatio: 0.66, // <- 66% pour prefix
                     hasError: hasError,
-                    onlyIcon: true
+                    onlyIcon: true,
                   ),
                 ),
               Expanded(
@@ -218,7 +240,11 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
                   keyboardType: widget.keyboardType,
                   textInputAction: widget.textInputAction,
                   maxLength: widget.maxLength,
-                  style: TextStyle(color: effectiveDecoration.effectiveTextColor, fontSize: 16, fontWeight: FontWeight.w400),
+                  style: TextStyle(
+                    color: effectiveDecoration.effectiveTextColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
                   cursorColor: focusColor,
                   cursorWidth: 1.8,
                   decoration: InputDecoration(
@@ -226,7 +252,10 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
                     hintText: widget.hintText,
-                    hintStyle: TextStyle(color: effectiveDecoration.effectiveHintColor, fontSize: 16),
+                    hintStyle: TextStyle(
+                      color: effectiveDecoration.effectiveHintColor,
+                      fontSize: 16,
+                    ),
                     counterText: '',
                   ),
                   onChanged: _handleChanged,
@@ -234,7 +263,7 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
                   onSubmitted: _handleSubmitted,
                 ),
               ),
-              if (_effectiveSuffixIcon!= null)
+              if (_effectiveSuffixIcon != null)
                 Padding(
                   padding: const EdgeInsets.only(left: 8), // <- 8 au lieu de 6
                   child: GlassInputUtils.buildInputIcon(
@@ -242,11 +271,12 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
                     icon: _effectiveSuffixIcon!,
                     isActive: _hasFocus,
                     enabled: widget.enabled,
-                    onTap: widget.enabled? _handleSuffixTap : null,
+                    onTap: widget.enabled ? _handleSuffixTap : null,
                     fieldHeight: h,
-                    bubbleRatio: 0.66, // <- 66% pour suffix aussi pour homogénéité
+                    bubbleRatio:
+                        0.66, // <- 66% pour suffix aussi pour homogénéité
                     hasError: hasError,
-                    onlyIcon: true
+                    onlyIcon: true,
                   ),
                 ),
             ],
@@ -255,7 +285,14 @@ class _UniversalGlassTextFieldState extends ConsumerState<UniversalGlassTextFiel
         if (hasError)
           Padding(
             padding: const EdgeInsets.only(top: 6, left: 12),
-            child: Text(_errorText!, style: TextStyle(color: Colors.redAccent, fontSize: glass.isSmallMobile ? 11 : 12, fontWeight: FontWeight.w500)),
+            child: Text(
+              _errorText!,
+              style: TextStyle(
+                color: Colors.redAccent,
+                fontSize: glass.isSmallMobile ? 11 : 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
       ],
     );

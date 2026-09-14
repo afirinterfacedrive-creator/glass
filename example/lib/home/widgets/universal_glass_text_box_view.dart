@@ -8,10 +8,12 @@ class UniversalGlassTextBoxView extends ConsumerStatefulWidget {
   const UniversalGlassTextBoxView({super.key});
 
   @override
-  ConsumerState<UniversalGlassTextBoxView> createState() => _UniversalGlassTextBoxViewState();
+  ConsumerState<UniversalGlassTextBoxView> createState() =>
+      _UniversalGlassTextBoxViewState();
 }
 
-class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBoxView> {
+class _UniversalGlassTextBoxViewState
+    extends ConsumerState<UniversalGlassTextBoxView> {
   bool _focused = false;
   bool _enabled = true;
   bool _error = false;
@@ -19,7 +21,7 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
 
   @override
   Widget build(BuildContext context) {
-    final glass = ref.watchGlassContext(context);
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
 
     return GlassSurfaceContainer(
       style: glass.effectiveGlassStyle,
@@ -32,7 +34,8 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
         children: [
           GlassSectionHeader(
             title: 'UniversalGlassTextBox',
-            subtitle: 'Style: ${glass.theme.glassStyle.name}, Single Glass Layer',
+            subtitle:
+                'Style: ${glass.theme.glassStyle.name}, Single Glass Layer',
             icon: Icons.layers_outlined,
           ),
           SizedBox(height: glass.isSmallMobile ? 16 : 24),
@@ -44,22 +47,93 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
             tabletColumns: 2,
             desktopColumns: 3,
             children: [
-              _buildLabeledGridItem('Texte simple', _buildGlassBox(text: 'Burkina Faso', onTap: _handleTap, glass: glass)),
-              _buildLabeledGridItem('Hint', _buildGlassBox(hintText: 'Sélectionner un pays', glass: glass)),
-              _buildLabeledGridItem('Prefix icon', _buildGlassBox(text: 'Burkina Faso', prefixIcon: Icons.public_rounded, onTap: _handleTap, glass: glass)),
-              _buildLabeledGridItem('Suffix icon', _buildGlassBox(text: 'Burkina Faso', suffixIcon: Icons.keyboard_arrow_down_rounded, onTap: _handleTap, glass: glass)),
-              _buildLabeledGridItem('Prefix + suffix', _buildGlassBox(text: _selectedValue, prefixIcon: Icons.public_rounded, suffixIcon: Icons.keyboard_arrow_down_rounded, onTap: _handleTap, glass: glass)),
-              _buildLabeledGridItem('Focus contrôlé', _buildGlassBox(text: 'Zone actuellement focus', prefixIcon: Icons.edit_rounded, isFocused: _focused, onTap: () => setState(() => _focused = !_focused), glass: glass)),
-              _buildLabeledGridItem('Erreur', _buildGlassBox(text: 'Valeur invalide', prefixIcon: Icons.warning_amber_rounded, hasError: _error, errorText: _error ? 'Cette valeur est invalide' : null, onTap: () => setState(() => _error = !_error), glass: glass)),
-              _buildLabeledGridItem('Disabled', _buildGlassBox(text: 'Champ désactivé', prefixIcon: Icons.lock_outline_rounded, enabled: false, glass: glass)),
-              _buildLabeledGridItem('Texte long / ellipsis', _buildGlassBox(text: 'Ceci est une très longue valeur qui doit être tronquée automatiquement', prefixIcon: Icons.description_outlined, suffixIcon: Icons.more_horiz_rounded, glass: glass)),
+              _buildLabeledGridItem(
+                'Texte simple',
+                _buildGlassBox(
+                  text: 'Burkina Faso',
+                  onTap: _handleTap,
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Hint',
+                _buildGlassBox(hintText: 'Sélectionner un pays', glass: glass),
+              ),
+              _buildLabeledGridItem(
+                'Prefix icon',
+                _buildGlassBox(
+                  text: 'Burkina Faso',
+                  prefixIcon: Icons.public_rounded,
+                  onTap: _handleTap,
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Suffix icon',
+                _buildGlassBox(
+                  text: 'Burkina Faso',
+                  suffixIcon: Icons.keyboard_arrow_down_rounded,
+                  onTap: _handleTap,
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Prefix + suffix',
+                _buildGlassBox(
+                  text: _selectedValue,
+                  prefixIcon: Icons.public_rounded,
+                  suffixIcon: Icons.keyboard_arrow_down_rounded,
+                  onTap: _handleTap,
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Focus contrôlé',
+                _buildGlassBox(
+                  text: 'Zone actuellement focus',
+                  prefixIcon: Icons.edit_rounded,
+                  isFocused: _focused,
+                  onTap: () => setState(() => _focused = !_focused),
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Erreur',
+                _buildGlassBox(
+                  text: 'Valeur invalide',
+                  prefixIcon: Icons.warning_amber_rounded,
+                  hasError: _error,
+                  errorText: _error ? 'Cette valeur est invalide' : null,
+                  onTap: () => setState(() => _error = !_error),
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Disabled',
+                _buildGlassBox(
+                  text: 'Champ désactivé',
+                  prefixIcon: Icons.lock_outline_rounded,
+                  enabled: false,
+                  glass: glass,
+                ),
+              ),
+              _buildLabeledGridItem(
+                'Texte long / ellipsis',
+                _buildGlassBox(
+                  text:
+                      'Ceci est une très longue valeur qui doit être tronquée automatiquement',
+                  prefixIcon: Icons.description_outlined,
+                  suffixIcon: Icons.more_horiz_rounded,
+                  glass: glass,
+                ),
+              ),
             ],
           ),
 
           SizedBox(height: glass.isSmallMobile ? 20 : 28),
           const GlassPreviewLabel('Contrôles'),
           const SizedBox(height: 8),
-          
+
           GlassResponsiveGrid(
             expandItems: false,
             mobileColumns: 2,
@@ -68,36 +142,59 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
             spacing: 10,
             runSpacing: 10,
             children: [
-              GlassToggle(label: 'Enabled', value: _enabled, onChanged: (v) => setState(() => _enabled = v), size: glass.isSmallMobile ? GlassToggleSize.small : GlassToggleSize.medium),
-              GlassToggle(label: 'Focused', value: _focused, onChanged: (v) => setState(() => _focused = v), size: glass.isSmallMobile ? GlassToggleSize.small : GlassToggleSize.medium),
-              GlassToggle(label: 'Error', value: _error, onChanged: (v) => setState(() => _error = v), size: glass.isSmallMobile ? GlassToggleSize.small : GlassToggleSize.medium),
+              GlassToggle(
+                label: 'Enabled',
+                value: _enabled,
+                onChanged: (v) => setState(() => _enabled = v),
+                size: glass.isSmallMobile
+                    ? GlassToggleSize.small
+                    : GlassToggleSize.medium,
+              ),
+              GlassToggle(
+                label: 'Focused',
+                value: _focused,
+                onChanged: (v) => setState(() => _focused = v),
+                size: glass.isSmallMobile
+                    ? GlassToggleSize.small
+                    : GlassToggleSize.medium,
+              ),
+              GlassToggle(
+                label: 'Error',
+                value: _error,
+                onChanged: (v) => setState(() => _error = v),
+                size: glass.isSmallMobile
+                    ? GlassToggleSize.small
+                    : GlassToggleSize.medium,
+              ),
             ],
           ),
-          
+
           SizedBox(height: glass.isSmallMobile ? 20 : 24),
           const GlassPreviewLabel('Preview dynamique'),
           const SizedBox(height: 8),
-          
+
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 620),
             child: _buildGlassBox(
-              text: _selectedValue, 
-              hintText: 'Sélectionner une valeur', 
-              prefixIcon: Icons.public_rounded, 
-              suffixIcon: Icons.keyboard_arrow_down_rounded, 
-              enabled: _enabled, 
-              isFocused: _focused, 
-              hasError: _error, 
-              errorText: _error ? 'Veuillez sélectionner une valeur' : null, 
+              text: _selectedValue,
+              hintText: 'Sélectionner une valeur',
+              prefixIcon: Icons.public_rounded,
+              suffixIcon: Icons.keyboard_arrow_down_rounded,
+              enabled: _enabled,
+              isFocused: _focused,
+              hasError: _error,
+              errorText: _error ? 'Veuillez sélectionner une valeur' : null,
               onTap: () {
                 setState(() {
-                  _selectedValue = _selectedValue == 'Burkina Faso' ? 'Côte d’Ivoire' : 'Burkina Faso';
+                  _selectedValue = _selectedValue == 'Burkina Faso'
+                      ? 'Côte d’Ivoire'
+                      : 'Burkina Faso';
                 });
-              }, 
+              },
               glass: glass,
             ),
           ),
-          
+
           const SizedBox(height: 20),
           const GlassPreviewLabel('État'),
           const SizedBox(height: 8),
@@ -111,18 +208,21 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      children: [
-        GlassPreviewLabel(label),
-        const SizedBox(height: 6),
-        field,
-      ],
+      children: [GlassPreviewLabel(label), const SizedBox(height: 6), field],
     );
   }
 
   Widget _buildGlassBox({
-    String? text, String? hintText, IconData? prefixIcon, IconData? suffixIcon,
-    bool enabled = true, bool isFocused = false, bool hasError = false, String? errorText,
-    VoidCallback? onTap, required GlassLayoutContext glass,
+    String? text,
+    String? hintText,
+    IconData? prefixIcon,
+    IconData? suffixIcon,
+    bool enabled = true,
+    bool isFocused = false,
+    bool hasError = false,
+    String? errorText,
+    VoidCallback? onTap,
+    required GlassLayoutContext glass,
   }) {
     final bool useAqua = glass.theme.useAquaStyle;
     final Color focusColor = useAqua ? Colors.cyanAccent : Colors.orangeAccent;
@@ -139,10 +239,14 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
       errorText: errorText,
       onTap: onTap,
       decoration: GlassInputDecoration(
-        color: useAqua ? focusColor.withValues(alpha:0.06) : Colors.white.withValues(alpha:0.04),
+        color: useAqua
+            ? focusColor.withValues(alpha: 0.06)
+            : Colors.white.withValues(alpha: 0.04),
         backgroundOpacity: isFocused ? bgOpacity + 0.1 : bgOpacity,
         focusOpacity: bgOpacity + 0.14,
-        borderColor: hasError ? Colors.redAccent.withValues(alpha:0.5) : Colors.white.withValues(alpha: 0.12),
+        borderColor: hasError
+            ? Colors.redAccent.withValues(alpha: 0.5)
+            : Colors.white.withValues(alpha: 0.12),
         focusBorderColor: hasError ? Colors.redAccent : focusColor,
         errorColor: Colors.redAccent,
         borderWidth: 1.2,
@@ -163,7 +267,10 @@ class _UniversalGlassTextBoxViewState extends ConsumerState<UniversalGlassTextBo
       width: double.infinity,
       child: Text(
         'Valeur sélectionnée: $_selectedValue',
-        style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 14),
+        style: TextStyle(
+          color: Colors.white.withValues(alpha: 0.7),
+          fontSize: 14,
+        ),
       ),
     );
   }

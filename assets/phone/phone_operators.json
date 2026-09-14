@@ -1,4 +1,704 @@
 {
+  "AF": [
+    {
+      "id": "operator1_af",
+      "name": "Operator One (AF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_af",
+      "name": "Operator Two (AF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AX": [
+    {
+      "id": "operator1_ax",
+      "name": "Operator One (AX)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ax",
+      "name": "Operator Two (AX)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AL": [
+    {
+      "id": "operator1_al",
+      "name": "Operator One (AL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_al",
+      "name": "Operator Two (AL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "DZ": [
+    {
+      "id": "operator1_dz",
+      "name": "Operator One (DZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_dz",
+      "name": "Operator Two (DZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AS": [
+    {
+      "id": "operator1_as",
+      "name": "Operator One (AS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_as",
+      "name": "Operator Two (AS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AD": [
+    {
+      "id": "operator1_ad",
+      "name": "Operator One (AD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ad",
+      "name": "Operator Two (AD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AO": [
+    {
+      "id": "operator1_ao",
+      "name": "Operator One (AO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ao",
+      "name": "Operator Two (AO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AI": [
+    {
+      "id": "operator1_ai",
+      "name": "Operator One (AI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ai",
+      "name": "Operator Two (AI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AQ": [
+    {
+      "id": "operator1_aq",
+      "name": "Operator One (AQ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_aq",
+      "name": "Operator Two (AQ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AG": [
+    {
+      "id": "operator1_ag",
+      "name": "Operator One (AG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ag",
+      "name": "Operator Two (AG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AR": [
+    {
+      "id": "operator1_ar",
+      "name": "Operator One (AR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ar",
+      "name": "Operator Two (AR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AM": [
+    {
+      "id": "operator1_am",
+      "name": "Operator One (AM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_am",
+      "name": "Operator Two (AM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AW": [
+    {
+      "id": "operator1_aw",
+      "name": "Operator One (AW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_aw",
+      "name": "Operator Two (AW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AU": [
+    {
+      "id": "operator1_au",
+      "name": "Operator One (AU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_au",
+      "name": "Operator Two (AU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AT": [
+    {
+      "id": "operator1_at",
+      "name": "Operator One (AT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_at",
+      "name": "Operator Two (AT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AZ": [
+    {
+      "id": "operator1_az",
+      "name": "Operator One (AZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_az",
+      "name": "Operator Two (AZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BS": [
+    {
+      "id": "operator1_bs",
+      "name": "Operator One (BS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bs",
+      "name": "Operator Two (BS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BH": [
+    {
+      "id": "operator1_bh",
+      "name": "Operator One (BH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bh",
+      "name": "Operator Two (BH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BD": [
+    {
+      "id": "operator1_bd",
+      "name": "Operator One (BD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bd",
+      "name": "Operator Two (BD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BB": [
+    {
+      "id": "operator1_bb",
+      "name": "Operator One (BB)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bb",
+      "name": "Operator Two (BB)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BY": [
+    {
+      "id": "operator1_by",
+      "name": "Operator One (BY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_by",
+      "name": "Operator Two (BY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BE": [
+    {
+      "id": "operator1_be",
+      "name": "Operator One (BE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_be",
+      "name": "Operator Two (BE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BZ": [
+    {
+      "id": "operator1_bz",
+      "name": "Operator One (BZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bz",
+      "name": "Operator Two (BZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BJ": [
+    {
+      "id": "operator1_bj",
+      "name": "Operator One (BJ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bj",
+      "name": "Operator Two (BJ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BM": [
+    {
+      "id": "operator1_bm",
+      "name": "Operator One (BM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bm",
+      "name": "Operator Two (BM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BT": [
+    {
+      "id": "operator1_bt",
+      "name": "Operator One (BT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bt",
+      "name": "Operator Two (BT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BO": [
+    {
+      "id": "operator1_bo",
+      "name": "Operator One (BO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bo",
+      "name": "Operator Two (BO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BQ": [
+    {
+      "id": "operator1_bq",
+      "name": "Operator One (BQ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bq",
+      "name": "Operator Two (BQ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BA": [
+    {
+      "id": "operator1_ba",
+      "name": "Operator One (BA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ba",
+      "name": "Operator Two (BA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BW": [
+    {
+      "id": "operator1_bw",
+      "name": "Operator One (BW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bw",
+      "name": "Operator Two (BW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BV": [
+    {
+      "id": "operator1_bv",
+      "name": "Operator One (BV)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bv",
+      "name": "Operator Two (BV)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BR": [
+    {
+      "id": "operator1_br",
+      "name": "Operator One (BR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_br",
+      "name": "Operator Two (BR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IO": [
+    {
+      "id": "operator1_io",
+      "name": "Operator One (IO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_io",
+      "name": "Operator Two (IO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BN": [
+    {
+      "id": "operator1_bn",
+      "name": "Operator One (BN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bn",
+      "name": "Operator Two (BN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BG": [
+    {
+      "id": "operator1_bg",
+      "name": "Operator One (BG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bg",
+      "name": "Operator Two (BG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
   "BF": [
     {
       "id": "orange_bf",
@@ -8,36 +708,18 @@
         "05",
         "06",
         "07",
-        "50",
-        "51",
-        "52",
-        "53",
         "54",
         "55",
         "56",
         "57",
-        "58",
-        "59",
-        "60",
-        "61",
-        "62",
-        "63",
         "64",
         "65",
         "66",
         "67",
-        "68",
-        "69",
-        "70",
-        "71",
-        "72",
-        "73",
         "74",
         "75",
         "76",
-        "77",
-        "78",
-        "79"
+        "77"
       ]
     },
     {
@@ -45,7 +727,4394 @@
       "name": "Moov Africa Burkina Faso",
       "shortName": "Moov",
       "prefixes": [
-        "01"
+        "01",
+        "02",
+        "03",
+        "50",
+        "51",
+        "52",
+        "53",
+        "60",
+        "61",
+        "62",
+        "63",
+        "70",
+        "71",
+        "72",
+        "73"
+      ]
+    },
+    {
+      "id": "telecel_bf",
+      "name": "Telecel Faso",
+      "shortName": "Telecel",
+      "prefixes": [
+        "58",
+        "68",
+        "69",
+        "78",
+        "79"
+      ]
+    }
+  ],
+  "BI": [
+    {
+      "id": "operator1_bi",
+      "name": "Operator One (BI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bi",
+      "name": "Operator Two (BI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CV": [
+    {
+      "id": "operator1_cv",
+      "name": "Operator One (CV)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cv",
+      "name": "Operator Two (CV)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KH": [
+    {
+      "id": "operator1_kh",
+      "name": "Operator One (KH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kh",
+      "name": "Operator Two (KH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CM": [
+    {
+      "id": "operator1_cm",
+      "name": "Operator One (CM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cm",
+      "name": "Operator Two (CM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CA": [
+    {
+      "id": "operator1_ca",
+      "name": "Operator One (CA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ca",
+      "name": "Operator Two (CA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KY": [
+    {
+      "id": "operator1_ky",
+      "name": "Operator One (KY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ky",
+      "name": "Operator Two (KY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CF": [
+    {
+      "id": "operator1_cf",
+      "name": "Operator One (CF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cf",
+      "name": "Operator Two (CF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TD": [
+    {
+      "id": "operator1_td",
+      "name": "Operator One (TD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_td",
+      "name": "Operator Two (TD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CL": [
+    {
+      "id": "operator1_cl",
+      "name": "Operator One (CL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cl",
+      "name": "Operator Two (CL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CN": [
+    {
+      "id": "operator1_cn",
+      "name": "Operator One (CN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cn",
+      "name": "Operator Two (CN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CX": [
+    {
+      "id": "operator1_cx",
+      "name": "Operator One (CX)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cx",
+      "name": "Operator Two (CX)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CC": [
+    {
+      "id": "operator1_cc",
+      "name": "Operator One (CC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cc",
+      "name": "Operator Two (CC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CO": [
+    {
+      "id": "operator1_co",
+      "name": "Operator One (CO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_co",
+      "name": "Operator Two (CO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KM": [
+    {
+      "id": "operator1_km",
+      "name": "Operator One (KM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_km",
+      "name": "Operator Two (KM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CD": [
+    {
+      "id": "operator1_cd",
+      "name": "Operator One (CD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cd",
+      "name": "Operator Two (CD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CG": [
+    {
+      "id": "operator1_cg",
+      "name": "Operator One (CG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cg",
+      "name": "Operator Two (CG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CK": [
+    {
+      "id": "operator1_ck",
+      "name": "Operator One (CK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ck",
+      "name": "Operator Two (CK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CR": [
+    {
+      "id": "operator1_cr",
+      "name": "Operator One (CR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cr",
+      "name": "Operator Two (CR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CI": [
+    {
+      "id": "orange_ci",
+      "name": "Orange Côte d'Ivoire",
+      "shortName": "Orange",
+      "prefixes": [
+        "07",
+        "08",
+        "09",
+        "47",
+        "48",
+        "49",
+        "57",
+        "58",
+        "59",
+        "67",
+        "68",
+        "69",
+        "77",
+        "78",
+        "79",
+        "87",
+        "88",
+        "89",
+        "97",
+        "98",
+        "99"
+      ]
+    },
+    {
+      "id": "mtn_ci",
+      "name": "MTN Côte d'Ivoire",
+      "shortName": "MTN",
+      "prefixes": [
+        "04",
+        "05",
+        "06",
+        "44",
+        "45",
+        "46",
+        "54",
+        "55",
+        "56",
+        "64",
+        "65",
+        "66",
+        "74",
+        "75",
+        "76",
+        "84",
+        "85",
+        "86",
+        "94",
+        "95",
+        "96"
+      ]
+    },
+    {
+      "id": "moov_ci",
+      "name": "Moov Africa Côte d'Ivoire",
+      "shortName": "Moov",
+      "prefixes": [
+        "01",
+        "02",
+        "03",
+        "41",
+        "42",
+        "43",
+        "51",
+        "52",
+        "53",
+        "61",
+        "62",
+        "63",
+        "71",
+        "72",
+        "73",
+        "81",
+        "82",
+        "83",
+        "91",
+        "92",
+        "93"
+      ]
+    }
+  ],
+  "HR": [
+    {
+      "id": "operator1_hr",
+      "name": "Operator One (HR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_hr",
+      "name": "Operator Two (HR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CU": [
+    {
+      "id": "operator1_cu",
+      "name": "Operator One (CU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cu",
+      "name": "Operator Two (CU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CW": [
+    {
+      "id": "operator1_cw",
+      "name": "Operator One (CW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cw",
+      "name": "Operator Two (CW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CY": [
+    {
+      "id": "operator1_cy",
+      "name": "Operator One (CY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cy",
+      "name": "Operator Two (CY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CZ": [
+    {
+      "id": "operator1_cz",
+      "name": "Operator One (CZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_cz",
+      "name": "Operator Two (CZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "DK": [
+    {
+      "id": "operator1_dk",
+      "name": "Operator One (DK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_dk",
+      "name": "Operator Two (DK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "DJ": [
+    {
+      "id": "operator1_dj",
+      "name": "Operator One (DJ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_dj",
+      "name": "Operator Two (DJ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "DM": [
+    {
+      "id": "operator1_dm",
+      "name": "Operator One (DM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_dm",
+      "name": "Operator Two (DM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "DO": [
+    {
+      "id": "operator1_do",
+      "name": "Operator One (DO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_do",
+      "name": "Operator Two (DO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "EC": [
+    {
+      "id": "operator1_ec",
+      "name": "Operator One (EC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ec",
+      "name": "Operator Two (EC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "EG": [
+    {
+      "id": "operator1_eg",
+      "name": "Operator One (EG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_eg",
+      "name": "Operator Two (EG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SV": [
+    {
+      "id": "operator1_sv",
+      "name": "Operator One (SV)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sv",
+      "name": "Operator Two (SV)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GQ": [
+    {
+      "id": "operator1_gq",
+      "name": "Operator One (GQ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gq",
+      "name": "Operator Two (GQ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ER": [
+    {
+      "id": "operator1_er",
+      "name": "Operator One (ER)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_er",
+      "name": "Operator Two (ER)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "EE": [
+    {
+      "id": "operator1_ee",
+      "name": "Operator One (EE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ee",
+      "name": "Operator Two (EE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SZ": [
+    {
+      "id": "operator1_sz",
+      "name": "Operator One (SZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sz",
+      "name": "Operator Two (SZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ET": [
+    {
+      "id": "operator1_et",
+      "name": "Operator One (ET)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_et",
+      "name": "Operator Two (ET)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "FK": [
+    {
+      "id": "operator1_fk",
+      "name": "Operator One (FK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_fk",
+      "name": "Operator Two (FK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "FO": [
+    {
+      "id": "operator1_fo",
+      "name": "Operator One (FO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_fo",
+      "name": "Operator Two (FO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "FJ": [
+    {
+      "id": "operator1_fj",
+      "name": "Operator One (FJ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_fj",
+      "name": "Operator Two (FJ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "FI": [
+    {
+      "id": "operator1_fi",
+      "name": "Operator One (FI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_fi",
+      "name": "Operator Two (FI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "FR": [
+    {
+      "id": "orange_fr",
+      "name": "Orange France",
+      "shortName": "Orange",
+      "prefixes": [
+        "06",
+        "07"
+      ]
+    },
+    {
+      "id": "sfr_fr",
+      "name": "SFR",
+      "shortName": "SFR",
+      "prefixes": [
+        "06",
+        "07"
+      ]
+    },
+    {
+      "id": "bouygues_fr",
+      "name": "Bouygues Telecom",
+      "shortName": "Bouygues",
+      "prefixes": [
+        "06",
+        "07"
+      ]
+    },
+    {
+      "id": "free_fr",
+      "name": "Free Mobile",
+      "shortName": "Free",
+      "prefixes": [
+        "06",
+        "07"
+      ]
+    }
+  ],
+  "GF": [
+    {
+      "id": "operator1_gf",
+      "name": "Operator One (GF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gf",
+      "name": "Operator Two (GF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PF": [
+    {
+      "id": "operator1_pf",
+      "name": "Operator One (PF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pf",
+      "name": "Operator Two (PF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TF": [
+    {
+      "id": "operator1_tf",
+      "name": "Operator One (TF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tf",
+      "name": "Operator Two (TF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GA": [
+    {
+      "id": "operator1_ga",
+      "name": "Operator One (GA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ga",
+      "name": "Operator Two (GA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GM": [
+    {
+      "id": "operator1_gm",
+      "name": "Operator One (GM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gm",
+      "name": "Operator Two (GM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GE": [
+    {
+      "id": "operator1_ge",
+      "name": "Operator One (GE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ge",
+      "name": "Operator Two (GE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "DE": [
+    {
+      "id": "operator1_de",
+      "name": "Operator One (DE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_de",
+      "name": "Operator Two (DE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GH": [
+    {
+      "id": "operator1_gh",
+      "name": "Operator One (GH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gh",
+      "name": "Operator Two (GH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GI": [
+    {
+      "id": "operator1_gi",
+      "name": "Operator One (GI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gi",
+      "name": "Operator Two (GI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GR": [
+    {
+      "id": "operator1_gr",
+      "name": "Operator One (GR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gr",
+      "name": "Operator Two (GR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GL": [
+    {
+      "id": "operator1_gl",
+      "name": "Operator One (GL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gl",
+      "name": "Operator Two (GL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GD": [
+    {
+      "id": "operator1_gd",
+      "name": "Operator One (GD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gd",
+      "name": "Operator Two (GD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GP": [
+    {
+      "id": "operator1_gp",
+      "name": "Operator One (GP)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gp",
+      "name": "Operator Two (GP)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GU": [
+    {
+      "id": "operator1_gu",
+      "name": "Operator One (GU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gu",
+      "name": "Operator Two (GU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GT": [
+    {
+      "id": "operator1_gt",
+      "name": "Operator One (GT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gt",
+      "name": "Operator Two (GT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GG": [
+    {
+      "id": "operator1_gg",
+      "name": "Operator One (GG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gg",
+      "name": "Operator Two (GG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GN": [
+    {
+      "id": "operator1_gn",
+      "name": "Operator One (GN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gn",
+      "name": "Operator Two (GN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GW": [
+    {
+      "id": "operator1_gw",
+      "name": "Operator One (GW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gw",
+      "name": "Operator Two (GW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GY": [
+    {
+      "id": "operator1_gy",
+      "name": "Operator One (GY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gy",
+      "name": "Operator Two (GY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "HT": [
+    {
+      "id": "operator1_ht",
+      "name": "Operator One (HT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ht",
+      "name": "Operator Two (HT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "HM": [
+    {
+      "id": "operator1_hm",
+      "name": "Operator One (HM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_hm",
+      "name": "Operator Two (HM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VA": [
+    {
+      "id": "operator1_va",
+      "name": "Operator One (VA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_va",
+      "name": "Operator Two (VA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "HN": [
+    {
+      "id": "operator1_hn",
+      "name": "Operator One (HN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_hn",
+      "name": "Operator Two (HN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "HK": [
+    {
+      "id": "operator1_hk",
+      "name": "Operator One (HK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_hk",
+      "name": "Operator Two (HK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "HU": [
+    {
+      "id": "operator1_hu",
+      "name": "Operator One (HU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_hu",
+      "name": "Operator Two (HU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IS": [
+    {
+      "id": "operator1_is",
+      "name": "Operator One (IS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_is",
+      "name": "Operator Two (IS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IN": [
+    {
+      "id": "operator1_in",
+      "name": "Operator One (IN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_in",
+      "name": "Operator Two (IN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ID": [
+    {
+      "id": "operator1_id",
+      "name": "Operator One (ID)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_id",
+      "name": "Operator Two (ID)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IR": [
+    {
+      "id": "operator1_ir",
+      "name": "Operator One (IR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ir",
+      "name": "Operator Two (IR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IQ": [
+    {
+      "id": "operator1_iq",
+      "name": "Operator One (IQ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_iq",
+      "name": "Operator Two (IQ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IE": [
+    {
+      "id": "operator1_ie",
+      "name": "Operator One (IE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ie",
+      "name": "Operator Two (IE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IM": [
+    {
+      "id": "operator1_im",
+      "name": "Operator One (IM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_im",
+      "name": "Operator Two (IM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IL": [
+    {
+      "id": "operator1_il",
+      "name": "Operator One (IL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_il",
+      "name": "Operator Two (IL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "IT": [
+    {
+      "id": "operator1_it",
+      "name": "Operator One (IT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_it",
+      "name": "Operator Two (IT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "JM": [
+    {
+      "id": "operator1_jm",
+      "name": "Operator One (JM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_jm",
+      "name": "Operator Two (JM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "JP": [
+    {
+      "id": "operator1_jp",
+      "name": "Operator One (JP)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_jp",
+      "name": "Operator Two (JP)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "JE": [
+    {
+      "id": "operator1_je",
+      "name": "Operator One (JE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_je",
+      "name": "Operator Two (JE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "JO": [
+    {
+      "id": "operator1_jo",
+      "name": "Operator One (JO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_jo",
+      "name": "Operator Two (JO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KZ": [
+    {
+      "id": "operator1_kz",
+      "name": "Operator One (KZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kz",
+      "name": "Operator Two (KZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KE": [
+    {
+      "id": "operator1_ke",
+      "name": "Operator One (KE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ke",
+      "name": "Operator Two (KE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KI": [
+    {
+      "id": "operator1_ki",
+      "name": "Operator One (KI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ki",
+      "name": "Operator Two (KI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KP": [
+    {
+      "id": "operator1_kp",
+      "name": "Operator One (KP)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kp",
+      "name": "Operator Two (KP)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KR": [
+    {
+      "id": "operator1_kr",
+      "name": "Operator One (KR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kr",
+      "name": "Operator Two (KR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KW": [
+    {
+      "id": "operator1_kw",
+      "name": "Operator One (KW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kw",
+      "name": "Operator Two (KW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KG": [
+    {
+      "id": "operator1_kg",
+      "name": "Operator One (KG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kg",
+      "name": "Operator Two (KG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LA": [
+    {
+      "id": "operator1_la",
+      "name": "Operator One (LA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_la",
+      "name": "Operator Two (LA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LV": [
+    {
+      "id": "operator1_lv",
+      "name": "Operator One (LV)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lv",
+      "name": "Operator Two (LV)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LB": [
+    {
+      "id": "operator1_lb",
+      "name": "Operator One (LB)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lb",
+      "name": "Operator Two (LB)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LS": [
+    {
+      "id": "operator1_ls",
+      "name": "Operator One (LS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ls",
+      "name": "Operator Two (LS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LR": [
+    {
+      "id": "operator1_lr",
+      "name": "Operator One (LR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lr",
+      "name": "Operator Two (LR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LY": [
+    {
+      "id": "operator1_ly",
+      "name": "Operator One (LY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ly",
+      "name": "Operator Two (LY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LI": [
+    {
+      "id": "operator1_li",
+      "name": "Operator One (LI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_li",
+      "name": "Operator Two (LI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LT": [
+    {
+      "id": "operator1_lt",
+      "name": "Operator One (LT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lt",
+      "name": "Operator Two (LT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LU": [
+    {
+      "id": "operator1_lu",
+      "name": "Operator One (LU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lu",
+      "name": "Operator Two (LU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MO": [
+    {
+      "id": "operator1_mo",
+      "name": "Operator One (MO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mo",
+      "name": "Operator Two (MO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MK": [
+    {
+      "id": "operator1_mk",
+      "name": "Operator One (MK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mk",
+      "name": "Operator Two (MK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MG": [
+    {
+      "id": "operator1_mg",
+      "name": "Operator One (MG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mg",
+      "name": "Operator Two (MG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MW": [
+    {
+      "id": "operator1_mw",
+      "name": "Operator One (MW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mw",
+      "name": "Operator Two (MW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MY": [
+    {
+      "id": "operator1_my",
+      "name": "Operator One (MY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_my",
+      "name": "Operator Two (MY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MV": [
+    {
+      "id": "operator1_mv",
+      "name": "Operator One (MV)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mv",
+      "name": "Operator Two (MV)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ML": [
+    {
+      "id": "operator1_ml",
+      "name": "Operator One (ML)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ml",
+      "name": "Operator Two (ML)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MT": [
+    {
+      "id": "operator1_mt",
+      "name": "Operator One (MT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mt",
+      "name": "Operator Two (MT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MH": [
+    {
+      "id": "operator1_mh",
+      "name": "Operator One (MH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mh",
+      "name": "Operator Two (MH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MQ": [
+    {
+      "id": "operator1_mq",
+      "name": "Operator One (MQ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mq",
+      "name": "Operator Two (MQ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MR": [
+    {
+      "id": "operator1_mr",
+      "name": "Operator One (MR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mr",
+      "name": "Operator Two (MR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MU": [
+    {
+      "id": "operator1_mu",
+      "name": "Operator One (MU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mu",
+      "name": "Operator Two (MU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "YT": [
+    {
+      "id": "operator1_yt",
+      "name": "Operator One (YT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_yt",
+      "name": "Operator Two (YT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MX": [
+    {
+      "id": "operator1_mx",
+      "name": "Operator One (MX)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mx",
+      "name": "Operator Two (MX)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "FM": [
+    {
+      "id": "operator1_fm",
+      "name": "Operator One (FM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_fm",
+      "name": "Operator Two (FM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MD": [
+    {
+      "id": "operator1_md",
+      "name": "Operator One (MD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_md",
+      "name": "Operator Two (MD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MC": [
+    {
+      "id": "operator1_mc",
+      "name": "Operator One (MC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mc",
+      "name": "Operator Two (MC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MN": [
+    {
+      "id": "operator1_mn",
+      "name": "Operator One (MN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mn",
+      "name": "Operator Two (MN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ME": [
+    {
+      "id": "operator1_me",
+      "name": "Operator One (ME)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_me",
+      "name": "Operator Two (ME)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MS": [
+    {
+      "id": "operator1_ms",
+      "name": "Operator One (MS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ms",
+      "name": "Operator Two (MS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MA": [
+    {
+      "id": "operator1_ma",
+      "name": "Operator One (MA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ma",
+      "name": "Operator Two (MA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MZ": [
+    {
+      "id": "operator1_mz",
+      "name": "Operator One (MZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mz",
+      "name": "Operator Two (MZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MM": [
+    {
+      "id": "operator1_mm",
+      "name": "Operator One (MM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mm",
+      "name": "Operator Two (MM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NA": [
+    {
+      "id": "operator1_na",
+      "name": "Operator One (NA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_na",
+      "name": "Operator Two (NA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NR": [
+    {
+      "id": "operator1_nr",
+      "name": "Operator One (NR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_nr",
+      "name": "Operator Two (NR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NP": [
+    {
+      "id": "operator1_np",
+      "name": "Operator One (NP)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_np",
+      "name": "Operator Two (NP)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NL": [
+    {
+      "id": "operator1_nl",
+      "name": "Operator One (NL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_nl",
+      "name": "Operator Two (NL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NC": [
+    {
+      "id": "operator1_nc",
+      "name": "Operator One (NC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_nc",
+      "name": "Operator Two (NC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NZ": [
+    {
+      "id": "operator1_nz",
+      "name": "Operator One (NZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_nz",
+      "name": "Operator Two (NZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NI": [
+    {
+      "id": "operator1_ni",
+      "name": "Operator One (NI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ni",
+      "name": "Operator Two (NI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NE": [
+    {
+      "id": "operator1_ne",
+      "name": "Operator One (NE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ne",
+      "name": "Operator Two (NE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NG": [
+    {
+      "id": "operator1_ng",
+      "name": "Operator One (NG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ng",
+      "name": "Operator Two (NG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NU": [
+    {
+      "id": "operator1_nu",
+      "name": "Operator One (NU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_nu",
+      "name": "Operator Two (NU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NF": [
+    {
+      "id": "operator1_nf",
+      "name": "Operator One (NF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_nf",
+      "name": "Operator Two (NF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MP": [
+    {
+      "id": "operator1_mp",
+      "name": "Operator One (MP)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mp",
+      "name": "Operator Two (MP)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "NO": [
+    {
+      "id": "operator1_no",
+      "name": "Operator One (NO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_no",
+      "name": "Operator Two (NO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "OM": [
+    {
+      "id": "operator1_om",
+      "name": "Operator One (OM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_om",
+      "name": "Operator Two (OM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PK": [
+    {
+      "id": "operator1_pk",
+      "name": "Operator One (PK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pk",
+      "name": "Operator Two (PK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PW": [
+    {
+      "id": "operator1_pw",
+      "name": "Operator One (PW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pw",
+      "name": "Operator Two (PW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PS": [
+    {
+      "id": "operator1_ps",
+      "name": "Operator One (PS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ps",
+      "name": "Operator Two (PS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PA": [
+    {
+      "id": "operator1_pa",
+      "name": "Operator One (PA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pa",
+      "name": "Operator Two (PA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PG": [
+    {
+      "id": "operator1_pg",
+      "name": "Operator One (PG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pg",
+      "name": "Operator Two (PG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PY": [
+    {
+      "id": "operator1_py",
+      "name": "Operator One (PY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_py",
+      "name": "Operator Two (PY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PE": [
+    {
+      "id": "operator1_pe",
+      "name": "Operator One (PE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pe",
+      "name": "Operator Two (PE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PH": [
+    {
+      "id": "operator1_ph",
+      "name": "Operator One (PH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ph",
+      "name": "Operator Two (PH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PN": [
+    {
+      "id": "operator1_pn",
+      "name": "Operator One (PN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pn",
+      "name": "Operator Two (PN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PL": [
+    {
+      "id": "operator1_pl",
+      "name": "Operator One (PL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pl",
+      "name": "Operator Two (PL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PT": [
+    {
+      "id": "operator1_pt",
+      "name": "Operator One (PT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pt",
+      "name": "Operator Two (PT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PR": [
+    {
+      "id": "operator1_pr",
+      "name": "Operator One (PR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pr",
+      "name": "Operator Two (PR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "QA": [
+    {
+      "id": "operator1_qa",
+      "name": "Operator One (QA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_qa",
+      "name": "Operator Two (QA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "RE": [
+    {
+      "id": "operator1_re",
+      "name": "Operator One (RE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_re",
+      "name": "Operator Two (RE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "RO": [
+    {
+      "id": "operator1_ro",
+      "name": "Operator One (RO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ro",
+      "name": "Operator Two (RO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "RU": [
+    {
+      "id": "operator1_ru",
+      "name": "Operator One (RU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ru",
+      "name": "Operator Two (RU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "RW": [
+    {
+      "id": "operator1_rw",
+      "name": "Operator One (RW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_rw",
+      "name": "Operator Two (RW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "BL": [
+    {
+      "id": "operator1_bl",
+      "name": "Operator One (BL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_bl",
+      "name": "Operator Two (BL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SH": [
+    {
+      "id": "operator1_sh",
+      "name": "Operator One (SH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sh",
+      "name": "Operator Two (SH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "KN": [
+    {
+      "id": "operator1_kn",
+      "name": "Operator One (KN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_kn",
+      "name": "Operator Two (KN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LC": [
+    {
+      "id": "operator1_lc",
+      "name": "Operator One (LC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lc",
+      "name": "Operator Two (LC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "MF": [
+    {
+      "id": "operator1_mf",
+      "name": "Operator One (MF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_mf",
+      "name": "Operator Two (MF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "PM": [
+    {
+      "id": "operator1_pm",
+      "name": "Operator One (PM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_pm",
+      "name": "Operator Two (PM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VC": [
+    {
+      "id": "operator1_vc",
+      "name": "Operator One (VC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_vc",
+      "name": "Operator Two (VC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "WS": [
+    {
+      "id": "operator1_ws",
+      "name": "Operator One (WS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ws",
+      "name": "Operator Two (WS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SM": [
+    {
+      "id": "operator1_sm",
+      "name": "Operator One (SM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sm",
+      "name": "Operator Two (SM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ST": [
+    {
+      "id": "operator1_st",
+      "name": "Operator One (ST)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_st",
+      "name": "Operator Two (ST)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SA": [
+    {
+      "id": "operator1_sa",
+      "name": "Operator One (SA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sa",
+      "name": "Operator Two (SA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SN": [
+    {
+      "id": "orange_sn",
+      "name": "Orange Sénégal",
+      "shortName": "Orange",
+      "prefixes": [
+        "77",
+        "78",
+        "72"
+      ]
+    },
+    {
+      "id": "free_sn",
+      "name": "Free Sénégal",
+      "shortName": "Free",
+      "prefixes": [
+        "76",
+        "62"
+      ]
+    },
+    {
+      "id": "expresso_sn",
+      "name": "Expresso Sénégal",
+      "shortName": "Expresso",
+      "prefixes": [
+        "70"
+      ]
+    },
+    {
+      "id": "promobile_sn",
+      "name": "Promobile",
+      "shortName": "Promobile",
+      "prefixes": [
+        "75"
+      ]
+    }
+  ],
+  "RS": [
+    {
+      "id": "operator1_rs",
+      "name": "Operator One (RS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_rs",
+      "name": "Operator Two (RS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SC": [
+    {
+      "id": "operator1_sc",
+      "name": "Operator One (SC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sc",
+      "name": "Operator Two (SC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SL": [
+    {
+      "id": "operator1_sl",
+      "name": "Operator One (SL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sl",
+      "name": "Operator Two (SL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SG": [
+    {
+      "id": "operator1_sg",
+      "name": "Operator One (SG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sg",
+      "name": "Operator Two (SG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SX": [
+    {
+      "id": "operator1_sx",
+      "name": "Operator One (SX)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sx",
+      "name": "Operator Two (SX)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SK": [
+    {
+      "id": "operator1_sk",
+      "name": "Operator One (SK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sk",
+      "name": "Operator Two (SK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SI": [
+    {
+      "id": "operator1_si",
+      "name": "Operator One (SI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_si",
+      "name": "Operator Two (SI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SB": [
+    {
+      "id": "operator1_sb",
+      "name": "Operator One (SB)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sb",
+      "name": "Operator Two (SB)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SO": [
+    {
+      "id": "operator1_so",
+      "name": "Operator One (SO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_so",
+      "name": "Operator Two (SO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ZA": [
+    {
+      "id": "operator1_za",
+      "name": "Operator One (ZA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_za",
+      "name": "Operator Two (ZA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GS": [
+    {
+      "id": "operator1_gs",
+      "name": "Operator One (GS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gs",
+      "name": "Operator Two (GS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SS": [
+    {
+      "id": "operator1_ss",
+      "name": "Operator One (SS)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ss",
+      "name": "Operator Two (SS)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ES": [
+    {
+      "id": "operator1_es",
+      "name": "Operator One (ES)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_es",
+      "name": "Operator Two (ES)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "LK": [
+    {
+      "id": "operator1_lk",
+      "name": "Operator One (LK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_lk",
+      "name": "Operator Two (LK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SD": [
+    {
+      "id": "operator1_sd",
+      "name": "Operator One (SD)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sd",
+      "name": "Operator Two (SD)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SR": [
+    {
+      "id": "operator1_sr",
+      "name": "Operator One (SR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sr",
+      "name": "Operator Two (SR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SJ": [
+    {
+      "id": "operator1_sj",
+      "name": "Operator One (SJ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sj",
+      "name": "Operator Two (SJ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SE": [
+    {
+      "id": "operator1_se",
+      "name": "Operator One (SE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_se",
+      "name": "Operator Two (SE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "CH": [
+    {
+      "id": "operator1_ch",
+      "name": "Operator One (CH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ch",
+      "name": "Operator Two (CH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "SY": [
+    {
+      "id": "operator1_sy",
+      "name": "Operator One (SY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_sy",
+      "name": "Operator Two (SY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TW": [
+    {
+      "id": "operator1_tw",
+      "name": "Operator One (TW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tw",
+      "name": "Operator Two (TW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TJ": [
+    {
+      "id": "operator1_tj",
+      "name": "Operator One (TJ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tj",
+      "name": "Operator Two (TJ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TZ": [
+    {
+      "id": "operator1_tz",
+      "name": "Operator One (TZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tz",
+      "name": "Operator Two (TZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TH": [
+    {
+      "id": "operator1_th",
+      "name": "Operator One (TH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_th",
+      "name": "Operator Two (TH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TL": [
+    {
+      "id": "operator1_tl",
+      "name": "Operator One (TL)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tl",
+      "name": "Operator Two (TL)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TG": [
+    {
+      "id": "operator1_tg",
+      "name": "Operator One (TG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tg",
+      "name": "Operator Two (TG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TK": [
+    {
+      "id": "operator1_tk",
+      "name": "Operator One (TK)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tk",
+      "name": "Operator Two (TK)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TO": [
+    {
+      "id": "operator1_to",
+      "name": "Operator One (TO)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_to",
+      "name": "Operator Two (TO)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TT": [
+    {
+      "id": "operator1_tt",
+      "name": "Operator One (TT)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tt",
+      "name": "Operator Two (TT)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TN": [
+    {
+      "id": "operator1_tn",
+      "name": "Operator One (TN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tn",
+      "name": "Operator Two (TN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TR": [
+    {
+      "id": "operator1_tr",
+      "name": "Operator One (TR)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tr",
+      "name": "Operator Two (TR)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TM": [
+    {
+      "id": "operator1_tm",
+      "name": "Operator One (TM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tm",
+      "name": "Operator Two (TM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TC": [
+    {
+      "id": "operator1_tc",
+      "name": "Operator One (TC)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tc",
+      "name": "Operator Two (TC)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "TV": [
+    {
+      "id": "operator1_tv",
+      "name": "Operator One (TV)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_tv",
+      "name": "Operator Two (TV)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "UG": [
+    {
+      "id": "operator1_ug",
+      "name": "Operator One (UG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ug",
+      "name": "Operator Two (UG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "UA": [
+    {
+      "id": "operator1_ua",
+      "name": "Operator One (UA)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ua",
+      "name": "Operator Two (UA)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "AE": [
+    {
+      "id": "operator1_ae",
+      "name": "Operator One (AE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ae",
+      "name": "Operator Two (AE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "GB": [
+    {
+      "id": "operator1_gb",
+      "name": "Operator One (GB)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_gb",
+      "name": "Operator Two (GB)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "US": [
+    {
+      "id": "operator1_us",
+      "name": "Operator One (US)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_us",
+      "name": "Operator Two (US)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "UM": [
+    {
+      "id": "operator1_um",
+      "name": "Operator One (UM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_um",
+      "name": "Operator Two (UM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "UY": [
+    {
+      "id": "operator1_uy",
+      "name": "Operator One (UY)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_uy",
+      "name": "Operator Two (UY)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "UZ": [
+    {
+      "id": "operator1_uz",
+      "name": "Operator One (UZ)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_uz",
+      "name": "Operator Two (UZ)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VU": [
+    {
+      "id": "operator1_vu",
+      "name": "Operator One (VU)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_vu",
+      "name": "Operator Two (VU)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VE": [
+    {
+      "id": "operator1_ve",
+      "name": "Operator One (VE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ve",
+      "name": "Operator Two (VE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VN": [
+    {
+      "id": "operator1_vn",
+      "name": "Operator One (VN)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_vn",
+      "name": "Operator Two (VN)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VG": [
+    {
+      "id": "operator1_vg",
+      "name": "Operator One (VG)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_vg",
+      "name": "Operator Two (VG)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "VI": [
+    {
+      "id": "operator1_vi",
+      "name": "Operator One (VI)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_vi",
+      "name": "Operator Two (VI)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "WF": [
+    {
+      "id": "operator1_wf",
+      "name": "Operator One (WF)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_wf",
+      "name": "Operator Two (WF)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "EH": [
+    {
+      "id": "operator1_eh",
+      "name": "Operator One (EH)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_eh",
+      "name": "Operator Two (EH)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "YE": [
+    {
+      "id": "operator1_ye",
+      "name": "Operator One (YE)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_ye",
+      "name": "Operator Two (YE)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ZM": [
+    {
+      "id": "operator1_zm",
+      "name": "Operator One (ZM)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_zm",
+      "name": "Operator Two (ZM)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
+      ]
+    }
+  ],
+  "ZW": [
+    {
+      "id": "operator1_zw",
+      "name": "Operator One (ZW)",
+      "shortName": "Op1",
+      "prefixes": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "operator2_zw",
+      "name": "Operator Two (ZW)",
+      "shortName": "Op2",
+      "prefixes": [
+        "5",
+        "8"
       ]
     }
   ]

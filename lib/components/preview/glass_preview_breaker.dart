@@ -1,20 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:universal_glass/components/glass_breaker_switch.dart';
 import 'package:universal_glass/components/surface/glass_surface_container.dart';
-import 'package:universal_glass/controllers/glass_panel_controller.dart';
 import 'package:universal_glass/enums/glass_enums.dart';
-import 'package:universal_glass/utils/glass_theme_extension.dart';
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
 
+/// ============================================================================
+/// GLASS PREVIEW BREAKER
+/// ============================================================================
+///
+/// Présentation d'un GlassBreakerSwitch dans une surface Glass.
+///
+/// Le widget utilise directement le GlassLayoutContext pour récupérer :
+///
+/// - les couleurs de la palette
+/// - la couleur d'accent / focus
+/// - le style Glass effectif
+/// - les dimensions responsive
+/// - les effets du thème
+///
+/// Il ne contient aucune logique Aqua / Classic.
+///
 class GlassPreviewBreaker extends ConsumerWidget {
+  // ==========================================================================
+  // PROPRIÉTÉS
+  // ==========================================================================
+
   final String label;
   final String? subtitle;
+
   final bool value;
+
   final ValueChanged<bool> onChanged;
+
   final IconData? icon;
+
   final double? height;
+
   final GlassStyle? style;
+
   final GlassShapeType? shape;
+
+  // ==========================================================================
+  // CONSTRUCTEUR
+  // ==========================================================================
 
   const GlassPreviewBreaker({
     super.key,
@@ -28,33 +59,56 @@ class GlassPreviewBreaker extends ConsumerWidget {
     this.shape,
   });
 
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final glass = ref.watchGlassContext(context);
-    final panel = GlassPanelController(ref);
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
+
     final bool isSmall = glass.isSmallMobile;
-    final bool useAqua = glass.theme.useAquaStyle;
 
     final double pillHeight = height ?? (isSmall ? 40 : 45);
+
     final GlassStyle effectiveStyle = style ?? glass.effectiveGlassStyle;
+
     final GlassShapeType effectiveShape = shape ?? GlassShapeType.stadium;
 
-    final Color iconColor = value 
-        ? (useAqua ? Colors.cyanAccent : Colors.orangeAccent)
-        : panel.textSecondaryColor;
-    
-    final List<BoxShadow>? iconShadow = value ? [
-      BoxShadow(
-        color: iconColor.withValues(alpha: 0.9),
-        blurRadius: 12,
-        spreadRadius: 2,
-      ),
-      BoxShadow(
-        color: iconColor.withValues(alpha: 0.35), 
-        blurRadius: 24,
-        spreadRadius: 6,
-      ),
-    ] : null;
+    // =========================================================================
+    // COULEURS
+    // =========================================================================
+
+    final Color iconColor = value
+        ? glass.focusColor
+        : glass.palette.textSecondary;
+
+    final Color primaryTextColor = glass.palette.textPrimary;
+
+    final Color secondaryTextColor = glass.palette.textTertiary;
+
+    // =========================================================================
+    // OMBRE DE L'ICÔNE
+    // =========================================================================
+
+    final List<BoxShadow>? iconShadow = value
+        ? [
+            BoxShadow(
+              color: iconColor.withValues(alpha: 0.9),
+              blurRadius: 12,
+              spreadRadius: 2,
+            ),
+            BoxShadow(
+              color: iconColor.withValues(alpha: 0.35),
+              blurRadius: 24,
+              spreadRadius: 6,
+            ),
+          ]
+        : null;
+
+    // =========================================================================
+    // SURFACE
+    // =========================================================================
 
     return GlassSurfaceContainer(
       style: effectiveStyle,
@@ -71,19 +125,26 @@ class GlassPreviewBreaker extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // ===================================================================
+          // ICÔNE
+          // ===================================================================
           if (icon != null) ...[
             AnimatedContainer(
               duration: const Duration(milliseconds: 220),
               curve: Curves.easeOut,
               child: Icon(
-                icon, 
-                color: iconColor, 
+                icon,
+                color: iconColor,
                 size: isSmall ? 15 : 17,
                 shadows: iconShadow,
               ),
             ),
             const SizedBox(width: 6),
           ],
+
+          // ===================================================================
+          // TEXTE
+          // ===================================================================
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +156,7 @@ class GlassPreviewBreaker extends ConsumerWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: panel.textPrimaryColor,
+                    color: primaryTextColor,
                     fontSize: isSmall ? 11.5 : 12.5,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.1,
@@ -107,7 +168,7 @@ class GlassPreviewBreaker extends ConsumerWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: panel.textTertiaryColor,
+                    color: secondaryTextColor,
                     fontSize: isSmall ? 9.5 : 10.5,
                     height: 1.1,
                   ),
@@ -115,7 +176,12 @@ class GlassPreviewBreaker extends ConsumerWidget {
               ],
             ),
           ),
+
           const SizedBox(width: 10),
+
+          // ===================================================================
+          // BREAKER SWITCH
+          // ===================================================================
           GlassBreakerSwitch(
             value: value,
             onChanged: onChanged,

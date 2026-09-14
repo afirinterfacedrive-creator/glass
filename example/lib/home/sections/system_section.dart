@@ -27,11 +27,11 @@ class SystemSection extends ConsumerWidget {
       if (clean.length > 15) {
         final RegExp regex = RegExp(r'[\d\.]+');
         final match = regex.firstMatch(clean);
-        if (match!= null) {
+        if (match != null) {
           return 'Build ${match.group(0)}';
         }
       }
-      return clean.isEmpty? 'Active' : clean;
+      return clean.isEmpty ? 'Active' : clean;
     }
     final List<String> parts = version.split(' ');
     if (parts.isNotEmpty) {
@@ -42,7 +42,7 @@ class SystemSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final glass = ref.watchGlassContext(context);
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
     final palette = glass.palette;
     final bool isSmallMobile = glass.isSmallMobile;
 
@@ -61,19 +61,20 @@ class SystemSection extends ConsumerWidget {
           crossAxisCount = 2;
         }
 
-        final double cardWidth = (maxWidth - (spacing * (crossAxisCount - 1))) / crossAxisCount;
+        final double cardWidth =
+            (maxWidth - (spacing * (crossAxisCount - 1))) / crossAxisCount;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GlassText(
               'SYSTEM',
-              fontSize: isSmallMobile? 12 : 13,
+              fontSize: isSmallMobile ? 12 : 13,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.3,
               alpha: 0.7,
             ),
-            SizedBox(height: isSmallMobile? 10 : 14),
+            SizedBox(height: isSmallMobile ? 10 : 14),
 
             Wrap(
               spacing: spacing,
@@ -81,8 +82,11 @@ class SystemSection extends ConsumerWidget {
               children: [
                 SizedBox(
                   width: cardWidth,
-                  child: HomeStatusCard( // <- SUPPRIMÉ theme: theme
-                    icon: kIsWeb? Icons.web_outlined : Icons.phone_android_outlined,
+                  child: HomeStatusCard(
+                    // <- SUPPRIMÉ theme: theme
+                    icon: kIsWeb
+                        ? Icons.web_outlined
+                        : Icons.phone_android_outlined,
                     iconColor: palette.accent, // <- AJOUTÉ pour cohérence
                     title: 'Device OS',
                     value: osName,
@@ -91,7 +95,8 @@ class SystemSection extends ConsumerWidget {
                 ),
                 SizedBox(
                   width: cardWidth,
-                  child: HomeStatusCard( // <- SUPPRIMÉ theme: theme
+                  child: HomeStatusCard(
+                    // <- SUPPRIMÉ theme: theme
                     icon: Icons.settings_applications_outlined,
                     iconColor: palette.accent, // <- AJOUTÉ pour cohérence
                     title: 'OS Version',
@@ -106,8 +111,10 @@ class SystemSection extends ConsumerWidget {
                     iconColor: palette.accent,
                     title: 'Glass Engine',
                     value: glass.theme.glassStyle.name.contains('sage')
-                     ? 'SAGE Live'
-                        : glass.theme.useAquaStyle? 'Aqua Live' : 'Classic Live',
+                        ? 'SAGE Live'
+                        : glass.theme.useAquaStyle
+                        ? 'Aqua Live'
+                        : 'Classic Live',
                     active: true,
                   ),
                 ),

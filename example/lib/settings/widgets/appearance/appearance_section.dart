@@ -1,75 +1,265 @@
-// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_glass/glass.dart';
+import 'package:universal_glass_example/settings/widgets/appearance/appearance_profiles.dart';
+
+import 'package:universal_glass_example/settings/widgets/appearance/appearance_profiles_provider.dart';
+import 'package:universal_glass_example/settings/widgets/appearance/widgets/appearance_color_picker.dart';
+
 import 'appearance_controller.dart';
+import 'appearance_profiles_codec.dart';
+import 'appearance_section_builders.dart';
 import 'appearance_settings.dart';
-
-import 'widgets/appearance_color_picker.dart';
-import 'widgets/appearance_live_preview.dart';
-
-
 
 class AppearanceSection extends ConsumerStatefulWidget {
   final VoidCallback? onThemeChanged;
-  const AppearanceSection({super.key, this.onThemeChanged});
+
+  const AppearanceSection({
+    super.key,
+    this.onThemeChanged,
+  });
+
   @override
-  ConsumerState<AppearanceSection> createState() => _AppearanceSectionState();
+  ConsumerState<AppearanceSection> createState() =>
+      _AppearanceSectionState();
 }
 
-class _AppearanceSectionState extends ConsumerState<AppearanceSection> {
+class _AppearanceSectionState
+    extends ConsumerState<AppearanceSection> {
   late final AppearanceController _controller;
-  AppearanceSettings? _settings;
-  bool _loading = true, _saving = false;
+
+  // ===========================================================================
+  // STATE
+  // ===========================================================================
+
+  /// Mode réellement actif.
+  ///
+  /// Peut être [AppThemeMode.system].
+  AppThemeMode _activeMode = AppThemeMode.aqua;
+
+  /// Profil actuellement sélectionné pour être personnalisé.
+  ///
+  /// [AppThemeMode.system] n'est jamais un profil éditable.
+  AppThemeMode _selectedAppearance = AppThemeMode.aqua;
+
+  bool _loading = true;
+  bool _saving = false;
+
   String? _error;
+
+  /// Permet de distinguer une erreur de chargement
+  /// d'une erreur de sauvegarde.
+  bool _loadFailed = false;
+
+  /// File d'attente des sauvegardes.
+  ///
+  /// Les sliders peuvent générer énormément d'événements successifs.
+  /// Toutes les modifications sont donc exécutées dans l'ordre.
+  Future<void> _saveQueue = Future<void>.value();
+
+  int _pendingUpdates = 0;
+
+  // ===========================================================================
+  // INIT
+  // ===========================================================================
 
   @override
   void initState() {
     super.initState();
-    _controller = AppearanceController(ref);
+
+    _controller = ref.read(
+      appearanceControllerProvider,
+    );
+
     _load();
   }
 
+  // ===========================================================================
+  // LOAD
+  // ===========================================================================
+
   Future<void> _load() async {
-    setState(() {
-      _loading = true;
-      _error = null;
-    });
     try {
-      final s = await _controller.load();
-      if (!mounted) return;
+      final AppThemeMode activeMode =
+          _controller.activeMode;
+
+      final AppThemeMode selectedAppearance =
+          activeMode == AppThemeMode.system
+              ? AppThemeMode.aqua
+              : activeMode;
+
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
-        _settings = s;
+        _activeMode = activeMode;
+        _selectedAppearance = selectedAppearance;
         _loading = false;
+        _loadFailed = false;
+        _error = null;
       });
     } catch (e) {
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
         _loading = false;
+        _loadFailed = true;
         _error = e.toString();
       });
     }
   }
 
+  // ===========================================================================
+  // UPDATE PROFILE
+  // ===========================================================================
+
   Future<void> _update(
-    AppearanceSettings Function(AppearanceSettings) change,
+    AppearanceSettings Function(
+      AppearanceSettings settings,
+    ) change,
   ) async {
-    final cur = _settings;
-    if (cur == null || _saving) return;
-    final updated = change(cur);
+    if (!mounted) {
+      return;
+    }
+
+    _pendingUpdates++;
+
+    if (!_saving) {
+      setState(() {
+        _saving = true;
+        _error = null;
+      });
+    } else if (_error != null) {
+      setState(() {
+        _error = null;
+      });
+    }
+
+    /// Le profil est capturé au moment où la modification
+    /// est déclenchée.
+    ///
+    /// Ainsi, si l'utilisateur change de profil pendant
+    /// qu'une sauvegarde est en cours, la modification
+    /// reste appliquée au profil d'origine.
+    final AppThemeMode profileMode =
+        _selectedAppearance;
+
+    _saveQueue = _saveQueue.then(
+      (_) async {
+        try {
+          await ref
+              .read(
+                appearanceProfilesProvider.notifier,
+              )
+              .updateProfile(
+                profileMode,
+                change,
+              );
+
+          if (!mounted) {
+            return;
+          }
+
+          widget.onThemeChanged?.call();
+        } catch (e) {
+          if (!mounted) {
+            return;
+          }
+
+          setState(() {
+            _error = e.toString();
+          });
+        } finally {
+          _pendingUpdates--;
+
+          if (_pendingUpdates <= 0 && mounted) {
+            _pendingUpdates = 0;
+
+            setState(() {
+              _saving = false;
+            });
+          }
+        }
+      },
+    );
+
+    await _saveQueue;
+  }
+
+  // ===========================================================================
+  // APPEARANCE PROFILE
+  // ===========================================================================
+
+  void _selectAppearance(
+    AppThemeMode mode,
+  ) {
+    /// system n'est pas un profil éditable.
+    if (mode == AppThemeMode.system) {
+      return;
+    }
+
+    if (_saving) {
+      return;
+    }
+
     setState(() {
-      _settings = updated;
+      _selectedAppearance = mode;
+      _error = null;
+    });
+  }
+
+  // ===========================================================================
+  // THEME MODE
+  // ===========================================================================
+
+  Future<void> _changeThemeMode(
+    AppThemeMode mode,
+  ) async {
+    if (_saving) {
+      return;
+    }
+
+    setState(() {
       _saving = true;
       _error = null;
     });
+
     try {
-      await _controller.apply(updated);
-      if (!mounted) return;
-      setState(() => _saving = false);
+      /// IMPORTANT :
+      /// le controller reçoit directement AppThemeMode.
+      ///
+      /// Ne jamais envoyer mode.name ici.
+      await _controller.changeThemeMode(
+        mode,
+      );
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _activeMode = mode;
+
+        /// system n'est pas éditable.
+        ///
+        /// On conserve donc le dernier profil sélectionné.
+        if (mode != AppThemeMode.system) {
+          _selectedAppearance = mode;
+        }
+
+        _saving = false;
+      });
+
       widget.onThemeChanged?.call();
     } catch (e) {
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
         _saving = false;
         _error = e.toString();
@@ -77,153 +267,205 @@ class _AppearanceSectionState extends ConsumerState<AppearanceSection> {
     }
   }
 
-  Future<void> _applyPreset(GlassPreset preset) async {
-    AppearanceSettings newSettings;
+  // ===========================================================================
+  // PRESET
+  // ===========================================================================
+
+  Future<void> _applyPreset(
+    GlassPreset preset,
+  ) async {
+    if (_saving) {
+      return;
+    }
+
+    // -------------------------------------------------------------------------
+    // Déterminer le profil auquel appartient le preset.
+    // -------------------------------------------------------------------------
+
+    final AppThemeMode targetMode;
+
     switch (preset) {
       case GlassPreset.aquaFrost:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.aqua,
-          glassStyle: GlassStyle.transparentAqua,
+        targetMode = AppThemeMode.aqua;
+        break;
+
+      case GlassPreset.classicDark:
+        targetMode = AppThemeMode.classic;
+        break;
+
+      case GlassPreset.classicSb:
+        targetMode = AppThemeMode.dark;
+        break;
+
+      case GlassPreset.light:
+        targetMode = AppThemeMode.light;
+        break;
+
+      case GlassPreset.dark:
+        targetMode = AppThemeMode.dark;
+        break;
+    }
+
+    // -------------------------------------------------------------------------
+    // Lire le profil cible.
+    // -------------------------------------------------------------------------
+
+    final AppearanceSettings targetSettings =
+        ref
+            .read(
+              appearanceProfilesProvider,
+            )
+            .forMode(
+              targetMode,
+            );
+
+    late final AppearanceSettings settings;
+
+    // -------------------------------------------------------------------------
+    // Construire le preset à partir du profil cible.
+    //
+    // IMPORTANT :
+    // On ne part PAS de _settings, car _settings représente
+    // le profil actuellement sélectionné.
+    // -------------------------------------------------------------------------
+
+    switch (preset) {
+      case GlassPreset.aquaFrost:
+        settings = targetSettings.copyWith(
+          themeMode: AppThemeMode.aqua.name,
+          glassStyle:
+              GlassStyle.transparentAqua.name,
           enableBlur: true,
           blur: 20,
           enableNoise: true,
-          noise: 0.3,
+          noise: .3,
           enableGlow: true,
-          glowOpacity: 0.25,
+          glowOpacity: .25,
           glowBlur: 30,
-          surfaceOpacity: 0.85,
+          surfaceOpacity: .85,
         );
         break;
+
       case GlassPreset.classicDark:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.classic,
-          glassStyle: GlassStyle.opaqueMat,
+        settings = targetSettings.copyWith(
+          themeMode: AppThemeMode.classic.name,
+          glassStyle:
+              GlassStyle.opaqueMat.name,
           enableBlur: false,
+          blur: 0,
           enableNoise: false,
+          noise: 0,
           enableBorder: true,
-          borderOpacity: 0.3,
-          surfaceOpacity: 0.95,
+          borderOpacity: .3,
+          surfaceOpacity: .95,
         );
         break;
+
       case GlassPreset.classicSb:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.dark,
-          glassStyle: GlassStyle.classicSb,
+        settings = targetSettings.copyWith(
+          themeMode: AppThemeMode.dark.name,
+          glassStyle:
+              GlassStyle.classicSb.name,
           enableBlur: false,
+          blur: 0,
           enableNoise: false,
+          noise: 0,
           enableGlow: false,
+          glowOpacity: 0,
+          glowBlur: 0,
           enableShadow: true,
           shadowBlur: 24,
-          shadowOpacity: 0.25,
+          shadowOpacity: .25,
           shadowOffsetY: 12,
-          surfaceOpacity: 1.0,
+          surfaceOpacity: 1,
           borderRadius: 26,
           enableBorder: true,
-          borderWidth: 1.0,
-          borderOpacity: 0.3,
-          gradientOpacity: 1.0,
+          borderWidth: 1,
+          borderOpacity: .3,
+          gradientOpacity: 1,
         );
         break;
-    
-      case GlassPreset.sagePro:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.sagePro,
-          glassStyle: GlassStyle.sagePro,
-          enableBlur: true,
-          blur: 15,
-          enableShadow: true,
-          shadowBlur: 20,
-          enableGlow: true,
-          glowOpacity: 0.2,
-          glowBlur: 25,
-        );
-        break;
-      case GlassPreset.sageOled:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.sageOled,
-          glassStyle: GlassStyle.sageOled,
-          enableBlur: false,
-          surfaceOpacity: 1.0,
-          enableGlow: false,
-          enableShadow: false,
-        );
-        break;
-      case GlassPreset.sageGlass:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.sageGlass,
-          glassStyle: GlassStyle.sageGlass,
-          enableBlur: true,
-          blur: 25,
-          enableNoise: true,
-          noise: 0.2,
-          surfaceOpacity: 0.05,
-        );
-        break;
+
       case GlassPreset.light:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.light,
-          glassStyle: GlassStyle.solidClassic,
-          surfaceOpacity: 0.9,
+        settings = targetSettings.copyWith(
+          themeMode: AppThemeMode.light.name,
+          glassStyle:
+              GlassStyle.solidClassic.name,
+          surfaceOpacity: .9,
           enableShadow: true,
+          shadowBlur: 12,
+          shadowOpacity: .18,
           enableBlur: false,
+          blur: 0,
         );
         break;
+
       case GlassPreset.dark:
-        newSettings = AppearanceSettings.defaults().copyWith(
-          themeMode: AppThemeMode.dark,
-          glassStyle: GlassStyle.opaqueMat,
-          surfaceOpacity: 0.95,
+        settings = targetSettings.copyWith(
+          themeMode: AppThemeMode.dark.name,
+          glassStyle:
+              GlassStyle.opaqueMat.name,
+          surfaceOpacity: .95,
           enableShadow: true,
           enableBlur: true,
           blur: 10,
         );
         break;
     }
-    await _update((_) => newSettings);
-  }
 
+    if (!mounted) {
+      return;
+    }
 
-
-
-  Future<void> _changeThemeMode(AppThemeMode mode) =>
-      _update((s) => s.copyWith(themeMode: mode));
-
-  Future<void> _changeGlassStyle(GlassStyle style) =>
-      _update((s) => s.copyWith(glassStyle: style));
-
-  Future<void> _changeColor({
-    required int index,
-    required Color color,
-    required bool aqua,
-  }) async {
-    final cur = _settings;
-    if (cur == null) return;
-    final colors = List<Color>.from(aqua? cur.aquaColors : cur.classicColors);
-    if (index < 0 || index >= colors.length) return;
-    colors[index] = color;
-    await _update(
-      (s) => aqua
-         ? s.copyWith(aquaColors: colors)
-          : s.copyWith(classicColors: colors),
-    );
-  }
-
-  Future<void> _reset() async {
-    if (_saving) return;
     setState(() {
       _saving = true;
       _error = null;
     });
+
     try {
-      final s = await _controller.reset();
-      if (!mounted) return;
+      // -----------------------------------------------------------------------
+      // Modifier UNIQUEMENT le profil cible.
+      // -----------------------------------------------------------------------
+
+      await ref
+          .read(
+            appearanceProfilesProvider.notifier,
+          )
+          .updateProfile(
+            targetMode,
+            (_) => settings,
+          );
+
+      if (!mounted) {
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // Le preset ne change PAS automatiquement le mode actif.
+      //
+      // Si le profil ciblé est déjà actif, on le réapplique visuellement.
+      // -----------------------------------------------------------------------
+
+      if (_activeMode == targetMode) {
+        await _controller.changeThemeMode(
+          targetMode,
+        );
+      }
+
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
-        _settings = s;
         _saving = false;
       });
+
       widget.onThemeChanged?.call();
     } catch (e) {
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
         _saving = false;
         _error = e.toString();
@@ -231,725 +473,361 @@ class _AppearanceSectionState extends ConsumerState<AppearanceSection> {
     }
   }
 
-  Future<void> _pickColor(int index, bool aqua) async {
-    final s = _settings;
-    if (s == null) return;
-    final colors = aqua? s.aquaColors : s.classicColors;
-    if (index < 0 || index >= colors.length) return;
-    final c = await AppearanceColorPicker.show(
+  // ===========================================================================
+  // GLASS STYLE
+  // ===========================================================================
+
+  Future<void> _changeGlassStyle(
+    GlassStyle style,
+  ) async {
+    await _update(
+      (settings) => settings.copyWith(
+        glassStyle: style.name,
+      ),
+    );
+  }
+
+  // ===========================================================================
+  // COLOR
+  // ===========================================================================
+
+  Future<void> _changeColor(
+    int index,
+    Color color,
+    bool aqua,
+  ) async {
+    final AppearanceSettings settings =
+        _settings;
+
+    final List<int> colors =
+        List<int>.from(
+      aqua
+          ? settings.aquaColors
+          : settings.classicColors,
+    );
+
+    if (index < 0 ||
+        index >= colors.length) {
+      return;
+    }
+
+    colors[index] = color.value;
+
+    await _update(
+      (current) {
+        if (aqua) {
+          return current.copyWith(
+            aquaColors: colors,
+          );
+        }
+
+        return current.copyWith(
+          classicColors: colors,
+        );
+      },
+    );
+  }
+
+  Future<void> _pickColor(
+    BuildContext context,
+    int index,
+    bool aqua,
+  ) async {
+    final AppearanceSettings settings =
+        _settings;
+
+    final List<Color> colors =
+        aqua
+            ? _toColors(
+                settings.aquaColors,
+              )
+            : _toColors(
+                settings.classicColors,
+              );
+
+    if (index < 0 ||
+        index >= colors.length) {
+      return;
+    }
+
+    final Color? color =
+        await AppearanceColorPicker.show(
       context,
       initialColor: colors[index],
     );
-    if (c == null ||!mounted) return;
-    await _changeColor(index: index, color: c, aqua: aqua);
-  }
 
-  static const Map<GlassStyle, String> glassStyleLabels = {
-    GlassStyle.transparentAqua: 'Transparent Aqua',
-    GlassStyle.solidAqua: 'Solid Aqua',
-    GlassStyle.solidClassic: 'Solid Classic',
-    GlassStyle.opaqueHeavy: 'Opaque Heavy',
-    GlassStyle.opaqueMat: 'Opaque Mat',
-    GlassStyle.gradientOpaque: 'Gradient Opaque',
-    GlassStyle.customGradient: 'Custom Gradient',
-    GlassStyle.ghost: 'Ghost',
-    GlassStyle.sage: 'Sage',
-    GlassStyle.sagePro: 'Sage Pro',
-    GlassStyle.sageOled: 'Sage OLED',
-    GlassStyle.sageGlass: 'Sage Glass',
-    GlassStyle.appBar: 'AppBar',
-    GlassStyle.classicSb: 'Classic Subtle',
-   
-  };
+    if (color == null ||
+        !mounted) {
+      return;
+    }
 
-  Widget _buildSwitchSlider({
-    required String label,
-    required bool enabled,
-    required ValueChanged<bool> onToggle,
-    required double value,
-    required ValueChanged<double> onChanged,
-    required double min,
-    required double max,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _title(label, Colors.white.withOpacity(0.7)),
-            Switch(
-              value: enabled,
-              onChanged: onToggle,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Opacity(
-          opacity: enabled? 1.0 : 0.4,
-          child: Slider(
-            value: value,
-            min: min,
-            max: max,
-            onChanged: enabled? onChanged : null,
-          ),
-        ),
-      ],
+    await _changeColor(
+      index,
+      color,
+      aqua,
     );
   }
 
-  Widget _buildSlider({
-    required String label,
-    required double value,
-    required ValueChanged<double> onChanged,
-    required double min,
-    required double max,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _title(label, Colors.white.withOpacity(0.7)),
-        const SizedBox(height: 4),
-        Slider(value: value, min: min, max: max, onChanged: onChanged),
-      ],
+  // ===========================================================================
+  // IMPORT
+  // ===========================================================================
+// ===========================================================================
+// IMPORT
+// ===========================================================================
+
+Future<void> _importAppearance() async {
+  if (_saving) {
+    return;
+  }
+
+  setState(() {
+    _saving = true;
+    _error = null;
+  });
+
+  try {
+    /// Le notifier est la porte d'entrée de l'import.
+    ///
+    /// Il délègue au controller/service, puis met à jour
+    /// son propre state avec les profils importés.
+    final AppearanceProfilesDocument? imported =
+        await ref
+            .read
+            (
+              appearanceProfilesProvider.notifier,
+            )
+            .importProfiles();
+
+    if (!mounted) {
+      return;
+    }
+
+    /// null = utilisateur a annulé la sélection du fichier.
+    if (imported == null) {
+      setState(() {
+        _saving = false;
+      });
+      return;
+    }
+
+    final AppThemeMode activeMode =
+        imported.activeMode;
+
+    /// Le mode System n'est pas un profil personnalisable.
+    /// L'interface utilise donc Aqua comme représentation visuelle
+    /// lorsque le mode actif est System.
+    final AppThemeMode selectedAppearance =
+        activeMode == AppThemeMode.system
+            ? AppThemeMode.aqua
+            : activeMode;
+
+    setState(() {
+      _activeMode = activeMode;
+      _selectedAppearance = selectedAppearance;
+      _saving = false;
+      _error = null;
+    });
+
+    widget.onThemeChanged?.call();
+  } catch (e) {
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _saving = false;
+      _error = e.toString();
+    });
+  }
+}
+
+// ===========================================================================
+// EXPORT
+// ===========================================================================
+
+Future<void> _exportAppearance() async {
+  if (_saving) {
+    return;
+  }
+
+  setState(() {
+    _saving = true;
+    _error = null;
+  });
+
+  try {
+    /// Le notifier est la porte d'entrée de l'export.
+    ///
+    /// Cela garde import/export cohérents et évite que cette
+    /// section manipule directement AppearanceProfilesService.
+    final String? result =
+        await ref
+            .read(
+              appearanceProfilesProvider.notifier,
+            )
+            .exportProfiles();
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _saving = false;
+    });
+
+    /// Une valeur non vide signifie que l'export a été effectué.
+    ///
+    /// null ou chaîne vide peut simplement correspondre à une
+    /// annulation ou à une plateforme qui ne retourne pas de chemin.
+    if (result != null && result.trim().isNotEmpty) {
+      return;
+    }
+  } catch (e) {
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _saving = false;
+      _error = e.toString();
+    });
+  }
+}
+  // ===========================================================================
+  // RESET
+  // ===========================================================================
+
+  Future<void> _reset() async {
+    if (_saving) {
+      return;
+    }
+
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+
+    try {
+      await ref
+          .read(
+            appearanceProfilesProvider.notifier,
+          )
+          .resetProfiles();
+
+      final AppThemeMode activeMode =
+          _controller.activeMode;
+
+      final AppThemeMode selectedAppearance =
+          activeMode == AppThemeMode.system
+              ? AppThemeMode.aqua
+              : activeMode;
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _activeMode = activeMode;
+        _selectedAppearance = selectedAppearance;
+        _saving = false;
+        _error = null;
+      });
+
+      widget.onThemeChanged?.call();
+    } catch (e) {
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _saving = false;
+        _error = e.toString();
+      });
+    }
+  }
+
+  // ===========================================================================
+  // SETTINGS
+  // ===========================================================================
+
+  AppearanceSettings get _settings {
+    final AppearanceProfiles profiles =
+        ref.read(
+      appearanceProfilesProvider,
+    );
+
+    return profiles.forMode(
+      _selectedAppearance,
     );
   }
+
+  // ===========================================================================
+  // HELPERS
+  // ===========================================================================
+
+  List<Color> _toColors(
+    List<int> values,
+  ) {
+    return values
+        .map(Color.new)
+        .toList(
+          growable: false,
+        );
+  }
+
+  // ===========================================================================
+  // BUILD
+  // ===========================================================================
 
   @override
-  Widget build(BuildContext context) {
-    if (_loading)
-      // ignore: curly_braces_in_flow_control_structures
+  Widget build(
+    BuildContext context,
+  ) {
+    if (_loading) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(24),
           child: CircularProgressIndicator(),
         ),
       );
-    if (_settings == null) return _buildError();
-
-    final s = _settings!;
-    final p = GlassColorPalette.fromMode(s.themeMode);
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final bool isSmallMobile = screenWidth < 375;
-    final EdgeInsets dynamicPadding = EdgeInsets.all(isSmallMobile? 12 : 18);
-    final Color accent = s.isAqua? s.activeColors.first : p.accent;
-    final bool isClassicSb = s.glassStyle == GlassStyle.classicSb;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // CARTE 0: PRESETS
-        _sectionCard(
-          title: 'Presets Rapides',
-          padding: dynamicPadding,
-          children: [
-            GlassResponsiveGrid(
-              spacing: 10,
-              runSpacing: 10,
-              desktopColumns: 4,
-              tabletColumns: 3,
-              children: [
-                GlassModeChip<GlassPreset>(
-                  label: 'Aqua Frost',
-                  icon: Icons.water_drop_outlined,
-                  mode: GlassPreset.aquaFrost,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFF00BCD4),
-                ),
-                GlassModeChip<GlassPreset>(
-                  label: 'Classic',
-                  icon: Icons.layers_outlined,
-                  mode: GlassPreset.classicDark,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFF9E9E9E),
-                ),
-                GlassModeChip<GlassPreset>(
-                  label: 'Classic Sb',
-                  icon: Icons.rectangle_outlined,
-                  mode: GlassPreset.classicSb,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFFD4AF37),
-                ),
-                
-                GlassModeChip<GlassPreset>(
-                  label: 'Sage Pro',
-                  icon: Icons.spa_outlined,
-                  mode: GlassPreset.sagePro,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFF4CAF50),
-                ),
-                GlassModeChip<GlassPreset>(
-                  label: 'Sage OLED',
-                  icon: Icons.phone_android,
-                  mode: GlassPreset.sageOled,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: Colors.black,
-                ),
-                GlassModeChip<GlassPreset>(
-                  label: 'Sage Glass',
-                  icon: Icons.blur_on,
-                  mode: GlassPreset.sageGlass,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFF2E7D32),
-                ),
-                GlassModeChip<GlassPreset>(
-                  label: 'Light',
-                  icon: Icons.light_mode,
-                  mode: GlassPreset.light,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFFFFC107),
-                ),
-                GlassModeChip<GlassPreset>(
-                  label: 'Dark',
-                  icon: Icons.nightlight,
-                  mode: GlassPreset.dark,
-                  selected: _getCurrentPreset(s),
-                  onSelected: _applyPreset,
-                  accent: const Color(0xFF673AB7),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-
-        // CARTE 1: MODE VISUEL
-        _sectionCard(
-          title: 'Mode Visuel',
-          padding: dynamicPadding,
-          children: [
-            GlassResponsiveGrid(
-              spacing: 10,
-              runSpacing: 10,
-              desktopColumns: 4,
-              tabletColumns: 3,
-              children: AppThemeMode.values
-                 .where((e) => e!= AppThemeMode.system)
-                 .map((mode) {
-                    return GlassModeChip<AppThemeMode>(
-                      label: _modeLabel(mode),
-                      icon: _modeIcon(mode),
-                      mode: mode,
-                      selected: s.themeMode,
-                      onSelected: _changeThemeMode,
-                      accent: accent,
-                    );
-                  })
-                 .toList(),
-            ),
-            if (!s.isSage &&!isClassicSb)...[
-              const SizedBox(height: 20),
-              _title('Couleurs Gradient', p.textSecondary),
-              const SizedBox(height: 10),
-              AppearanceColorPicker(
-                colors: s.activeColors,
-                onTap: (i) => _pickColor(i, s.isAqua),
-              ),
-              const SizedBox(height: 16),
-              GlassResponsiveGrid(
-                spacing: 16,
-                runSpacing: 16,
-                desktopColumns: 2,
-                children: [
-                  _buildSlider(
-                    label: 'Opacité Gradient',
-                    value: s.gradientOpacity,
-                    onChanged: (v) =>
-                        _update((x) => x.copyWith(gradientOpacity: v)),
-                    min: 0,
-                    max: 1,
-                  ),
-                  _buildSlider(
-                    label: 'Densité Gradient',
-                    value: s.gradientDensity.toDouble(),
-                    onChanged: (v) =>
-                        _update((x) => x.copyWith(gradientDensity: v.round())),
-                    min: 1,
-                    max: 10,
-                  ),
-                ],
-              ),
-            ],
-            if (isClassicSb)...[
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color(0xFFD4AF37).withOpacity(0.3),
-                  ),
-                ),
-                child: Text(
-                  'Mode Classic Subtle: Gradient fixe #1A1A1A -> #121212, Bordure Or 1px',
-                  style: TextStyle(color: p.textSecondary, fontSize: 12),
-                ),
-              ),
-            ],
-          ],
-        ),
-        const SizedBox(height: 16),
-
-        // CARTE 2: SURFACE & EFFETS
-        if (!isClassicSb)...[
-          _sectionCard(
-            title: 'Surface & Effets',
-            padding: dynamicPadding,
-            children: [
-              GlassResponsiveGrid(
-                spacing: 16,
-                runSpacing: 16,
-                desktopColumns: 3,
-                children: [
-                  _buildSwitchSlider(
-                    label: 'Blur',
-                    enabled: s.enableBlur,
-                    onToggle: (v) => _update((x) => x.copyWith(enableBlur: v)),
-                    value: s.blur,
-                    onChanged: (v) => _update((x) => x.copyWith(blur: v)),
-                    min: 0,
-                    max: 50,
-                  ),
-                  _buildSwitchSlider(
-                    label: 'Noise',
-                    enabled: s.enableNoise,
-                    onToggle: (v) => _update((x) => x.copyWith(enableNoise: v)),
-                    value: s.noise,
-                    onChanged: (v) => _update((x) => x.copyWith(noise: v)),
-                    min: 0,
-                    max: 1,
-                  ),
-                  _buildSlider(
-                    label: 'Opacité Surface',
-                    value: s.surfaceOpacity,
-                    onChanged: (v) =>
-                        _update((x) => x.copyWith(surfaceOpacity: v)),
-                    min: 0,
-                    max: 1,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              GlassResponsiveGrid(
-                spacing: 16,
-                runSpacing: 16,
-                desktopColumns: 2,
-                children: [
-                  _buildSwitchSlider(
-                    label: 'Hover',
-                    enabled: s.enableHover,
-                    onToggle: (v) => _update((x) => x.copyWith(enableHover: v)),
-                    value: s.hoverLift,
-                    onChanged: (v) => _update((x) => x.copyWith(hoverLift: v)),
-                    min: 0,
-                    max: 20,
-                  ),
-                  _buildSlider(
-                    label: 'Border Radius',
-                    value: s.borderRadius,
-                    onChanged: (v) =>
-                        _update((x) => x.copyWith(borderRadius: v)),
-                    min: 0,
-                    max: 40,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-        ],
-
-        // CARTE 3: STYLE DE SURFACE
-        _sectionCard(
-          title: 'Style de Surface',
-          padding: const EdgeInsets.all(20),
-          children: [
-            DropdownButtonFormField<GlassStyle>(
-              value: s.glassStyle,
-              dropdownColor: const Color(0xFF1E1E1E),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-              ),
-              items: GlassStyle.values.map((style) {
-                return DropdownMenuItem(
-                  value: style,
-                  child: Text(
-                    glassStyleLabels[style]?? style.name,
-                    style: TextStyle(color: p.textPrimary),
-                  ),
-                );
-              }).toList(),
-              onChanged: (val) {
-                if (val!= null) _changeGlassStyle(val);
-              },
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-
-        // CARTE 4: BORDURE & OMBRE & GLOW
-        _sectionCard(
-          title: 'Bordure & Ombre & Glow',
-          padding: dynamicPadding,
-          children: [
-            GlassResponsiveGrid(
-              spacing: 16,
-              runSpacing: 16,
-              desktopColumns: 3,
-              children: [
-                _buildSwitchSlider(
-                  label: 'Bordure',
-                  enabled: s.enableBorder,
-                  onToggle: (v) => _update((x) => x.copyWith(enableBorder: v)),
-                  value: s.borderWidth,
-                  onChanged: (v) => _update((x) => x.copyWith(borderWidth: v)),
-                  min: 0,
-                  max: 5,
-                ),
-                _buildSlider(
-                  label: 'Opacité Bordure',
-                  value: s.borderOpacity,
-                  onChanged: (v) =>
-                      _update((x) => x.copyWith(borderOpacity: v)),
-                  min: 0,
-                  max: 1,
-                ),
-                if (!isClassicSb)
-                  _buildSwitchSlider(
-                    label: 'Glow',
-                    enabled: s.enableGlow,
-                    onToggle: (v) => _update((x) => x.copyWith(enableGlow: v)),
-                    value: s.glowBlur,
-                    onChanged: (v) => _update((x) => x.copyWith(glowBlur: v)),
-                    min: 0,
-                    max: 50,
-                  ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            GlassResponsiveGrid(
-              spacing: 16,
-              runSpacing: 16,
-              desktopColumns: 3,
-              children: [
-                if (!isClassicSb)
-                  _buildSlider(
-                    label: 'Opacité Glow',
-                    value: s.glowOpacity,
-                    onChanged: (v) =>
-                        _update((x) => x.copyWith(glowOpacity: v)),
-                    min: 0,
-                    max: 1,
-                  ),
-                _buildSwitchSlider(
-                  label: 'Ombre',
-                  enabled: s.enableShadow,
-                  onToggle: (v) => _update((x) => x.copyWith(enableShadow: v)),
-                  value: s.shadowBlur,
-                  onChanged: (v) => _update((x) => x.copyWith(shadowBlur: v)),
-                  min: 0,
-                  max: 50,
-                ),
-                _buildSlider(
-                  label: 'Opacité Ombre',
-                  value: s.shadowOpacity,
-                  onChanged: (v) =>
-                      _update((x) => x.copyWith(shadowOpacity: v)),
-                  min: 0,
-                  max: 1,
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            _buildSlider(
-              label: 'Offset Y Ombre',
-              value: s.shadowOffsetY,
-              onChanged: (v) => _update((x) => x.copyWith(shadowOffsetY: v)),
-              min: -20,
-              max: 20,
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-
-        // CARTE 5: APERCU LIVE
-        GlassSurfaceContainer(
-          style: s.glassStyle,
-          customGradient: isClassicSb
-             ? null
-              : (s.isSage? const [] : s.activeColors),
-          padding: dynamicPadding,
-          borderRadius: BorderRadius.circular(isSmallMobile? 14 : 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(p),
-              const SizedBox(height: 12),
-              AppearanceLivePreview(
-                mode: s.themeMode,
-                palette: p,
-                aquaColors: s.aquaColors,
-                classicColors: s.classicColors,
-              ),
-              const SizedBox(height: 20),
-              _buildResetButton(p),
-              if (_saving)...[
-                const SizedBox(height: 8),
-                _buildSavingIndicator(p),
-              ],
-              if (_error!= null)...[
-                const SizedBox(height: 12),
-                _buildInlineError(),
-              ],
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // CARTE 6: APERCU BIENVENUE
-        GlassSurfaceContainer(
-          style: s.glassStyle,
-          customGradient: null,
-          padding: dynamicPadding,
-          borderRadius: BorderRadius.circular(
-            s.glassStyle == GlassStyle.classicSb
-               ? 26
-                : (isSmallMobile? 14 : 20),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'BIENVENUE',
-                      style: TextStyle(
-                        color: accent,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.6,
-                      ),
-                    ),
-                    const SizedBox(height: 9),
-                    Text(
-                      'Votre espace de contrôle Glass',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        height: 1.15,
-                      ),
-                    ),
-                    const SizedBox(height: 9),
-                    Text(
-                      'Accédez rapidement à vos contrôles, réglages et outils.',
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontSize: 13,
-                        height: 1.45,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (!isSmallMobile)...[
-                const SizedBox(width: 30),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: accent.withValues(alpha:.045),
-                  ),
-                  child: Icon(
-                    Icons.dashboard_customize_outlined,
-                    size: 62,
-                    color: accent.withValues(alpha:.32),
-                  ),
-                ),
-              ],
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  GlassPreset _getCurrentPreset(AppearanceSettings s) {
-    if (s.glassStyle == GlassStyle.classicSb) return GlassPreset.classicSb;
-    if (s.themeMode == AppThemeMode.aqua && s.blur > 15)
-      // ignore: curly_braces_in_flow_control_structures
-      return GlassPreset.aquaFrost;
-    if (s.themeMode == AppThemeMode.classic) return GlassPreset.classicDark;
-    if (s.themeMode == AppThemeMode.sagePro) return GlassPreset.sagePro;
-    if (s.themeMode == AppThemeMode.sageOled) return GlassPreset.sageOled;
-    if (s.themeMode == AppThemeMode.sageGlass) return GlassPreset.sageGlass;
-    if (s.themeMode == AppThemeMode.light) return GlassPreset.light;
-    return GlassPreset.dark;
-  }
-
-  String _modeLabel(AppThemeMode mode) {
-    switch (mode) {
-      case AppThemeMode.aqua: return 'Aqua';
-      case AppThemeMode.classic: return 'Classic';
-      case AppThemeMode.sage: return 'Sage';
-      case AppThemeMode.sagePro: return 'Sage Pro';
-      case AppThemeMode.sageOled: return 'Sage OLED';
-      case AppThemeMode.sageGlass: return 'Sage Glass';
-      case AppThemeMode.light: return 'Light';
-      case AppThemeMode.dark: return 'Dark';
-      case AppThemeMode.system: return 'System';
     }
-  }
 
-  IconData _modeIcon(AppThemeMode mode) {
-    switch (mode) {
-      case AppThemeMode.aqua: return Icons.water_drop;
-      case AppThemeMode.classic: return Icons.layers;
-      case AppThemeMode.sage: return Icons.spa;
-      case AppThemeMode.sagePro: return Icons.verified;
-      case AppThemeMode.sageOled: return Icons.phone_android;
-      case AppThemeMode.sageGlass: return Icons.blur_on;
-      case AppThemeMode.light: return Icons.light_mode;
-      case AppThemeMode.dark: return Icons.dark_mode;
-      case AppThemeMode.system: return Icons.settings_system_daydream;
+    if (_loadFailed) {
+      return AppearanceSectionBuilders.buildError(
+        error: _error,
+        onRetry: _load,
+      );
     }
-  }
 
-  Widget _sectionCard({
-    required String title,
-    required EdgeInsets padding,
-    required List<Widget> children,
-  }) {
-    return GlassSurfaceContainer(
-      style: GlassStyle.opaqueMat,
-      padding: padding,
-      borderRadius: BorderRadius.circular(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _title(title, Colors.white, bold: true),
-          const SizedBox(height: 16),
-         ...children,
-        ],
+    final AppearanceSettings settings =
+        ref.watch(
+      appearanceProfileProvider(
+        _selectedAppearance,
       ),
     );
-  }
 
-  Widget _buildHeader(GlassColorPalette p) => Row(
-    children: [
-      Expanded(
-        child: Text(
-          'Aperçu en direct',
-          style: TextStyle(
-            color: p.textPrimary,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      if (_saving)
-        const SizedBox(
-          width: 18,
-          height: 18,
-          child: CircularProgressIndicator(strokeWidth: 2),
-        ),
-    ],
-  );
+    final AppearanceSectionBuilders builders =
+        AppearanceSectionBuilders(
+      saving: _saving,
+      error: _error,
+      activeMode: _activeMode,
+      selectedAppearance: _selectedAppearance,
+      onPreset: _applyPreset,
+      onThemeMode: _changeThemeMode,
+      onSelectAppearance: _selectAppearance,
+      onPickColor: _pickColor,
+      onUpdate: _update,
+      onGlassStyle: _changeGlassStyle,
+      onReset: _reset,
 
-  Widget _title(String t, Color c, {bool bold = false}) => Text(
-    t,
-    style: TextStyle(
-      color: c,
-      fontSize: bold? 15 : 13,
-      fontWeight: bold? FontWeight.w700 : FontWeight.w600,
-    ),
-  );
+      // Import / Export
+      onImport: _importAppearance,
+      onExport: _exportAppearance,
+    );
 
-  Widget _buildResetButton(GlassColorPalette p) => Align(
-    alignment: Alignment.centerRight,
-    child: TextButton.icon(
-      onPressed: _saving? null : _reset,
-      icon: const Icon(Icons.restore, size: 18),
-      label: const Text('Réinitialiser'),
-      style: TextButton.styleFrom(foregroundColor: p.textSecondary),
-    ),
-  );
-
-  Widget _buildSavingIndicator(GlassColorPalette p) {
-    final mode = _settings?.themeMode?? AppThemeMode.aqua;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          width: 12,
-          height: 12,
-          child: CircularProgressIndicator(
-            strokeWidth: 1.5,
-            color: p.primaryForMode(mode),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          'Enregistrement...',
-          style: TextStyle(color: p.textSecondary, fontSize: 11),
-        ),
-      ],
+    return builders.build(
+      context,
+      settings,
     );
   }
-
-  Widget _buildError() => Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(20),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(Icons.error_outline, size: 32),
-        const SizedBox(height: 10),
-        const Text(
-          'Impossible de charger les paramètres.',
-          textAlign: TextAlign.center,
-        ),
-        if (_error!= null)...[
-          const SizedBox(height: 6),
-          Text(
-            _error!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 11),
-          ),
-        ],
-        const SizedBox(height: 12),
-        FilledButton.icon(
-          onPressed: _load,
-          icon: const Icon(Icons.refresh),
-          label: const Text('Réessayer'),
-        ),
-      ],
-    ),
-  );
-
-  Widget _buildInlineError() => Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Icon(Icons.warning_amber_rounded, size: 16),
-      const SizedBox(width: 8),
-      Expanded(child: Text(_error!, style: const TextStyle(fontSize: 11))),
-    ],
-  );
 }

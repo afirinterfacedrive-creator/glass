@@ -24,8 +24,8 @@ class HomeStatusCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final glass = ref.watchGlassContext(context);
-    
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
+
     // FIX: Utilise iconColor si fourni, sinon prend l'accent du theme
     final Color accent = iconColor ?? glass.palette.accent;
 
@@ -34,7 +34,7 @@ class HomeStatusCard extends ConsumerWidget {
       effects: glass.effects,
       borderRadius: BorderRadius.circular(glass.isSmallMobile ? 14 : 16),
       padding: EdgeInsets.symmetric(
-        horizontal: glass.isSmallMobile ? 12 : 16, 
+        horizontal: glass.isSmallMobile ? 12 : 16,
         vertical: glass.isSmallMobile ? 10 : 12,
       ),
       liftOnHover: glass.theme.enableHover,

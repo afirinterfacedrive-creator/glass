@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:universal_glass/utils/glass_surface_gradient_resolver.dart'; // Import de GlassGradientResolution
+import 'package:universal_glass/components/surface/glass_surface_gradient_resolver.dart'; // Import de GlassGradientResolution
 
 /// Tween personnalisé pour interpoler de manière fluide deux dégradés de verre asymétriques.
 class GlassGradientResolutionTween extends Tween<GlassGradientResolution> {

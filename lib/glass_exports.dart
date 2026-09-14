@@ -114,9 +114,9 @@ export 'components/surface/glass_surface_container.dart';
 // DECORATION
 // ----------------------------------------------------------------------------
 
-export 'components/inputs/glass_input_decoration.dart';
+export 'utils/glass_input_decoration.dart';
 
-export 'components/dialogs/universal_glass_confirm_dialog.dart';
+export 'components/dialog/universal_glass_confirm_dialog.dart';
 // ----------------------------------------------------------------------------
 // CONTAINER
 // ----------------------------------------------------------------------------

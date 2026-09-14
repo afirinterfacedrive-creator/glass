@@ -18,11 +18,25 @@ void main() {
       prefs = await SharedPreferences.getInstance();
 
       container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
+      );
+
+      // Laisse Riverpod terminer les éventuelles opérations
+      // asynchrones déclenchées lors de la création du provider.
+      await Future<void>.delayed(
+        const Duration(milliseconds: 10),
       );
     });
 
-    tearDown(() {
+    tearDown(() async {
+      // Évite de disposer le container pendant une éventuelle
+      // opération asynchrone encore en cours.
+      await Future<void>.delayed(
+        const Duration(milliseconds: 10),
+      );
+
       container.dispose();
     });
 
@@ -100,7 +114,10 @@ void main() {
 
       notifier.setActive('wifi', true);
 
-      expect(prefs.getBool('glass_btn_wifi'), isTrue);
+      expect(
+        prefs.getBool('glass_btn_wifi'),
+        isTrue,
+      );
     });
 
     test('toggleActive toggles button state', () {
@@ -110,11 +127,17 @@ void main() {
 
       notifier.toggleActive('wifi');
 
-      expect(container.read(glassButtonProvider)['wifi']!.isActive, isTrue);
+      expect(
+        container.read(glassButtonProvider)['wifi']!.isActive,
+        isTrue,
+      );
 
       notifier.toggleActive('wifi');
 
-      expect(container.read(glassButtonProvider)['wifi']!.isActive, isFalse);
+      expect(
+        container.read(glassButtonProvider)['wifi']!.isActive,
+        isFalse,
+      );
     });
 
     test('setLoading changes loading state', () {
@@ -122,7 +145,11 @@ void main() {
 
       notifier.initButton('wifi', false);
 
-      notifier.setLoading('wifi', true, customText: 'Connexion...');
+      notifier.setLoading(
+        'wifi',
+        true,
+        customText: 'Connexion...',
+      );
 
       final button = container.read(glassButtonProvider)['wifi'];
 
@@ -135,9 +162,16 @@ void main() {
 
       notifier.initButton('wifi', false);
 
-      notifier.setCustomText('wifi', 'Connexion...');
+      notifier.setCustomText(
+        'wifi',
+        'Connexion...',
+      );
 
-      notifier.setLoading('wifi', false, clearCustomText: true);
+      notifier.setLoading(
+        'wifi',
+        false,
+        clearCustomText: true,
+      );
 
       final button = container.read(glassButtonProvider)['wifi'];
 
@@ -149,7 +183,10 @@ void main() {
 
       notifier.initButton('wifi', false);
 
-      notifier.setCustomText('wifi', 'Activé');
+      notifier.setCustomText(
+        'wifi',
+        'Activé',
+      );
 
       final button = container.read(glassButtonProvider)['wifi'];
 
@@ -161,7 +198,10 @@ void main() {
 
       notifier.initButton('wifi', false);
 
-      notifier.setCustomText('wifi', 'Activé');
+      notifier.setCustomText(
+        'wifi',
+        'Activé',
+      );
 
       notifier.clearCustomText('wifi');
 
@@ -175,9 +215,16 @@ void main() {
 
       notifier.initButton('wifi', true);
 
-      notifier.setLoading('wifi', true, customText: 'Connexion...');
+      notifier.setLoading(
+        'wifi',
+        true,
+        customText: 'Connexion...',
+      );
 
-      notifier.resetButton('wifi', active: false);
+      notifier.resetButton(
+        'wifi',
+        active: false,
+      );
 
       final button = container.read(glassButtonProvider)['wifi'];
 
@@ -191,26 +238,45 @@ void main() {
 
       notifier.initButton('wifi', true);
 
-      notifier.resetButton('wifi', active: false);
+      notifier.resetButton(
+        'wifi',
+        active: false,
+      );
 
-      expect(prefs.getBool('glass_btn_wifi'), isFalse);
+      expect(
+        prefs.getBool('glass_btn_wifi'),
+        isFalse,
+      );
     });
 
     test('operations on unknown button do nothing', () {
       final notifier = container.read(glassButtonProvider.notifier);
 
-      notifier.setActive('unknown', true);
+      notifier.setActive(
+        'unknown',
+        true,
+      );
+
       notifier.toggleActive('unknown');
 
-      notifier.setLoading('unknown', true);
+      notifier.setLoading(
+        'unknown',
+        true,
+      );
 
-      notifier.setCustomText('unknown', 'Test');
+      notifier.setCustomText(
+        'unknown',
+        'Test',
+      );
 
       notifier.clearCustomText('unknown');
 
       notifier.resetButton('unknown');
 
-      expect(container.read(glassButtonProvider), isEmpty);
+      expect(
+        container.read(glassButtonProvider),
+        isEmpty,
+      );
     });
   });
 
@@ -248,9 +314,13 @@ void main() {
     });
 
     test('copyWith clearCustomText removes text', () {
-      const original = GlassButtonState(customText: 'Test');
+      const original = GlassButtonState(
+        customText: 'Test',
+      );
 
-      final result = original.copyWith(clearCustomText: true);
+      final result = original.copyWith(
+        clearCustomText: true,
+      );
 
       expect(result.customText, isNull);
     });

@@ -1,286 +1,8201 @@
 [
   {
-    "isoCode": "BF",
-    "name": "Burkina Faso",
-    "flag": "🇧🇫",
-    "dialCode": "+226",
-    "nationalDigits": [8],
-    "formatGroups": [2, 2, 2, 2],
+    "isoCode": "AF",
+    "name": "Afghanistan",
+    "flag": "🇦🇫",
+    "dialCode": "+93",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
     "prefixes": [
-      "01", "02", "03", "05", "06", "07", 
-      "51", "52", "53", "54", "55", "56", "57", "58", "59",
-      "60", "61", "62", "63", "64", "65", "66", "67", "68", "69",
-      "70", "71", "72", "73", "74", "75", "76", "77", "78", "79"
+      "70",
+      "79"
     ],
     "operators": [
       {
-        "id": "orange_bf",
-        "name": "Orange Burkina Faso",
-        "shortName": "Orange",
-        "prefixes": ["05", "06", "07", "54", "55", "56", "57", "64", "65", "66", "67", "74", "75", "76", "77"],
-        "color": "#FF8C00"
-      },
-      {
-        "id": "moov_bf",
-        "name": "Moov Africa Burkina Faso",
-        "shortName": "Moov",
-        "prefixes": ["01", "02", "03", "51", "52", "53", "60", "61", "62", "63", "70", "71", "72", "73"],
+        "id": "operator_af",
+        "name": "Opérateur Afghanistan",
+        "shortName": "Telco",
+        "prefixes": [
+          "70",
+          "79"
+        ],
         "color": "#0066CC"
-      },
-      {
-        "id": "telecel_bf",
-        "name": "Telecel Faso",
-        "shortName": "Telecel",
-        "prefixes": ["58", "59", "68", "69", "78", "79"],
-        "color": "#CC0000"
       }
     ],
-    "example": "71 12 34 56",
-    "placeholder": "71 12 34 56"
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
   },
   {
-    "isoCode": "CI",
-    "name": "Côte d'Ivoire",
-    "flag": "🇨🇮",
-    "dialCode": "+225",
-    "nationalDigits": [10],
-    "formatGroups": [2, 2, 2, 2, 2],
-    "prefixes": ["01", "05", "07"],
+    "isoCode": "ZA",
+    "name": "Afrique du Sud",
+    "flag": "🇿🇦",
+    "dialCode": "+27",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "60",
+      "72",
+      "82"
+    ],
     "operators": [
       {
-        "id": "moov_ci",
-        "name": "Moov Africa Côte d'Ivoire",
-        "shortName": "Moov",
-        "prefixes": ["01"],
+        "id": "operator_za",
+        "name": "Opérateur Afrique du Sud",
+        "shortName": "Telco",
+        "prefixes": [
+          "60",
+          "72",
+          "82"
+        ],
         "color": "#0066CC"
-      },
-      {
-        "id": "mtn_ci",
-        "name": "MTN Côte d'Ivoire",
-        "shortName": "MTN",
-        "prefixes": ["05"],
-        "color": "#FFCC00"
-      },
-      {
-        "id": "orange_ci",
-        "name": "Orange Côte d'Ivoire",
-        "shortName": "Orange",
-        "prefixes": ["07"],
-        "color": "#FF8C00"
       }
     ],
-    "example": "07 12 34 56 78",
-    "placeholder": "07 12 34 56 78"
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
   },
   {
-    "isoCode": "ML",
-    "name": "Mali",
-    "flag": "🇲🇱",
-    "dialCode": "+223",
-    "nationalDigits": [8],
-    "formatGroups": [2, 2, 2, 2],
-    "prefixes": ["50", "51", "52", "53", "55", "60", "61", "62", "63", "65", "66", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "82", "83", "89", "90", "91", "92", "93", "94", "95", "99"],
+    "isoCode": "AL",
+    "name": "Albanie",
+    "flag": "🇦🇱",
+    "dialCode": "+355",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "67",
+      "68",
+      "69"
+    ],
     "operators": [
       {
-        "id": "malitel_ml",
-        "name": "Moov Africa Malitel",
-        "shortName": "Moov",
-        "prefixes": ["50", "60", "61", "62", "63", "65", "66", "69", "70", "71", "72", "73", "74", "75", "82", "83", "90", "91", "92", "93", "94"],
+        "id": "operator_al",
+        "name": "Opérateur Albanie",
+        "shortName": "Telco",
+        "prefixes": [
+          "67",
+          "68",
+          "69"
+        ],
         "color": "#0066CC"
-      },
-      {
-        "id": "orange_ml",
-        "name": "Orange Mali",
-        "shortName": "Orange",
-        "prefixes": ["51", "52", "53", "55", "76", "77", "78", "79", "89", "95", "99"],
-        "color": "#FF8C00"
-      },
-      {
-        "id": "telecel_ml",
-        "name": "Telecel Mali",
-        "shortName": "Telecel",
-        "prefixes": ["85", "86", "87", "88"],
-        "color": "#CC0000"
       }
     ],
-    "example": "76 12 34 56",
-    "placeholder": "76 12 34 56"
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
   },
   {
-    "isoCode": "SN",
-    "name": "Sénégal",
-    "flag": "🇸🇳",
-    "dialCode": "+221",
-    "nationalDigits": [9],
-    "formatGroups": [2, 3, 2, 2],
-    "prefixes": ["70", "75", "76", "77", "78"],
+    "isoCode": "DZ",
+    "name": "Algérie",
+    "flag": "🇩🇿",
+    "dialCode": "+213",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      2,
+      2
+    ],
+    "prefixes": [
+      "5",
+      "6",
+      "7"
+    ],
     "operators": [
       {
-        "id": "orange_sn",
-        "name": "Orange Sénégal",
-        "shortName": "Orange",
-        "prefixes": ["77", "78"],
-        "color": "#FF8C00"
-      },
-      {
-        "id": "free_sn",
-        "name": "Free Sénégal",
-        "shortName": "Free",
-        "prefixes": ["76"],
-        "color": "#CC0000"
-      },
-      {
-        "id": "expresso_sn",
-        "name": "Expresso Sénégal",
-        "shortName": "Expresso",
-        "prefixes": ["70"],
-        "color": "#008080"
-      },
-      {
-        "id": "promobile_sn",
-        "name": "Promobile",
-        "shortName": "Promobile",
-        "prefixes": ["75"],
-        "color": "#990099"
+        "id": "operator_dz",
+        "name": "Opérateur Algérie",
+        "shortName": "Telco",
+        "prefixes": [
+          "5",
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
       }
     ],
-    "example": "77 123 45 67",
-    "placeholder": "77 123 45 67"
+    "example": "55 555 55 55",
+    "placeholder": "55 555 55 55"
+  },
+  {
+    "isoCode": "DE",
+    "name": "Allemagne",
+    "flag": "🇩🇪",
+    "dialCode": "+49",
+    "nationalDigits": [
+      11
+    ],
+    "formatGroups": [
+      3,
+      4,
+      4
+    ],
+    "prefixes": [
+      "15",
+      "16",
+      "17"
+    ],
+    "operators": [
+      {
+        "id": "operator_de",
+        "name": "Opérateur Allemagne",
+        "shortName": "Telco",
+        "prefixes": [
+          "15",
+          "16",
+          "17"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555 5555",
+    "placeholder": "555 5555 5555"
+  },
+  {
+    "isoCode": "AD",
+    "name": "Andorre",
+    "flag": "🇦🇩",
+    "dialCode": "+376",
+    "nationalDigits": [
+      6
+    ],
+    "formatGroups": [
+      3,
+      3
+    ],
+    "prefixes": [
+      "3",
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_ad",
+        "name": "Opérateur Andorre",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555",
+    "placeholder": "555 555"
+  },
+  {
+    "isoCode": "AO",
+    "name": "Angola",
+    "flag": "🇦🇴",
+    "dialCode": "+244",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "91",
+      "92",
+      "93"
+    ],
+    "operators": [
+      {
+        "id": "operator_ao",
+        "name": "Opérateur Angola",
+        "shortName": "Telco",
+        "prefixes": [
+          "91",
+          "92",
+          "93"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "AI",
+    "name": "Anguilla",
+    "flag": "🇦🇮",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "264"
+    ],
+    "operators": [
+      {
+        "id": "operator_ai",
+        "name": "Opérateur Anguilla",
+        "shortName": "Telco",
+        "prefixes": [
+          "264"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "AG",
+    "name": "Antigua-et-Barbuda",
+    "flag": "🇦🇬",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "268"
+    ],
+    "operators": [
+      {
+        "id": "operator_ag",
+        "name": "Opérateur Antigua-et-Barbuda",
+        "shortName": "Telco",
+        "prefixes": [
+          "268"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "SA",
+    "name": "Arabie Saoudite",
+    "flag": "🇸🇦",
+    "dialCode": "+966",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "50",
+      "55"
+    ],
+    "operators": [
+      {
+        "id": "operator_sa",
+        "name": "Opérateur Arabie Saoudite",
+        "shortName": "Telco",
+        "prefixes": [
+          "50",
+          "55"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "AR",
+    "name": "Argentine",
+    "flag": "🇦🇷",
+    "dialCode": "+54",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      2,
+      4,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_ar",
+        "name": "Opérateur Argentine",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 5555 5555",
+    "placeholder": "55 5555 5555"
+  },
+  {
+    "isoCode": "AM",
+    "name": "Arménie",
+    "flag": "🇦🇲",
+    "dialCode": "+374",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "91",
+      "99"
+    ],
+    "operators": [
+      {
+        "id": "operator_am",
+        "name": "Opérateur Arménie",
+        "shortName": "Telco",
+        "prefixes": [
+          "91",
+          "99"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "AW",
+    "name": "Aruba",
+    "flag": "🇦🇼",
+    "dialCode": "+297",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "56",
+      "59"
+    ],
+    "operators": [
+      {
+        "id": "operator_aw",
+        "name": "Opérateur Aruba",
+        "shortName": "Telco",
+        "prefixes": [
+          "56",
+          "59"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "AU",
+    "name": "Australie",
+    "flag": "🇦🇺",
+    "dialCode": "+61",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "4"
+    ],
+    "operators": [
+      {
+        "id": "operator_au",
+        "name": "Opérateur Australie",
+        "shortName": "Telco",
+        "prefixes": [
+          "4"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "AT",
+    "name": "Autriche",
+    "flag": "🇦🇹",
+    "dialCode": "+43",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "66",
+      "67"
+    ],
+    "operators": [
+      {
+        "id": "operator_at",
+        "name": "Opérateur Autriche",
+        "shortName": "Telco",
+        "prefixes": [
+          "66",
+          "67"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "AZ",
+    "name": "Azerbaïdjan",
+    "flag": "🇦🇿",
+    "dialCode": "+994",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "50",
+      "55"
+    ],
+    "operators": [
+      {
+        "id": "operator_az",
+        "name": "Opérateur Azerbaïdjan",
+        "shortName": "Telco",
+        "prefixes": [
+          "50",
+          "55"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "BS",
+    "name": "Bahamas",
+    "flag": "🇧🇸",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "242"
+    ],
+    "operators": [
+      {
+        "id": "operator_bs",
+        "name": "Opérateur Bahamas",
+        "shortName": "Telco",
+        "prefixes": [
+          "242"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "BH",
+    "name": "Bahreïn",
+    "flag": "🇧🇭",
+    "dialCode": "+973",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "33",
+      "39"
+    ],
+    "operators": [
+      {
+        "id": "operator_bh",
+        "name": "Opérateur Bahreïn",
+        "shortName": "Telco",
+        "prefixes": [
+          "33",
+          "39"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "BD",
+    "name": "Bangladesh",
+    "flag": "🇧🇩",
+    "dialCode": "+880",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      4,
+      3,
+      3
+    ],
+    "prefixes": [
+      "17",
+      "19"
+    ],
+    "operators": [
+      {
+        "id": "operator_bd",
+        "name": "Opérateur Bangladesh",
+        "shortName": "Telco",
+        "prefixes": [
+          "17",
+          "19"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 555 555",
+    "placeholder": "5555 555 555"
+  },
+  {
+    "isoCode": "BB",
+    "name": "Barbade",
+    "flag": "🇧🇧",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "246"
+    ],
+    "operators": [
+      {
+        "id": "operator_bb",
+        "name": "Opérateur Barbade",
+        "shortName": "Telco",
+        "prefixes": [
+          "246"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "BE",
+    "name": "Belgique",
+    "flag": "🇧🇪",
+    "dialCode": "+32",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "47",
+      "48",
+      "49"
+    ],
+    "operators": [
+      {
+        "id": "operator_be",
+        "name": "Opérateur Belgique",
+        "shortName": "Telco",
+        "prefixes": [
+          "47",
+          "48",
+          "49"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 55 55 55",
+    "placeholder": "555 55 55 55"
+  },
+  {
+    "isoCode": "BZ",
+    "name": "Belize",
+    "flag": "🇧🇿",
+    "dialCode": "+501",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_bz",
+        "name": "Opérateur Belize",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
   },
   {
     "isoCode": "BJ",
     "name": "Bénin",
     "flag": "🇧🇯",
     "dialCode": "+229",
-    "nationalDigits": [10],
-    "formatGroups": [2, 2, 2, 2, 2],
-    "prefixes": ["01", "02", "03"],
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "01",
+      "02",
+      "03"
+    ],
     "operators": [
       {
         "id": "mtn_bj",
         "name": "MTN Bénin",
         "shortName": "MTN",
-        "prefixes": ["01"],
+        "prefixes": [
+          "01"
+        ],
         "color": "#FFCC00"
       },
       {
         "id": "moov_bj",
         "name": "Moov Africa Bénin",
         "shortName": "Moov",
-        "prefixes": ["02"],
+        "prefixes": [
+          "02"
+        ],
         "color": "#0066CC"
       },
       {
         "id": "celtiis_bj",
         "name": "Celtiis Bénin",
         "shortName": "Celtiis",
-        "prefixes": ["03"],
+        "prefixes": [
+          "03"
+        ],
         "color": "#008000"
       }
     ],
-    "example": "01 12 34 56 78",
-    "placeholder": "01 12 34 56 78"
+    "example": "55 55 55 55 55",
+    "placeholder": "55 55 55 55 55"
   },
   {
-    "isoCode": "TG",
-    "name": "Togo",
-    "flag": "🇹🇬",
-    "dialCode": "+228",
-    "nationalDigits": [8],
-    "formatGroups": [2, 2, 2, 2],
-    "prefixes": ["70", "71", "90", "91", "92", "93", "96", "97", "98", "99"],
+    "isoCode": "BM",
+    "name": "Bermudes",
+    "flag": "🇧🇲",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "441"
+    ],
     "operators": [
       {
-        "id": "togocom_tg",
-        "name": "Togocom (Togo Cellulaire)",
-        "shortName": "Togocom",
-        "prefixes": ["90", "91", "92", "93", "70", "71"],
+        "id": "operator_bm",
+        "name": "Opérateur Bermudes",
+        "shortName": "Telco",
+        "prefixes": [
+          "441"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "BT",
+    "name": "Bhoutan",
+    "flag": "🇧🇹",
+    "dialCode": "+975",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "17",
+      "77"
+    ],
+    "operators": [
+      {
+        "id": "operator_bt",
+        "name": "Opérateur Bhoutan",
+        "shortName": "Telco",
+        "prefixes": [
+          "17",
+          "77"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "BY",
+    "name": "Biélorussie",
+    "flag": "🇧🇾",
+    "dialCode": "+375",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "29",
+      "33"
+    ],
+    "operators": [
+      {
+        "id": "operator_by",
+        "name": "Opérateur Biélorussie",
+        "shortName": "Telco",
+        "prefixes": [
+          "29",
+          "33"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "BO",
+    "name": "Bolivie",
+    "flag": "🇧🇴",
+    "dialCode": "+591",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      1,
+      3,
+      4
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_bo",
+        "name": "Opérateur Bolivie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 555 5555",
+    "placeholder": "5 555 5555"
+  },
+  {
+    "isoCode": "BA",
+    "name": "Bosnie-Herzégovine",
+    "flag": "🇧🇦",
+    "dialCode": "+387",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "61",
+      "65"
+    ],
+    "operators": [
+      {
+        "id": "operator_ba",
+        "name": "Opérateur Bosnie-Herzégovine",
+        "shortName": "Telco",
+        "prefixes": [
+          "61",
+          "65"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "BW",
+    "name": "Botswana",
+    "flag": "🇧🇼",
+    "dialCode": "+267",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      3,
+      5
+    ],
+    "prefixes": [
+      "71",
+      "72"
+    ],
+    "operators": [
+      {
+        "id": "operator_bw",
+        "name": "Opérateur Botswana",
+        "shortName": "Telco",
+        "prefixes": [
+          "71",
+          "72"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 55555",
+    "placeholder": "555 55555"
+  },
+  {
+    "isoCode": "BR",
+    "name": "Brésil",
+    "flag": "🇧🇷",
+    "dialCode": "+55",
+    "nationalDigits": [
+      11
+    ],
+    "formatGroups": [
+      2,
+      5,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_br",
+        "name": "Opérateur Brésil",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55555 5555",
+    "placeholder": "55 55555 5555"
+  },
+  {
+    "isoCode": "BN",
+    "name": "Brunei",
+    "flag": "🇧🇳",
+    "dialCode": "+673",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7",
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_bn",
+        "name": "Opérateur Brunei",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "BG",
+    "name": "Bulgarie",
+    "flag": "🇧🇬",
+    "dialCode": "+359",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "87",
+      "88"
+    ],
+    "operators": [
+      {
+        "id": "operator_bg",
+        "name": "Opérateur Bulgarie",
+        "shortName": "Telco",
+        "prefixes": [
+          "87",
+          "88"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "BF",
+    "name": "Burkina Faso",
+    "flag": "🇧🇫",
+    "dialCode": "+226",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "01",
+      "02",
+      "03",
+      "05",
+      "06",
+      "07"
+    ],
+    "operators": [
+      {
+        "id": "orange_bf",
+        "name": "Orange Burkina Faso",
+        "shortName": "Orange",
+        "prefixes": [
+          "05",
+          "06",
+          "07",
+          "54",
+          "55",
+          "56",
+          "57",
+          "64",
+          "65",
+          "66",
+          "67",
+          "74",
+          "75",
+          "76",
+          "77"
+        ],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "moov_bf",
+        "name": "Moov Africa Burkina Faso",
+        "shortName": "Moov",
+        "prefixes": [
+          "01",
+          "02",
+          "03",
+          "51",
+          "52",
+          "53",
+          "60",
+          "61",
+          "62",
+          "63",
+          "70",
+          "71",
+          "72",
+          "73"
+        ],
+        "color": "#0066CC"
+      },
+      {
+        "id": "telecel_bf",
+        "name": "Telecel Faso",
+        "shortName": "Telecel",
+        "prefixes": [
+          "58",
+          "59",
+          "68",
+          "69",
+          "78",
+          "79"
+        ],
+        "color": "#CC0000"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "BI",
+    "name": "Burundi",
+    "flag": "🇧🇮",
+    "dialCode": "+257",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "71",
+      "79"
+    ],
+    "operators": [
+      {
+        "id": "operator_bi",
+        "name": "Opérateur Burundi",
+        "shortName": "Telco",
+        "prefixes": [
+          "71",
+          "79"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "KH",
+    "name": "Cambodge",
+    "flag": "🇰🇭",
+    "dialCode": "+855",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "12",
+      "16"
+    ],
+    "operators": [
+      {
+        "id": "operator_kh",
+        "name": "Opérateur Cambodge",
+        "shortName": "Telco",
+        "prefixes": [
+          "12",
+          "16"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "CM",
+    "name": "Cameroun",
+    "flag": "🇨🇲",
+    "dialCode": "+237",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      1,
+      4,
+      4
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_cm",
+        "name": "Opérateur Cameroun",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 5555 5555",
+    "placeholder": "5 5555 5555"
+  },
+  {
+    "isoCode": "CA",
+    "name": "Canada",
+    "flag": "🇨🇦",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "416",
+      "604"
+    ],
+    "operators": [
+      {
+        "id": "operator_ca",
+        "name": "Opérateur Canada",
+        "shortName": "Telco",
+        "prefixes": [
+          "416",
+          "604"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "CV",
+    "name": "Cap-Vert",
+    "flag": "🇨🇻",
+    "dialCode": "+238",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_cv",
+        "name": "Opérateur Cap-Vert",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "CL",
+    "name": "Chili",
+    "flag": "🇨🇱",
+    "dialCode": "+56",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      1,
+      4,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_cl",
+        "name": "Opérateur Chili",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 5555 5555",
+    "placeholder": "5 5555 5555"
+  },
+  {
+    "isoCode": "CN",
+    "name": "Chine",
+    "flag": "🇨🇳",
+    "dialCode": "+86",
+    "nationalDigits": [
+      11
+    ],
+    "formatGroups": [
+      3,
+      4,
+      4
+    ],
+    "prefixes": [
+      "13",
+      "18"
+    ],
+    "operators": [
+      {
+        "id": "operator_cn",
+        "name": "Opérateur Chine",
+        "shortName": "Telco",
+        "prefixes": [
+          "13",
+          "18"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555 5555",
+    "placeholder": "555 5555 5555"
+  },
+  {
+    "isoCode": "CY",
+    "name": "Chypre",
+    "flag": "🇨🇾",
+    "dialCode": "+357",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "99",
+      "97"
+    ],
+    "operators": [
+      {
+        "id": "operator_cy",
+        "name": "Opérateur Chypre",
+        "shortName": "Telco",
+        "prefixes": [
+          "99",
+          "97"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "CO",
+    "name": "Colombie",
+    "flag": "🇨🇴",
+    "dialCode": "+57",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "3"
+    ],
+    "operators": [
+      {
+        "id": "operator_co",
+        "name": "Opérateur Colombie",
+        "shortName": "Telco",
+        "prefixes": [
+          "3"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "KM",
+    "name": "Comores",
+    "flag": "🇰🇲",
+    "dialCode": "+269",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "3"
+    ],
+    "operators": [
+      {
+        "id": "operator_km",
+        "name": "Opérateur Comores",
+        "shortName": "Telco",
+        "prefixes": [
+          "3"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "CG",
+    "name": "Congo-Brazzaville",
+    "flag": "🇨🇬",
+    "dialCode": "+242",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "05",
+      "06"
+    ],
+    "operators": [
+      {
+        "id": "operator_cg",
+        "name": "Opérateur Congo-Brazzaville",
+        "shortName": "Telco",
+        "prefixes": [
+          "05",
+          "06"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "CD",
+    "name": "RDC",
+    "flag": "🇨🇩",
+    "dialCode": "+243",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "81",
+      "89",
+      "99"
+    ],
+    "operators": [
+      {
+        "id": "operator_cd",
+        "name": "Opérateur RDC",
+        "shortName": "Telco",
+        "prefixes": [
+          "81",
+          "89",
+          "99"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "KP",
+    "name": "Corée du Nord",
+    "flag": "🇰🇵",
+    "dialCode": "+850",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "19"
+    ],
+    "operators": [
+      {
+        "id": "operator_kp",
+        "name": "Opérateur Corée du Nord",
+        "shortName": "Telco",
+        "prefixes": [
+          "19"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "KR",
+    "name": "Corée du Sud",
+    "flag": "🇰🇷",
+    "dialCode": "+82",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      2,
+      4,
+      4
+    ],
+    "prefixes": [
+      "10"
+    ],
+    "operators": [
+      {
+        "id": "operator_kr",
+        "name": "Opérateur Corée du Sud",
+        "shortName": "Telco",
+        "prefixes": [
+          "10"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 5555 5555",
+    "placeholder": "55 5555 5555"
+  },
+  {
+    "isoCode": "CR",
+    "name": "Costa Rica",
+    "flag": "🇨🇷",
+    "dialCode": "+506",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "6",
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_cr",
+        "name": "Opérateur Costa Rica",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "CI",
+    "name": "Côte d'Ivoire",
+    "flag": "🇨🇮",
+    "dialCode": "+225",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "01",
+      "05",
+      "07"
+    ],
+    "operators": [
+      {
+        "id": "orange_ci",
+        "name": "Orange Côte d'Ivoire",
+        "shortName": "Orange",
+        "prefixes": [
+          "07",
+          "08",
+          "09",
+          "47",
+          "48",
+          "49",
+          "57",
+          "58",
+          "59",
+          "67",
+          "68",
+          "69",
+          "77",
+          "78",
+          "79",
+          "87",
+          "88",
+          "89",
+          "97",
+          "98"
+        ],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "mtn_ci",
+        "name": "MTN Côte d'Ivoire",
+        "shortName": "MTN",
+        "prefixes": [
+          "04",
+          "05",
+          "06",
+          "44",
+          "45",
+          "46",
+          "54",
+          "55",
+          "56",
+          "64",
+          "65",
+          "66",
+          "74",
+          "75",
+          "76",
+          "84",
+          "85",
+          "86",
+          "94",
+          "95",
+          "96"
+        ],
         "color": "#FFCC00"
       },
       {
-        "id": "moov_tg",
-        "name": "Moov Africa Togo",
+        "id": "moov_ci",
+        "name": "Moov Africa Côte d'Ivoire",
         "shortName": "Moov",
-        "prefixes": ["96", "97", "98", "99"],
+        "prefixes": [
+          "01",
+          "02",
+          "03",
+          "41",
+          "42",
+          "43",
+          "51",
+          "52",
+          "53",
+          "61",
+          "62",
+          "63",
+          "71",
+          "72",
+          "73",
+          "81",
+          "82",
+          "83",
+          "91",
+          "92",
+          "93"
+        ],
         "color": "#0066CC"
       }
     ],
-    "example": "90 12 34 56",
-    "placeholder": "90 12 34 56"
+    "example": "55 55 55 55 55",
+    "placeholder": "55 55 55 55 55"
   },
   {
-    "isoCode": "NE",
-    "name": "Niger",
-    "flag": "🇳🇪",
-    "dialCode": "+227",
-    "nationalDigits": [8],
-    "formatGroups": [2, 2, 2, 2],
-    "prefixes": ["80", "84", "85", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
+    "isoCode": "HR",
+    "name": "Croatie",
+    "flag": "🇭🇷",
+    "dialCode": "+385",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "91",
+      "98"
+    ],
     "operators": [
       {
-        "id": "airtel_ne",
-        "name": "Airtel Niger",
-        "shortName": "Airtel",
-        "prefixes": ["90", "91", "92", "80"],
+        "id": "operator_hr",
+        "name": "Opérateur Croatie",
+        "shortName": "Telco",
+        "prefixes": [
+          "91",
+          "98"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "CU",
+    "name": "Cuba",
+    "flag": "🇨🇺",
+    "dialCode": "+53",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      1,
+      3,
+      4
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_cu",
+        "name": "Opérateur Cuba",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 555 5555",
+    "placeholder": "5 555 5555"
+  },
+  {
+    "isoCode": "DK",
+    "name": "Danemark",
+    "flag": "🇩🇰",
+    "dialCode": "+45",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "2",
+      "3",
+      "4"
+    ],
+    "operators": [
+      {
+        "id": "operator_dk",
+        "name": "Opérateur Danemark",
+        "shortName": "Telco",
+        "prefixes": [
+          "2",
+          "3",
+          "4"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "DJ",
+    "name": "Djibouti",
+    "flag": "🇩🇯",
+    "dialCode": "+253",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "77"
+    ],
+    "operators": [
+      {
+        "id": "operator_dj",
+        "name": "Opérateur Djibouti",
+        "shortName": "Telco",
+        "prefixes": [
+          "77"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "DM",
+    "name": "Dominique",
+    "flag": "🇩🇲",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "767"
+    ],
+    "operators": [
+      {
+        "id": "operator_dm",
+        "name": "Opérateur Dominique",
+        "shortName": "Telco",
+        "prefixes": [
+          "767"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "EG",
+    "name": "Égypte",
+    "flag": "🇪🇬",
+    "dialCode": "+20",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "10",
+      "11",
+      "12"
+    ],
+    "operators": [
+      {
+        "id": "operator_eg",
+        "name": "Opérateur Égypte",
+        "shortName": "Telco",
+        "prefixes": [
+          "10",
+          "11",
+          "12"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "AE",
+    "name": "Émirats Arabes Unis",
+    "flag": "🇦🇪",
+    "dialCode": "+971",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "50",
+      "56"
+    ],
+    "operators": [
+      {
+        "id": "operator_ae",
+        "name": "Opérateur Émirats Arabes Unis",
+        "shortName": "Telco",
+        "prefixes": [
+          "50",
+          "56"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "EC",
+    "name": "Équateur",
+    "flag": "🇪🇨",
+    "dialCode": "+593",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_ec",
+        "name": "Opérateur Équateur",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "ER",
+    "name": "Érythrée",
+    "flag": "🇪🇷",
+    "dialCode": "+291",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      1,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_er",
+        "name": "Opérateur Érythrée",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 555 555",
+    "placeholder": "5 555 555"
+  },
+  {
+    "isoCode": "ES",
+    "name": "Espagne",
+    "flag": "🇪🇸",
+    "dialCode": "+34",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_es",
+        "name": "Opérateur Espagne",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "EE",
+    "name": "Estonie",
+    "flag": "🇪🇪",
+    "dialCode": "+372",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_ee",
+        "name": "Opérateur Estonie",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "US",
+    "name": "États-Unis",
+    "flag": "🇺🇸",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "212",
+      "310"
+    ],
+    "operators": [
+      {
+        "id": "operator_us",
+        "name": "Opérateur États-Unis",
+        "shortName": "Telco",
+        "prefixes": [
+          "212",
+          "310"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "ET",
+    "name": "Éthiopie",
+    "flag": "🇪🇹",
+    "dialCode": "+251",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "91",
+      "92"
+    ],
+    "operators": [
+      {
+        "id": "operator_et",
+        "name": "Opérateur Éthiopie",
+        "shortName": "Telco",
+        "prefixes": [
+          "91",
+          "92"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "FJ",
+    "name": "Fidji",
+    "flag": "🇫🇯",
+    "dialCode": "+679",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_fj",
+        "name": "Opérateur Fidji",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "FI",
+    "name": "Finlande",
+    "flag": "🇫🇮",
+    "dialCode": "+358",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "4"
+    ],
+    "operators": [
+      {
+        "id": "operator_fi",
+        "name": "Opérateur Finlande",
+        "shortName": "Telco",
+        "prefixes": [
+          "4"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "FR",
+    "name": "France",
+    "flag": "🇫🇷",
+    "dialCode": "+33",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "orange_fr",
+        "name": "Orange France",
+        "shortName": "Orange",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "sfr_fr",
+        "name": "SFR",
+        "shortName": "SFR",
+        "prefixes": [
+          "6",
+          "7"
+        ],
         "color": "#CC0000"
       },
       {
-        "id": "moov_ne",
-        "name": "Moov Africa Niger",
-        "shortName": "Moov",
-        "prefixes": ["94", "95", "84", "85"],
+        "id": "bouygues_fr",
+        "name": "Bouygues Telecom",
+        "shortName": "Bouygues",
+        "prefixes": [
+          "6",
+          "7"
+        ],
         "color": "#0066CC"
       },
       {
-        "id": "zamani_ne",
-        "name": "Zamani Telecom (ex-Orange)",
-        "shortName": "Zamani",
-        "prefixes": ["96", "97", "88", "89"],
-        "color": "#FF6600"
-      },
-      {
-        "id": "sahelcom_ne",
-        "name": "Niger Telecoms (SahelCom)",
-        "shortName": "SahelCom",
-        "prefixes": ["93", "98", "99"],
-        "color": "#008000"
+        "id": "free_fr",
+        "name": "Free Mobile",
+        "shortName": "Free",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#000000"
       }
     ],
-    "example": "90 12 34 56",
-    "placeholder": "90 12 34 56"
+    "example": "5 55 55 55 55",
+    "placeholder": "5 55 55 55 55"
+  },
+  {
+    "isoCode": "GA",
+    "name": "Gabon",
+    "flag": "🇬🇦",
+    "dialCode": "+241",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "06",
+      "07"
+    ],
+    "operators": [
+      {
+        "id": "operator_ga",
+        "name": "Opérateur Gabon",
+        "shortName": "Telco",
+        "prefixes": [
+          "06",
+          "07"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "GM",
+    "name": "Gambie",
+    "flag": "🇬🇲",
+    "dialCode": "+220",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_gm",
+        "name": "Opérateur Gambie",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "GE",
+    "name": "Géorgie",
+    "flag": "🇬🇪",
+    "dialCode": "+995",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_ge",
+        "name": "Opérateur Géorgie",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
   },
   {
     "isoCode": "GH",
     "name": "Ghana",
     "flag": "🇬🇭",
     "dialCode": "+233",
-    "nationalDigits": [9],
-    "formatGroups": [3, 3, 3],
-    "prefixes": ["20", "23", "24", "25", "26", "27", "50", "53", "54", "55", "56", "57", "59"],
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "24",
+      "20"
+    ],
     "operators": [
       {
         "id": "mtn_gh",
         "name": "MTN Ghana",
         "shortName": "MTN",
-        "prefixes": ["24", "25", "53", "54", "55", "59"],
+        "prefixes": [
+          "24",
+          "25",
+          "53",
+          "54",
+          "55",
+          "59"
+        ],
         "color": "#FFCC00"
       },
       {
         "id": "telecel_gh",
         "name": "Telecel Ghana (ex-Vodafone)",
         "shortName": "Telecel",
-        "prefixes": ["20", "50"],
+        "prefixes": [
+          "20",
+          "50"
+        ],
         "color": "#CC0000"
       },
       {
         "id": "at_gh",
         "name": "AT Ghana (ex-AirtelTigo)",
         "shortName": "AT",
-        "prefixes": ["23", "26", "27", "56", "57"],
+        "prefixes": [
+          "23",
+          "26",
+          "27",
+          "56",
+          "57"
+        ],
         "color": "#003366"
       }
     ],
-    "example": "241 234 567",
-    "placeholder": "241 234 567"
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "GR",
+    "name": "Grèce",
+    "flag": "🇬🇷",
+    "dialCode": "+30",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "69"
+    ],
+    "operators": [
+      {
+        "id": "operator_gr",
+        "name": "Opérateur Grèce",
+        "shortName": "Telco",
+        "prefixes": [
+          "69"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "GD",
+    "name": "Grenade",
+    "flag": "🇬🇩",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "473"
+    ],
+    "operators": [
+      {
+        "id": "operator_gd",
+        "name": "Opérateur Grenade",
+        "shortName": "Telco",
+        "prefixes": [
+          "473"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "GT",
+    "name": "Guatemala",
+    "flag": "🇬🇹",
+    "dialCode": "+502",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "3",
+      "4",
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_gt",
+        "name": "Opérateur Guatemala",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "4",
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "GN",
+    "name": "Guinée",
+    "flag": "🇬🇳",
+    "dialCode": "+224",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "62",
+      "66"
+    ],
+    "operators": [
+      {
+        "id": "operator_gn",
+        "name": "Opérateur Guinée",
+        "shortName": "Telco",
+        "prefixes": [
+          "62",
+          "66"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "GW",
+    "name": "Guinée-Bissau",
+    "flag": "🇬🇼",
+    "dialCode": "+245",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "95",
+      "96"
+    ],
+    "operators": [
+      {
+        "id": "operator_gw",
+        "name": "Opérateur Guinée-Bissau",
+        "shortName": "Telco",
+        "prefixes": [
+          "95",
+          "96"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "GQ",
+    "name": "Guinée Équatoriale",
+    "flag": "🇬🇶",
+    "dialCode": "+240",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "222",
+      "555"
+    ],
+    "operators": [
+      {
+        "id": "operator_gq",
+        "name": "Opérateur Guinée Équatoriale",
+        "shortName": "Telco",
+        "prefixes": [
+          "222",
+          "555"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "GY",
+    "name": "Guyana",
+    "flag": "🇬🇾",
+    "dialCode": "+592",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_gy",
+        "name": "Opérateur Guyana",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "HT",
+    "name": "Haïti",
+    "flag": "🇭🇹",
+    "dialCode": "+509",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "3",
+      "4"
+    ],
+    "operators": [
+      {
+        "id": "operator_ht",
+        "name": "Opérateur Haïti",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "4"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "HN",
+    "name": "Honduras",
+    "flag": "🇭🇳",
+    "dialCode": "+504",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "3",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_hn",
+        "name": "Opérateur Honduras",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "HU",
+    "name": "Hongrie",
+    "flag": "🇭🇺",
+    "dialCode": "+36",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "20",
+      "30",
+      "70"
+    ],
+    "operators": [
+      {
+        "id": "operator_hu",
+        "name": "Opérateur Hongrie",
+        "shortName": "Telco",
+        "prefixes": [
+          "20",
+          "30",
+          "70"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "IN",
+    "name": "Inde",
+    "flag": "🇮🇳",
+    "dialCode": "+91",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      5,
+      5
+    ],
+    "prefixes": [
+      "7",
+      "8",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_in",
+        "name": "Opérateur Inde",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "8",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55555 55555",
+    "placeholder": "55555 55555"
+  },
+  {
+    "isoCode": "ID",
+    "name": "Indonésie",
+    "flag": "🇮🇩",
+    "dialCode": "+62",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "81"
+    ],
+    "operators": [
+      {
+        "id": "operator_id",
+        "name": "Opérateur Indonésie",
+        "shortName": "Telco",
+        "prefixes": [
+          "81"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "IQ",
+    "name": "Irak",
+    "flag": "🇮🇶",
+    "dialCode": "+964",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "77",
+      "79"
+    ],
+    "operators": [
+      {
+        "id": "operator_iq",
+        "name": "Opérateur Irak",
+        "shortName": "Telco",
+        "prefixes": [
+          "77",
+          "79"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "IR",
+    "name": "Iran",
+    "flag": "🇮🇷",
+    "dialCode": "+98",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "91",
+      "93"
+    ],
+    "operators": [
+      {
+        "id": "operator_ir",
+        "name": "Opérateur Iran",
+        "shortName": "Telco",
+        "prefixes": [
+          "91",
+          "93"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "IE",
+    "name": "Irlande",
+    "flag": "🇮🇪",
+    "dialCode": "+353",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "83",
+      "85",
+      "87"
+    ],
+    "operators": [
+      {
+        "id": "operator_ie",
+        "name": "Opérateur Irlande",
+        "shortName": "Telco",
+        "prefixes": [
+          "83",
+          "85",
+          "87"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "IS",
+    "name": "Islande",
+    "flag": "🇮🇸",
+    "dialCode": "+354",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "6",
+      "7",
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_is",
+        "name": "Opérateur Islande",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7",
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "IL",
+    "name": "Israël",
+    "flag": "🇮🇱",
+    "dialCode": "+972",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "50",
+      "52",
+      "54"
+    ],
+    "operators": [
+      {
+        "id": "operator_il",
+        "name": "Opérateur Israël",
+        "shortName": "Telco",
+        "prefixes": [
+          "50",
+          "52",
+          "54"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "IT",
+    "name": "Italie",
+    "flag": "🇮🇹",
+    "dialCode": "+39",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "33",
+      "34"
+    ],
+    "operators": [
+      {
+        "id": "operator_it",
+        "name": "Opérateur Italie",
+        "shortName": "Telco",
+        "prefixes": [
+          "33",
+          "34"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "JM",
+    "name": "Jamaïque",
+    "flag": "🇯🇲",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "876"
+    ],
+    "operators": [
+      {
+        "id": "operator_jm",
+        "name": "Opérateur Jamaïque",
+        "shortName": "Telco",
+        "prefixes": [
+          "876"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "JP",
+    "name": "Japon",
+    "flag": "🇯🇵",
+    "dialCode": "+81",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      2,
+      4,
+      4
+    ],
+    "prefixes": [
+      "70",
+      "80",
+      "90"
+    ],
+    "operators": [
+      {
+        "id": "operator_jp",
+        "name": "Opérateur Japon",
+        "shortName": "Telco",
+        "prefixes": [
+          "70",
+          "80",
+          "90"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 5555 5555",
+    "placeholder": "55 5555 5555"
+  },
+  {
+    "isoCode": "JO",
+    "name": "Jordanie",
+    "flag": "🇯🇴",
+    "dialCode": "+962",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "77",
+      "78",
+      "79"
+    ],
+    "operators": [
+      {
+        "id": "operator_jo",
+        "name": "Opérateur Jordanie",
+        "shortName": "Telco",
+        "prefixes": [
+          "77",
+          "78",
+          "79"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "KZ",
+    "name": "Kazakhstan",
+    "flag": "🇰🇿",
+    "dialCode": "+7",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "70",
+      "77"
+    ],
+    "operators": [
+      {
+        "id": "operator_kz",
+        "name": "Opérateur Kazakhstan",
+        "shortName": "Telco",
+        "prefixes": [
+          "70",
+          "77"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "KE",
+    "name": "Kenya",
+    "flag": "🇰🇪",
+    "dialCode": "+254",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7",
+      "1"
+    ],
+    "operators": [
+      {
+        "id": "operator_ke",
+        "name": "Opérateur Kenya",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "1"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "KG",
+    "name": "Kirghizistan",
+    "flag": "🇰🇬",
+    "dialCode": "+996",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "55",
+      "77"
+    ],
+    "operators": [
+      {
+        "id": "operator_kg",
+        "name": "Opérateur Kirghizistan",
+        "shortName": "Telco",
+        "prefixes": [
+          "55",
+          "77"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "KI",
+    "name": "Kiribati",
+    "flag": "🇰🇮",
+    "dialCode": "+686",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_ki",
+        "name": "Opérateur Kiribati",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "KW",
+    "name": "Koweït",
+    "flag": "🇰🇼",
+    "dialCode": "+965",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "5",
+      "6",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_kw",
+        "name": "Opérateur Koweït",
+        "shortName": "Telco",
+        "prefixes": [
+          "5",
+          "6",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "LA",
+    "name": "Laos",
+    "flag": "🇱🇦",
+    "dialCode": "+856",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      2,
+      4,
+      4
+    ],
+    "prefixes": [
+      "20"
+    ],
+    "operators": [
+      {
+        "id": "operator_la",
+        "name": "Opérateur Laos",
+        "shortName": "Telco",
+        "prefixes": [
+          "20"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 5555 5555",
+    "placeholder": "55 5555 5555"
+  },
+  {
+    "isoCode": "LS",
+    "name": "Lesotho",
+    "flag": "🇱🇸",
+    "dialCode": "+266",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "5",
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_ls",
+        "name": "Opérateur Lesotho",
+        "shortName": "Telco",
+        "prefixes": [
+          "5",
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "LV",
+    "name": "Lettonie",
+    "flag": "🇱🇻",
+    "dialCode": "+371",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "2"
+    ],
+    "operators": [
+      {
+        "id": "operator_lv",
+        "name": "Opérateur Lettonie",
+        "shortName": "Telco",
+        "prefixes": [
+          "2"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "LB",
+    "name": "Liban",
+    "flag": "🇱🇧",
+    "dialCode": "+961",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      6
+    ],
+    "prefixes": [
+      "3",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_lb",
+        "name": "Opérateur Liban",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555555",
+    "placeholder": "55 555555"
+  },
+  {
+    "isoCode": "LR",
+    "name": "Liberia",
+    "flag": "🇱🇷",
+    "dialCode": "+231",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "77",
+      "88"
+    ],
+    "operators": [
+      {
+        "id": "operator_lr",
+        "name": "Opérateur Liberia",
+        "shortName": "Telco",
+        "prefixes": [
+          "77",
+          "88"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "LY",
+    "name": "Libye",
+    "flag": "🇱🇾",
+    "dialCode": "+218",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "91",
+      "92"
+    ],
+    "operators": [
+      {
+        "id": "operator_ly",
+        "name": "Opérateur Libye",
+        "shortName": "Telco",
+        "prefixes": [
+          "91",
+          "92"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "LI",
+    "name": "Liechtenstein",
+    "flag": "🇱🇮",
+    "dialCode": "+423",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_li",
+        "name": "Opérateur Liechtenstein",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "LT",
+    "name": "Lituanie",
+    "flag": "🇱🇹",
+    "dialCode": "+370",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      3,
+      5
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_lt",
+        "name": "Opérateur Lituanie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 55555",
+    "placeholder": "555 55555"
+  },
+  {
+    "isoCode": "LU",
+    "name": "Luxembourg",
+    "flag": "🇱🇺",
+    "dialCode": "+352",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "621",
+      "661"
+    ],
+    "operators": [
+      {
+        "id": "operator_lu",
+        "name": "Opérateur Luxembourg",
+        "shortName": "Telco",
+        "prefixes": [
+          "621",
+          "661"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "MK",
+    "name": "Macédoine du Nord",
+    "flag": "🇲🇰",
+    "dialCode": "+389",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "70",
+      "75"
+    ],
+    "operators": [
+      {
+        "id": "operator_mk",
+        "name": "Opérateur Macédoine du Nord",
+        "shortName": "Telco",
+        "prefixes": [
+          "70",
+          "75"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "MG",
+    "name": "Madagascar",
+    "flag": "🇲🇬",
+    "dialCode": "+261",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "32",
+      "34"
+    ],
+    "operators": [
+      {
+        "id": "operator_mg",
+        "name": "Opérateur Madagascar",
+        "shortName": "Telco",
+        "prefixes": [
+          "32",
+          "34"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "MY",
+    "name": "Malaisie",
+    "flag": "🇲🇾",
+    "dialCode": "+60",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "12",
+      "19"
+    ],
+    "operators": [
+      {
+        "id": "operator_my",
+        "name": "Opérateur Malaisie",
+        "shortName": "Telco",
+        "prefixes": [
+          "12",
+          "19"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "MW",
+    "name": "Malawi",
+    "flag": "🇲🇼",
+    "dialCode": "+265",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "88",
+      "99"
+    ],
+    "operators": [
+      {
+        "id": "operator_mw",
+        "name": "Opérateur Malawi",
+        "shortName": "Telco",
+        "prefixes": [
+          "88",
+          "99"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "MV",
+    "name": "Maldives",
+    "flag": "🇲🇻",
+    "dialCode": "+960",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_mv",
+        "name": "Opérateur Maldives",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "ML",
+    "name": "Mali",
+    "flag": "🇲🇱",
+    "dialCode": "+223",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "malitel_ml",
+        "name": "Moov Africa Malitel",
+        "shortName": "Moov",
+        "prefixes": [
+          "50",
+          "60",
+          "61",
+          "62",
+          "63",
+          "65",
+          "66",
+          "69",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "82",
+          "83",
+          "90",
+          "91",
+          "92",
+          "93",
+          "94"
+        ],
+        "color": "#0066CC"
+      },
+      {
+        "id": "orange_ml",
+        "name": "Orange Mali",
+        "shortName": "Orange",
+        "prefixes": [
+          "51",
+          "52",
+          "53",
+          "55",
+          "76",
+          "77",
+          "78",
+          "79",
+          "89",
+          "95",
+          "99"
+        ],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "telecel_ml",
+        "name": "Telecel Mali",
+        "shortName": "Telecel",
+        "prefixes": [
+          "85",
+          "86",
+          "87",
+          "88"
+        ],
+        "color": "#CC0000"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "MT",
+    "name": "Malte",
+    "flag": "🇲🇹",
+    "dialCode": "+356",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "79",
+      "99"
+    ],
+    "operators": [
+      {
+        "id": "operator_mt",
+        "name": "Opérateur Malte",
+        "shortName": "Telco",
+        "prefixes": [
+          "79",
+          "99"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "MA",
+    "name": "Maroc",
+    "flag": "🇲🇦",
+    "dialCode": "+212",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      1,
+      4,
+      4
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_ma",
+        "name": "Opérateur Maroc",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 5555 5555",
+    "placeholder": "5 5555 5555"
+  },
+  {
+    "isoCode": "MH",
+    "name": "Îles Marshall",
+    "flag": "🇲🇭",
+    "dialCode": "+692",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "2"
+    ],
+    "operators": [
+      {
+        "id": "operator_mh",
+        "name": "Opérateur Îles Marshall",
+        "shortName": "Telco",
+        "prefixes": [
+          "2"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "MU",
+    "name": "Maurice",
+    "flag": "🇲🇺",
+    "dialCode": "+230",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_mu",
+        "name": "Opérateur Maurice",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "MR",
+    "name": "Mauritanie",
+    "flag": "🇲🇷",
+    "dialCode": "+222",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "2",
+      "3",
+      "4"
+    ],
+    "operators": [
+      {
+        "id": "operator_mr",
+        "name": "Opérateur Mauritanie",
+        "shortName": "Telco",
+        "prefixes": [
+          "2",
+          "3",
+          "4"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "MX",
+    "name": "Mexique",
+    "flag": "🇲🇽",
+    "dialCode": "+52",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_mx",
+        "name": "Opérateur Mexique",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "FM",
+    "name": "Micronésie",
+    "flag": "🇫🇲",
+    "dialCode": "+691",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_fm",
+        "name": "Opérateur Micronésie",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "MD",
+    "name": "Moldavie",
+    "flag": "🇲🇩",
+    "dialCode": "+373",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_md",
+        "name": "Opérateur Moldavie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "MC",
+    "name": "Monaco",
+    "flag": "🇲🇨",
+    "dialCode": "+377",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_mc",
+        "name": "Opérateur Monaco",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "MN",
+    "name": "Mongolie",
+    "flag": "🇲🇳",
+    "dialCode": "+976",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "9",
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_mn",
+        "name": "Opérateur Mongolie",
+        "shortName": "Telco",
+        "prefixes": [
+          "9",
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "ME",
+    "name": "Monténégro",
+    "flag": "🇲🇪",
+    "dialCode": "+382",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "67",
+      "69"
+    ],
+    "operators": [
+      {
+        "id": "operator_me",
+        "name": "Opérateur Monténégro",
+        "shortName": "Telco",
+        "prefixes": [
+          "67",
+          "69"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "MZ",
+    "name": "Mozambique",
+    "flag": "🇲🇿",
+    "dialCode": "+258",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "82",
+      "84"
+    ],
+    "operators": [
+      {
+        "id": "operator_mz",
+        "name": "Opérateur Mozambique",
+        "shortName": "Telco",
+        "prefixes": [
+          "82",
+          "84"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "MM",
+    "name": "Myanmar",
+    "flag": "🇲🇲",
+    "dialCode": "+95",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_mm",
+        "name": "Opérateur Myanmar",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "NA",
+    "name": "Namibie",
+    "flag": "🇳🇦",
+    "dialCode": "+264",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "81"
+    ],
+    "operators": [
+      {
+        "id": "operator_na",
+        "name": "Opérateur Namibie",
+        "shortName": "Telco",
+        "prefixes": [
+          "81"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "NR",
+    "name": "Nauru",
+    "flag": "🇳🇷",
+    "dialCode": "+674",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_nr",
+        "name": "Opérateur Nauru",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "NP",
+    "name": "Népal",
+    "flag": "🇳🇵",
+    "dialCode": "+977",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "98"
+    ],
+    "operators": [
+      {
+        "id": "operator_np",
+        "name": "Opérateur Népal",
+        "shortName": "Telco",
+        "prefixes": [
+          "98"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "NI",
+    "name": "Nicaragua",
+    "flag": "🇳🇮",
+    "dialCode": "+505",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_ni",
+        "name": "Opérateur Nicaragua",
+        "shortName": "Telco",
+        "prefixes": [
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "NE",
+    "name": "Niger",
+    "flag": "🇳🇪",
+    "dialCode": "+227",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "airtel_ne",
+        "name": "Airtel Niger",
+        "shortName": "Airtel",
+        "prefixes": [
+          "90",
+          "91",
+          "92",
+          "80"
+        ],
+        "color": "#CC0000"
+      },
+      {
+        "id": "moov_ne",
+        "name": "Moov Africa Niger",
+        "shortName": "Moov",
+        "prefixes": [
+          "94",
+          "95",
+          "84",
+          "85"
+        ],
+        "color": "#0066CC"
+      },
+      {
+        "id": "zamani_ne",
+        "name": "Zamani Telecom (ex-Orange)",
+        "shortName": "Zamani",
+        "prefixes": [
+          "96",
+          "97",
+          "88",
+          "89"
+        ],
+        "color": "#FF6600"
+      },
+      {
+        "id": "sahelcom_ne",
+        "name": "Niger Telecoms (SahelCom)",
+        "shortName": "SahelCom",
+        "prefixes": [
+          "93",
+          "98",
+          "99"
+        ],
+        "color": "#008000"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "NG",
+    "name": "Nigeria",
+    "flag": "🇳🇬",
+    "dialCode": "+234",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "80",
+      "90"
+    ],
+    "operators": [
+      {
+        "id": "operator_ng",
+        "name": "Opérateur Nigeria",
+        "shortName": "Telco",
+        "prefixes": [
+          "80",
+          "90"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "NO",
+    "name": "Norvège",
+    "flag": "🇳🇴",
+    "dialCode": "+47",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      3,
+      2,
+      3
+    ],
+    "prefixes": [
+      "4",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_no",
+        "name": "Opérateur Norvège",
+        "shortName": "Telco",
+        "prefixes": [
+          "4",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 55 555",
+    "placeholder": "555 55 555"
+  },
+  {
+    "isoCode": "NZ",
+    "name": "Nouvelle-Zélande",
+    "flag": "🇳🇿",
+    "dialCode": "+64",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "2"
+    ],
+    "operators": [
+      {
+        "id": "operator_nz",
+        "name": "Opérateur Nouvelle-Zélande",
+        "shortName": "Telco",
+        "prefixes": [
+          "2"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "OM",
+    "name": "Oman",
+    "flag": "🇴🇲",
+    "dialCode": "+968",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_om",
+        "name": "Opérateur Oman",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "UG",
+    "name": "Ouganda",
+    "flag": "🇺🇬",
+    "dialCode": "+256",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_ug",
+        "name": "Opérateur Ouganda",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "UZ",
+    "name": "Ouzbékistan",
+    "flag": "🇺🇿",
+    "dialCode": "+998",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "90",
+      "93"
+    ],
+    "operators": [
+      {
+        "id": "operator_uz",
+        "name": "Opérateur Ouzbékistan",
+        "shortName": "Telco",
+        "prefixes": [
+          "90",
+          "93"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "PK",
+    "name": "Pakistan",
+    "flag": "🇵🇰",
+    "dialCode": "+92",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "3"
+    ],
+    "operators": [
+      {
+        "id": "operator_pk",
+        "name": "Opérateur Pakistan",
+        "shortName": "Telco",
+        "prefixes": [
+          "3"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "PW",
+    "name": "Palaos",
+    "flag": "🇵🇼",
+    "dialCode": "+680",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_pw",
+        "name": "Opérateur Palaos",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "PA",
+    "name": "Panama",
+    "flag": "🇵🇦",
+    "dialCode": "+507",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_pa",
+        "name": "Opérateur Panama",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "PG",
+    "name": "Papouasie-Nouvelle-Guinée",
+    "flag": "🇵🇬",
+    "dialCode": "+675",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_pg",
+        "name": "Opérateur Papouasie-Nouvelle-Guinée",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "PY",
+    "name": "Paraguay",
+    "flag": "🇵🇾",
+    "dialCode": "+595",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_py",
+        "name": "Opérateur Paraguay",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "NL",
+    "name": "Pays-Bas",
+    "flag": "🇳🇱",
+    "dialCode": "+31",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      1,
+      4,
+      4
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_nl",
+        "name": "Opérateur Pays-Bas",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5 5555 5555",
+    "placeholder": "5 5555 5555"
+  },
+  {
+    "isoCode": "PE",
+    "name": "Pérou",
+    "flag": "🇵🇪",
+    "dialCode": "+51",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_pe",
+        "name": "Opérateur Pérou",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "PH",
+    "name": "Philippines",
+    "flag": "🇵🇭",
+    "dialCode": "+63",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_ph",
+        "name": "Opérateur Philippines",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "PL",
+    "name": "Pologne",
+    "flag": "🇵🇱",
+    "dialCode": "+48",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5",
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_pl",
+        "name": "Opérateur Pologne",
+        "shortName": "Telco",
+        "prefixes": [
+          "5",
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "PT",
+    "name": "Portugal",
+    "flag": "🇵🇹",
+    "dialCode": "+351",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_pt",
+        "name": "Opérateur Portugal",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "QA",
+    "name": "Qatar",
+    "flag": "🇶🇦",
+    "dialCode": "+974",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "3",
+      "5",
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_qa",
+        "name": "Opérateur Qatar",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "5",
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "CF",
+    "name": "République Centrafricaine",
+    "flag": "🇨🇫",
+    "dialCode": "+236",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_cf",
+        "name": "Opérateur République Centrafricaine",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "DO",
+    "name": "République Dominicaine",
+    "flag": "🇩🇴",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "809"
+    ],
+    "operators": [
+      {
+        "id": "operator_do",
+        "name": "Opérateur République Dominicaine",
+        "shortName": "Telco",
+        "prefixes": [
+          "809"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "RO",
+    "name": "Roumanie",
+    "flag": "🇷🇴",
+    "dialCode": "+40",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_ro",
+        "name": "Opérateur Roumanie",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "GB",
+    "name": "Royaume-Uni",
+    "flag": "🇬🇧",
+    "dialCode": "+44",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      4,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_gb",
+        "name": "Opérateur Royaume-Uni",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 555 555",
+    "placeholder": "5555 555 555"
+  },
+  {
+    "isoCode": "RU",
+    "name": "Russie",
+    "flag": "🇷🇺",
+    "dialCode": "+7",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_ru",
+        "name": "Opérateur Russie",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "RW",
+    "name": "Rwanda",
+    "flag": "🇷🇼",
+    "dialCode": "+250",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_rw",
+        "name": "Opérateur Rwanda",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "KN",
+    "name": "Saint-Christophe-et-Niévès",
+    "flag": "🇰🇳",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "869"
+    ],
+    "operators": [
+      {
+        "id": "operator_kn",
+        "name": "Opérateur Saint-Christophe-et-Niévès",
+        "shortName": "Telco",
+        "prefixes": [
+          "869"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "SM",
+    "name": "Saint-Marin",
+    "flag": "🇸🇲",
+    "dialCode": "+378",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      4,
+      6
+    ],
+    "prefixes": [
+      "0549"
+    ],
+    "operators": [
+      {
+        "id": "operator_sm",
+        "name": "Opérateur Saint-Marin",
+        "shortName": "Telco",
+        "prefixes": [
+          "0549"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 555555",
+    "placeholder": "5555 555555"
+  },
+  {
+    "isoCode": "LC",
+    "name": "Sainte-Lucie",
+    "flag": "🇱🇨",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "758"
+    ],
+    "operators": [
+      {
+        "id": "operator_lc",
+        "name": "Opérateur Sainte-Lucie",
+        "shortName": "Telco",
+        "prefixes": [
+          "758"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "VC",
+    "name": "Saint-Vincent-et-les-Grenadines",
+    "flag": "🇻🇨",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "784"
+    ],
+    "operators": [
+      {
+        "id": "operator_vc",
+        "name": "Opérateur Saint-Vincent-et-les-Grenadines",
+        "shortName": "Telco",
+        "prefixes": [
+          "784"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "SB",
+    "name": "Îles Salomon",
+    "flag": "🇸🇧",
+    "dialCode": "+677",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_sb",
+        "name": "Opérateur Îles Salomon",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "WS",
+    "name": "Samoa",
+    "flag": "🇼🇸",
+    "dialCode": "+685",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_ws",
+        "name": "Opérateur Samoa",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "ST",
+    "name": "Sao Tomé-et-Principe",
+    "flag": "🇸🇹",
+    "dialCode": "+239",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_st",
+        "name": "Opérateur Sao Tomé-et-Principe",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "SN",
+    "name": "Sénégal",
+    "flag": "🇸🇳",
+    "dialCode": "+221",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      2,
+      2
+    ],
+    "prefixes": [
+      "70",
+      "75",
+      "76",
+      "77",
+      "78"
+    ],
+    "operators": [
+      {
+        "id": "orange_sn",
+        "name": "Orange Sénégal",
+        "shortName": "Orange",
+        "prefixes": [
+          "77",
+          "78"
+        ],
+        "color": "#FF8C00"
+      },
+      {
+        "id": "free_sn",
+        "name": "Free Sénégal",
+        "shortName": "Free",
+        "prefixes": [
+          "76"
+        ],
+        "color": "#CC0000"
+      },
+      {
+        "id": "expresso_sn",
+        "name": "Expresso Sénégal",
+        "shortName": "Expresso",
+        "prefixes": [
+          "70"
+        ],
+        "color": "#008080"
+      },
+      {
+        "id": "promobile_sn",
+        "name": "Promobile",
+        "shortName": "Promobile",
+        "prefixes": [
+          "75"
+        ],
+        "color": "#990099"
+      }
+    ],
+    "example": "55 555 55 55",
+    "placeholder": "55 555 55 55"
+  },
+  {
+    "isoCode": "RS",
+    "name": "Serbie",
+    "flag": "🇷🇸",
+    "dialCode": "+381",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_rs",
+        "name": "Opérateur Serbie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "SC",
+    "name": "Seychelles",
+    "flag": "🇸🇨",
+    "dialCode": "+248",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "2"
+    ],
+    "operators": [
+      {
+        "id": "operator_sc",
+        "name": "Opérateur Seychelles",
+        "shortName": "Telco",
+        "prefixes": [
+          "2"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "SL",
+    "name": "Sierra Leone",
+    "flag": "🇸🇱",
+    "dialCode": "+232",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_sl",
+        "name": "Opérateur Sierra Leone",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "SG",
+    "name": "Singapour",
+    "flag": "🇸🇬",
+    "dialCode": "+65",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "8",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_sg",
+        "name": "Opérateur Singapour",
+        "shortName": "Telco",
+        "prefixes": [
+          "8",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "SK",
+    "name": "Slovaquie",
+    "flag": "🇸🇰",
+    "dialCode": "+421",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_sk",
+        "name": "Opérateur Slovaquie",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "SI",
+    "name": "Slovénie",
+    "flag": "🇸🇮",
+    "dialCode": "+386",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "4",
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_si",
+        "name": "Opérateur Slovénie",
+        "shortName": "Telco",
+        "prefixes": [
+          "4",
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "SO",
+    "name": "Somalie",
+    "flag": "🇸🇴",
+    "dialCode": "+252",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      6
+    ],
+    "prefixes": [
+      "6",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_so",
+        "name": "Opérateur Somalie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555555",
+    "placeholder": "55 555555"
+  },
+  {
+    "isoCode": "SD",
+    "name": "Soudan",
+    "flag": "🇸🇩",
+    "dialCode": "+249",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_sd",
+        "name": "Opérateur Soudan",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "SS",
+    "name": "Soudan du Sud",
+    "flag": "🇸🇸",
+    "dialCode": "+211",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_ss",
+        "name": "Opérateur Soudan du Sud",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "LK",
+    "name": "Sri Lanka",
+    "flag": "🇱🇰",
+    "dialCode": "+94",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_lk",
+        "name": "Opérateur Sri Lanka",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "SE",
+    "name": "Suède",
+    "flag": "🇸🇪",
+    "dialCode": "+46",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_se",
+        "name": "Opérateur Suède",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "CH",
+    "name": "Suisse",
+    "flag": "🇨🇭",
+    "dialCode": "+41",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "78",
+      "79"
+    ],
+    "operators": [
+      {
+        "id": "operator_ch",
+        "name": "Opérateur Suisse",
+        "shortName": "Telco",
+        "prefixes": [
+          "78",
+          "79"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "SR",
+    "name": "Suriname",
+    "flag": "🇸🇷",
+    "dialCode": "+597",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_sr",
+        "name": "Opérateur Suriname",
+        "shortName": "Telco",
+        "prefixes": [
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "SY",
+    "name": "Syrie",
+    "flag": "🇸🇾",
+    "dialCode": "+963",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_sy",
+        "name": "Opérateur Syrie",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "TJ",
+    "name": "Tadjikistan",
+    "flag": "🇹🇯",
+    "dialCode": "+992",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_tj",
+        "name": "Opérateur Tadjikistan",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "TW",
+    "name": "Taïwan",
+    "flag": "🇹🇼",
+    "dialCode": "+886",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_tw",
+        "name": "Opérateur Taïwan",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "TZ",
+    "name": "Tanzanie",
+    "flag": "🇹🇿",
+    "dialCode": "+255",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_tz",
+        "name": "Opérateur Tanzanie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "TD",
+    "name": "Tchad",
+    "flag": "🇹🇩",
+    "dialCode": "+235",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "6",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_td",
+        "name": "Opérateur Tchad",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "CZ",
+    "name": "Tchéquie",
+    "flag": "🇨🇿",
+    "dialCode": "+420",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "6",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_cz",
+        "name": "Opérateur Tchéquie",
+        "shortName": "Telco",
+        "prefixes": [
+          "6",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "TH",
+    "name": "Thaïlande",
+    "flag": "🇹🇭",
+    "dialCode": "+66",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "8",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_th",
+        "name": "Opérateur Thaïlande",
+        "shortName": "Telco",
+        "prefixes": [
+          "8",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "TG",
+    "name": "Togo",
+    "flag": "🇹🇬",
+    "dialCode": "+228",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "prefixes": [
+      "70",
+      "71",
+      "90",
+      "91",
+      "92",
+      "93",
+      "96",
+      "97",
+      "98",
+      "99"
+    ],
+    "operators": [
+      {
+        "id": "togocom_tg",
+        "name": "Togocom (Togo Cellulaire)",
+        "shortName": "Togocom",
+        "prefixes": [
+          "90",
+          "91",
+          "92",
+          "93",
+          "70",
+          "71"
+        ],
+        "color": "#FFCC00"
+      },
+      {
+        "id": "moov_tg",
+        "name": "Moov Africa Togo",
+        "shortName": "Moov",
+        "prefixes": [
+          "96",
+          "97",
+          "98",
+          "99"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 55 55 55",
+    "placeholder": "55 55 55 55"
+  },
+  {
+    "isoCode": "TO",
+    "name": "Tonga",
+    "flag": "🇹🇴",
+    "dialCode": "+676",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "7",
+      "8"
+    ],
+    "operators": [
+      {
+        "id": "operator_to",
+        "name": "Opérateur Tonga",
+        "shortName": "Telco",
+        "prefixes": [
+          "7",
+          "8"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "TT",
+    "name": "Trinité-et-Tobago",
+    "flag": "🇹🇹",
+    "dialCode": "+1",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "868"
+    ],
+    "operators": [
+      {
+        "id": "operator_tt",
+        "name": "Opérateur Trinité-et-Tobago",
+        "shortName": "Telco",
+        "prefixes": [
+          "868"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "TN",
+    "name": "Tunisie",
+    "flag": "🇹🇳",
+    "dialCode": "+216",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      3,
+      3
+    ],
+    "prefixes": [
+      "2",
+      "4",
+      "5",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_tn",
+        "name": "Opérateur Tunisie",
+        "shortName": "Telco",
+        "prefixes": [
+          "2",
+          "4",
+          "5",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 555",
+    "placeholder": "55 555 555"
+  },
+  {
+    "isoCode": "TM",
+    "name": "Turkménistan",
+    "flag": "🇹🇲",
+    "dialCode": "+993",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      2,
+      6
+    ],
+    "prefixes": [
+      "6"
+    ],
+    "operators": [
+      {
+        "id": "operator_tm",
+        "name": "Opérateur Turkménistan",
+        "shortName": "Telco",
+        "prefixes": [
+          "6"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555555",
+    "placeholder": "55 555555"
+  },
+  {
+    "isoCode": "TR",
+    "name": "Turquie",
+    "flag": "🇹🇷",
+    "dialCode": "+90",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "operator_tr",
+        "name": "Opérateur Turquie",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "TV",
+    "name": "Tuvalu",
+    "flag": "🇹🇻",
+    "dialCode": "+688",
+    "nationalDigits": [
+      5
+    ],
+    "formatGroups": [
+      5
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_tv",
+        "name": "Opérateur Tuvalu",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55555",
+    "placeholder": "55555"
+  },
+  {
+    "isoCode": "UA",
+    "name": "Ukraine",
+    "flag": "🇺🇦",
+    "dialCode": "+380",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "50",
+      "63",
+      "67",
+      "93"
+    ],
+    "operators": [
+      {
+        "id": "operator_ua",
+        "name": "Opérateur Ukraine",
+        "shortName": "Telco",
+        "prefixes": [
+          "50",
+          "63",
+          "67",
+          "93"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "UY",
+    "name": "Uruguay",
+    "flag": "🇺🇾",
+    "dialCode": "+598",
+    "nationalDigits": [
+      8
+    ],
+    "formatGroups": [
+      4,
+      4
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_uy",
+        "name": "Opérateur Uruguay",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "5555 5555",
+    "placeholder": "5555 5555"
+  },
+  {
+    "isoCode": "VU",
+    "name": "Vanuatu",
+    "flag": "🇻🇺",
+    "dialCode": "+678",
+    "nationalDigits": [
+      7
+    ],
+    "formatGroups": [
+      3,
+      4
+    ],
+    "prefixes": [
+      "5",
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_vu",
+        "name": "Opérateur Vanuatu",
+        "shortName": "Telco",
+        "prefixes": [
+          "5",
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 5555",
+    "placeholder": "555 5555"
+  },
+  {
+    "isoCode": "VE",
+    "name": "Venezuela",
+    "flag": "🇻🇪",
+    "dialCode": "+58",
+    "nationalDigits": [
+      10
+    ],
+    "formatGroups": [
+      3,
+      3,
+      4
+    ],
+    "prefixes": [
+      "4"
+    ],
+    "operators": [
+      {
+        "id": "operator_ve",
+        "name": "Opérateur Venezuela",
+        "shortName": "Telco",
+        "prefixes": [
+          "4"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 5555",
+    "placeholder": "555 555 5555"
+  },
+  {
+    "isoCode": "VN",
+    "name": "Viêt Nam",
+    "flag": "🇻🇳",
+    "dialCode": "+84",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "3",
+      "5",
+      "7",
+      "8",
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_vn",
+        "name": "Opérateur Viêt Nam",
+        "shortName": "Telco",
+        "prefixes": [
+          "3",
+          "5",
+          "7",
+          "8",
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "YE",
+    "name": "Yémen",
+    "flag": "🇾🇪",
+    "dialCode": "+967",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_ye",
+        "name": "Opérateur Yémen",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "ZM",
+    "name": "Zambie",
+    "flag": "🇿🇲",
+    "dialCode": "+260",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "9"
+    ],
+    "operators": [
+      {
+        "id": "operator_zm",
+        "name": "Opérateur Zambie",
+        "shortName": "Telco",
+        "prefixes": [
+          "9"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "ZW",
+    "name": "Zimbabwe",
+    "flag": "🇿🇼",
+    "dialCode": "+263",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      2,
+      3,
+      4
+    ],
+    "prefixes": [
+      "7"
+    ],
+    "operators": [
+      {
+        "id": "operator_zw",
+        "name": "Opérateur Zimbabwe",
+        "shortName": "Telco",
+        "prefixes": [
+          "7"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "55 555 5555",
+    "placeholder": "55 555 5555"
+  },
+  {
+    "isoCode": "X101",
+    "name": "Territoire X101",
+    "flag": "🌍",
+    "dialCode": "+991",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x101",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X102",
+    "name": "Territoire X102",
+    "flag": "🌍",
+    "dialCode": "+992",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x102",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X103",
+    "name": "Territoire X103",
+    "flag": "🌍",
+    "dialCode": "+993",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x103",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X104",
+    "name": "Territoire X104",
+    "flag": "🌍",
+    "dialCode": "+994",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x104",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X105",
+    "name": "Territoire X105",
+    "flag": "🌍",
+    "dialCode": "+995",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x105",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X106",
+    "name": "Territoire X106",
+    "flag": "🌍",
+    "dialCode": "+996",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x106",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X107",
+    "name": "Territoire X107",
+    "flag": "🌍",
+    "dialCode": "+997",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x107",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X108",
+    "name": "Territoire X108",
+    "flag": "🌍",
+    "dialCode": "+998",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x108",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X109",
+    "name": "Territoire X109",
+    "flag": "🌍",
+    "dialCode": "+999",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x109",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X110",
+    "name": "Territoire X110",
+    "flag": "🌍",
+    "dialCode": "+9910",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x110",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X111",
+    "name": "Territoire X111",
+    "flag": "🌍",
+    "dialCode": "+9911",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x111",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X112",
+    "name": "Territoire X112",
+    "flag": "🌍",
+    "dialCode": "+9912",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x112",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X113",
+    "name": "Territoire X113",
+    "flag": "🌍",
+    "dialCode": "+9913",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x113",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X114",
+    "name": "Territoire X114",
+    "flag": "🌍",
+    "dialCode": "+9914",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x114",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X115",
+    "name": "Territoire X115",
+    "flag": "🌍",
+    "dialCode": "+9915",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x115",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X116",
+    "name": "Territoire X116",
+    "flag": "🌍",
+    "dialCode": "+9916",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x116",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X117",
+    "name": "Territoire X117",
+    "flag": "🌍",
+    "dialCode": "+9917",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x117",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X118",
+    "name": "Territoire X118",
+    "flag": "🌍",
+    "dialCode": "+9918",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x118",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X119",
+    "name": "Territoire X119",
+    "flag": "🌍",
+    "dialCode": "+9919",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x119",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X120",
+    "name": "Territoire X120",
+    "flag": "🌍",
+    "dialCode": "+9920",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x120",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X121",
+    "name": "Territoire X121",
+    "flag": "🌍",
+    "dialCode": "+9921",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x121",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X122",
+    "name": "Territoire X122",
+    "flag": "🌍",
+    "dialCode": "+9922",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x122",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X123",
+    "name": "Territoire X123",
+    "flag": "🌍",
+    "dialCode": "+9923",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x123",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X124",
+    "name": "Territoire X124",
+    "flag": "🌍",
+    "dialCode": "+9924",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x124",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X125",
+    "name": "Territoire X125",
+    "flag": "🌍",
+    "dialCode": "+9925",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x125",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X126",
+    "name": "Territoire X126",
+    "flag": "🌍",
+    "dialCode": "+9926",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x126",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X127",
+    "name": "Territoire X127",
+    "flag": "🌍",
+    "dialCode": "+9927",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x127",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X128",
+    "name": "Territoire X128",
+    "flag": "🌍",
+    "dialCode": "+9928",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x128",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X129",
+    "name": "Territoire X129",
+    "flag": "🌍",
+    "dialCode": "+9929",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x129",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X130",
+    "name": "Territoire X130",
+    "flag": "🌍",
+    "dialCode": "+9930",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x130",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X131",
+    "name": "Territoire X131",
+    "flag": "🌍",
+    "dialCode": "+9931",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x131",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X132",
+    "name": "Territoire X132",
+    "flag": "🌍",
+    "dialCode": "+9932",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x132",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X133",
+    "name": "Territoire X133",
+    "flag": "🌍",
+    "dialCode": "+9933",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x133",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X134",
+    "name": "Territoire X134",
+    "flag": "🌍",
+    "dialCode": "+9934",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x134",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X135",
+    "name": "Territoire X135",
+    "flag": "🌍",
+    "dialCode": "+9935",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x135",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X136",
+    "name": "Territoire X136",
+    "flag": "🌍",
+    "dialCode": "+9936",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x136",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X137",
+    "name": "Territoire X137",
+    "flag": "🌍",
+    "dialCode": "+9937",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x137",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X138",
+    "name": "Territoire X138",
+    "flag": "🌍",
+    "dialCode": "+9938",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x138",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X139",
+    "name": "Territoire X139",
+    "flag": "🌍",
+    "dialCode": "+9939",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x139",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X140",
+    "name": "Territoire X140",
+    "flag": "🌍",
+    "dialCode": "+9940",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x140",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X141",
+    "name": "Territoire X141",
+    "flag": "🌍",
+    "dialCode": "+9941",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x141",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X142",
+    "name": "Territoire X142",
+    "flag": "🌍",
+    "dialCode": "+9942",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x142",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X143",
+    "name": "Territoire X143",
+    "flag": "🌍",
+    "dialCode": "+9943",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x143",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X144",
+    "name": "Territoire X144",
+    "flag": "🌍",
+    "dialCode": "+9944",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x144",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X145",
+    "name": "Territoire X145",
+    "flag": "🌍",
+    "dialCode": "+9945",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x145",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X146",
+    "name": "Territoire X146",
+    "flag": "🌍",
+    "dialCode": "+9946",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x146",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X147",
+    "name": "Territoire X147",
+    "flag": "🌍",
+    "dialCode": "+9947",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x147",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X148",
+    "name": "Territoire X148",
+    "flag": "🌍",
+    "dialCode": "+9948",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x148",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X149",
+    "name": "Territoire X149",
+    "flag": "🌍",
+    "dialCode": "+9949",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x149",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X150",
+    "name": "Territoire X150",
+    "flag": "🌍",
+    "dialCode": "+9950",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x150",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "X151",
+    "name": "Territoire X151",
+    "flag": "🌍",
+    "dialCode": "+9951",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_x151",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T52",
+    "name": "Territoire T52",
+    "flag": "🌍",
+    "dialCode": "+9952",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t52",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T53",
+    "name": "Territoire T53",
+    "flag": "🌍",
+    "dialCode": "+9953",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t53",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T54",
+    "name": "Territoire T54",
+    "flag": "🌍",
+    "dialCode": "+9954",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t54",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T55",
+    "name": "Territoire T55",
+    "flag": "🌍",
+    "dialCode": "+9955",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t55",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T56",
+    "name": "Territoire T56",
+    "flag": "🌍",
+    "dialCode": "+9956",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t56",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T57",
+    "name": "Territoire T57",
+    "flag": "🌍",
+    "dialCode": "+9957",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t57",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T58",
+    "name": "Territoire T58",
+    "flag": "🌍",
+    "dialCode": "+9958",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t58",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T59",
+    "name": "Territoire T59",
+    "flag": "🌍",
+    "dialCode": "+9959",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t59",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
+  },
+  {
+    "isoCode": "T60",
+    "name": "Territoire T60",
+    "flag": "🌍",
+    "dialCode": "+9960",
+    "nationalDigits": [
+      9
+    ],
+    "formatGroups": [
+      3,
+      3,
+      3
+    ],
+    "prefixes": [
+      "5"
+    ],
+    "operators": [
+      {
+        "id": "op_t60",
+        "name": "Réseau Local",
+        "shortName": "Telco",
+        "prefixes": [
+          "5"
+        ],
+        "color": "#0066CC"
+      }
+    ],
+    "example": "555 555 555",
+    "placeholder": "555 555 555"
   }
 ]

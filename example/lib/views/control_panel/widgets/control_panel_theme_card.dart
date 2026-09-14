@@ -1,8 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:universal_glass/glass.dart';
 
-import 'package:universal_glass/glass_exports.dart';
-import 'package:universal_glass/theme/glass_color_palette.dart';
 
 // ============================================================================
 // CONTROL PANEL THEME CARD

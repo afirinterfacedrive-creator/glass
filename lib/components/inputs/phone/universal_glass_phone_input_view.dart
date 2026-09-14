@@ -1,845 +1,253 @@
-
 import 'package:flutter/material.dart';
-
-import 'package:universal_glass/components/inputs/glass_input_decoration.dart';
-import 'package:universal_glass/components/inputs/universal_glass_phone_input.dart';
-import 'package:universal_glass/components/inputs/phone/universal_glass_phone_input_state.dart';
-import 'package:universal_glass/components/surface/glass_notch_shadow_wrapper-copy.dart';
-import 'package:universal_glass/components/surface/glass_surface_container.dart';
 import 'package:universal_glass/phone/phone_country.dart';
 import 'package:universal_glass/phone/phone_country_picker.dart';
 import 'package:universal_glass/phone/phone_country_registry.dart';
+import 'package:universal_glass/utils/glass_field_notch_wrapper.dart';
+import 'package:universal_glass/utils/glass_input_decoration.dart';
+import 'package:universal_glass/utils/glass_input_state_style.dart';
+import 'package:universal_glass/components/inputs/phone/universal_glass_phone_input_state.dart';
 import 'package:universal_glass/utils/glass_input_utils.dart';
 import 'package:universal_glass/utils/glass_layout_calibrator.dart';
-import 'package:universal_glass/utils/glass_theme_extension.dart';
+import 'package:universal_glass/theme/glass_effects.dart'; // <- AJOUT
+import 'package:universal_glass/core/layout/glass_layout_context.dart';
+import 'package:universal_glass/core/layout/glass_layout_scope.dart';
 
 class UniversalGlassPhoneInputView extends StatelessWidget {
   final UniversalGlassPhoneInputState state;
 
-  const UniversalGlassPhoneInputView({
-    super.key,
-    required this.state,
-  });
+  const UniversalGlassPhoneInputView({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
-    final UniversalGlassPhoneInput widget = state.widget;
-
-    return _PhoneInputVisualBuilder(
+    return _PhoneInputVisualBuilder( // <- LA CLASSE EXISTE EN BAS
       focusNode: state.focusNode,
       controller: state.controller,
-      builder: (
-        BuildContext context,
-        bool hasFocus,
-        bool hasText,
-      ) {
-        return _buildPhoneInput(
-          context: context,
-          widget: widget,
-          state: state,
-          hasFocus: hasFocus,
-          hasText: hasText,
-        );
+      builder: (BuildContext context, bool hasFocus, bool hasText) {
+        return _buildPhoneInput(context: context);
       },
     );
   }
 
-  // ===========================================================================
-  // PHONE INPUT
-  // ===========================================================================
+  Widget _buildPhoneInput({required BuildContext context}) {
+    final widget = state.widget;
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
+    final s = widget.style; // <- ALIAS
 
-  Widget _buildPhoneInput({
-    required BuildContext context,
-    required UniversalGlassPhoneInput widget,
-    required UniversalGlassPhoneInputState state,
-    required bool hasFocus,
-    required bool hasText,
-  }) {
-    final GlassLayoutContext glass =
-        context.watchGlassContext;
+    // 1. ETAT
+    final bool hasText = state.controller.text.isNotEmpty;
+    final bool isFloating = state.isFocused || hasText;
 
-    final bool hasError =
-        state.errorText != null &&
-        state.errorText!.trim().isNotEmpty;
-
-    final GlassInputDecoration decoration =
-        glass.inputDecoration(
-      hasError: hasError,
-      isFocused: hasFocus,
+    // 2. DECO + STYLE UNIQUE
+    final GlassInputDecoration decoration = glass.inputDecoration(
+      hasError: state.hasError,
+      isFocused: state.isFocused,
     );
 
-    final bool useAqua =
-        glass.theme.useAquaStyle;
+    final GlassInputStateStyle inputStyle = GlassInputStateStyle.resolve(
+      decoration: decoration,
+      hasError: state.hasError,
+      hasSuccess: state.hasSuccess,
+      isFocused: state.isFocused,
+      enabled: s.enabled,
+    );
 
-    final Color focusColor =
-        useAqua
-            ? Colors.cyanAccent
-            : Colors.orangeAccent;
+    final double textScaleFactor = MediaQuery.textScalerOf(context).scale(s.fontSize) / s.fontSize;
+    final double effectiveTextScale = textScaleFactor.clamp(0.5, 3.0);
 
-    // -------------------------------------------------------------------------
-    // CALIBRATEUR
-    // -------------------------------------------------------------------------
-
-    final GlassLayoutCalibrator geo =
-        GlassLayoutCalibrator(
-      fieldHeight: widget.fieldHeight,
-      fontSize: decoration.fontSize,
+    final GlassLayoutCalibrator geo = GlassLayoutCalibrator(
+      fieldHeight: s.fieldHeight,
+      fontSize: s.fontSize,
       hasPrefixIcon: true,
+      textScaleFactor: effectiveTextScale,
     );
 
-    final bool isFloating =
-        hasFocus || hasText;
+    final BorderRadius borderRadius = BorderRadius.circular(s.borderRadius);
 
-    final BorderRadius borderRadius =
-        BorderRadius.circular(
-      decoration.borderRadius,
+    final baseEffects = GlassEffects.fromTheme(glass.palette);
+    final effectiveEffects = baseEffects.copyWith(
+      bgBlur: s.enableBlur ? s.blur : 0,
+      blur: s.enableBlur ? s.blur : 0,
+      surfaceOpacity: inputStyle.backgroundOpacity,
+      enableBorder: s.enableBorder,
+      borderRadius: s.borderRadius,
+      borderOpacity: s.borderOpacity,
+      borderWidth: s.borderWidth,
+      enableShadow: s.enableShadow && inputStyle.isActive,
+      shadowOpacity: s.shadowOpacity,
+      shadowBlur: s.shadowBlur,
+      shadowOffsetY: s.shadowOffsetY,
     );
 
-    // -------------------------------------------------------------------------
-    // NOTCH VISUEL
-    // -------------------------------------------------------------------------
-
-    final double notchStart =
-        geo.notchStart;
-
-    final double notchWidth =
-        geo.getLabelWidth(widget.label);
-
-    return Opacity(
-      opacity: widget.enabled ? 1.0 : 0.65,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: widget.width,
-            height: widget.fieldHeight,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                // =================================================================
-                // SURFACE
-                // =================================================================
-GlassNotchShadowWrapper(
-  clipper: null,
-
-  isShadowEnabled: false,
-  shadowOpacity: 0,
-  elevation: 0,
-
-  borderRadius: borderRadius,
-
-  child: GlassSurfaceContainer(
-    // =======================================================================
-    // DÉCORATION
-    // =======================================================================
-
-    decoration: decoration,
-
-    // =======================================================================
-    // STYLE GLASS
-    // =======================================================================
-
-    style: glass.effectiveGlassStyle,
-    effects: glass.effects,
-    shape: widget.shape,
-
-    // =======================================================================
-    // ÉTAT DU CHAMP
-    // =======================================================================
-
-    isFocused: hasFocus,
-    hasError: hasError,
-    errorText: state.errorText,
-    enabled: widget.enabled,
-
-    // =======================================================================
-    // DIMENSIONS
-    // =======================================================================
-
-    width: widget.width,
-    height: widget.fieldHeight,
-
-    borderRadius: borderRadius,
-
-    padding: const EdgeInsets.symmetric(
-      horizontal: 14,
-    ),
-
-    // =======================================================================
-    // INTERACTION
-    // =======================================================================
-
-    onTap: null,
-    liftOnHover: !hasFocus,
-
-    // =======================================================================
-    // EFFETS
-    // =======================================================================
-
-    disableShadow: true,
-    clipBehavior: Clip.none,
-
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // =========================================================
-                        // PAYS
-                        // =========================================================
-
-                        _buildCountrySelector(
-                          context: context,
-                          widget: widget,
-                          state: state,
-                          decoration:
-                              decoration,
-                          glass: glass,
-                          hasFocus:
-                              hasFocus,
-                          hasError:
-                              hasError,
-                          focusColor:
-                              focusColor,
-                          geo: geo,
-                        ),
-
-                        const SizedBox(
-                          width: 12,
-                        ),
-
-                        // =========================================================
-                        // TEXT FIELD
-                        // =========================================================
-
-                        Expanded(
-                          child:
-                              geo.translateTextVertically(
-                            TextFormField(
-                              controller:
-                                  state.controller,
-
-                              focusNode:
-                                  state.focusNode,
-
-                              enabled:
-                                  widget.enabled,
-
-                              readOnly:
-                                  widget.readOnly,
-
-                              autofocus:
-                                  false,
-
-                              showCursor:
-                                  true,
-
-                              keyboardType:
-                                  TextInputType.phone,
-
-                              textInputAction:
-                                  widget.textInputAction,
-
-                              textAlignVertical:
-                                  TextAlignVertical.center,
-
-                              inputFormatters:
-                                  state.inputFormatters,
-
-                              style:
-                                  TextStyle(
-                                color:
-                                    widget.enabled
-                                        ? decoration
-                                            .effectiveTextColor
-                                        : decoration
-                                            .effectiveTextColor
-                                            .withValues(
-                                            alpha: 0.35,
-                                          ),
-                                fontSize:
-                                    decoration.fontSize,
-                                fontWeight:
-                                    decoration.fontWeight,
-                                letterSpacing:
-                                    decoration.letterSpacing,
-                              ),
-
-                              cursorColor:
-                                  focusColor,
-
-                              // Aucun requestFocus().
-                              onTap:
-                                  widget.onTap,
-
-                              onChanged:
-                                  state.handleChanged,
-
-                              onFieldSubmitted:
-                                  state.handleSubmitted,
-
-                              decoration:
-                                  InputDecoration(
-                                isDense:
-                                    true,
-
-                                // Le hint reste visible
-                                // même lorsque le champ n'est
-                                // pas focusé.
-                                hintText:
-                                    state.effectiveHintText,
-
-                                hintStyle:
-                                    TextStyle(
-                                  color:
-                                      decoration
-                                          .effectiveHintColor,
-                                  fontSize:
-                                      geo.hintFontSize,
-                                  fontWeight:
-                                      FontWeight.w400,
-                                  letterSpacing:
-                                      decoration
-                                          .letterSpacing,
-                                ),
-
-                                contentPadding:
-                                    EdgeInsets.zero,
-
-                                border:
-                                    InputBorder.none,
-
-                                enabledBorder:
-                                    InputBorder.none,
-
-                                focusedBorder:
-                                    InputBorder.none,
-
-                                errorBorder:
-                                    InputBorder.none,
-
-                                focusedErrorBorder:
-                                    InputBorder.none,
-
-                                errorText:
-                                    null,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-    ),
-  ),
-),
-
-/*
-                GlassNotchShadowWrapper(
-                  // Aucun clipping.
-                  clipper: null,
-
-                  isShadowEnabled: false,
-                  shadowOpacity: 0,
-                  elevation: 0,
-
-                  borderRadius:
-                      borderRadius,
-
-                  child:
-                                        GlassSurfaceContainer(
-                    decoration: decoration,
-
-                    style: glass.effectiveGlassStyle,
-                    effects: glass.effects,
-
-                    shape: widget.shape,
-
-                    // =========================================================================
-                    // ÉTAT VISUEL
-                    // =========================================================================
-
-                    isFocused: hasFocus,
-                    hasError: hasError,
-                    enabled: widget.enabled,
-
-                    // =========================================================================
-                    // DIMENSIONS
-                    // =========================================================================
-
-                    width: widget.width,
-                    height: widget.fieldHeight,
-
-                    borderRadius: borderRadius,
-
-                    // =========================================================================
-                    // INTERACTION
-                    // =========================================================================
-
-                    onTap: null,
-
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                    ),
-
-                    liftOnHover: !hasFocus,
-
-                    // Le PhoneInput gère son propre rendu de bordure/notch.
-                    disableShadow: true,
-
-                    clipBehavior: Clip.none,
-
-                    child: Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.center,
-                      children: [
-                        // =========================================================
-                        // PAYS
-                        // =========================================================
-
-                        _buildCountrySelector(
-                          context: context,
-                          widget: widget,
-                          state: state,
-                          decoration:
-                              decoration,
-                          glass: glass,
-                          hasFocus:
-                              hasFocus,
-                          hasError:
-                              hasError,
-                          focusColor:
-                              focusColor,
-                          geo: geo,
-                        ),
-
-                        const SizedBox(
-                          width: 12,
-                        ),
-
-                        // =========================================================
-                        // TEXT FIELD
-                        // =========================================================
-
-                        Expanded(
-                          child:
-                              geo.translateTextVertically(
-                            TextFormField(
-                              controller:
-                                  state.controller,
-
-                              focusNode:
-                                  state.focusNode,
-
-                              enabled:
-                                  widget.enabled,
-
-                              readOnly:
-                                  widget.readOnly,
-
-                              autofocus:
-                                  false,
-
-                              showCursor:
-                                  true,
-
-                              keyboardType:
-                                  TextInputType.phone,
-
-                              textInputAction:
-                                  widget.textInputAction,
-
-                              textAlignVertical:
-                                  TextAlignVertical.center,
-
-                              inputFormatters:
-                                  state.inputFormatters,
-
-                              style:
-                                  TextStyle(
-                                color:
-                                    widget.enabled
-                                        ? decoration
-                                            .effectiveTextColor
-                                        : decoration
-                                            .effectiveTextColor
-                                            .withValues(
-                                            alpha: 0.35,
-                                          ),
-                                fontSize:
-                                    decoration.fontSize,
-                                fontWeight:
-                                    decoration.fontWeight,
-                                letterSpacing:
-                                    decoration.letterSpacing,
-                              ),
-
-                              cursorColor:
-                                  focusColor,
-
-                              // Aucun requestFocus().
-                              onTap:
-                                  widget.onTap,
-
-                              onChanged:
-                                  state.handleChanged,
-
-                              onFieldSubmitted:
-                                  state.handleSubmitted,
-
-                              decoration:
-                                  InputDecoration(
-                                isDense:
-                                    true,
-
-                                // Le hint reste visible
-                                // même lorsque le champ n'est
-                                // pas focusé.
-                                hintText:
-                                    state.effectiveHintText,
-
-                                hintStyle:
-                                    TextStyle(
-                                  color:
-                                      decoration
-                                          .effectiveHintColor,
-                                  fontSize:
-                                      geo.hintFontSize,
-                                  fontWeight:
-                                      FontWeight.w400,
-                                  letterSpacing:
-                                      decoration
-                                          .letterSpacing,
-                                ),
-
-                                contentPadding:
-                                    EdgeInsets.zero,
-
-                                border:
-                                    InputBorder.none,
-
-                                enabledBorder:
-                                    InputBorder.none,
-
-                                focusedBorder:
-                                    InputBorder.none,
-
-                                errorBorder:
-                                    InputBorder.none,
-
-                                focusedErrorBorder:
-                                    InputBorder.none,
-
-                                errorText:
-                                    null,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-*/
-                // =================================================================
-                // NOTCH VISUEL
-                // =================================================================
-
-                if (isFloating)
-                  Positioned.fill(
-                    child: IgnorePointer(
-                      ignoring: true,
-                      child: CustomPaint(
-                        painter:
-                            _PhoneInputNotchPainter(
-                          notchStart:
-                              notchStart,
-                          notchWidth:
-                              notchWidth,
-                          color:
-                              decoration.color,
-                          borderColor:
-                              hasError
-                                  ? decoration
-                                      .effectiveErrorBorderColor
-                                  : decoration
-                                      .effectiveFocusBorderColor,
-                          borderWidth:
-                              hasFocus
-                                  ? decoration
-                                      .safeFocusBorderWidth
-                                  : decoration
-                                      .safeBorderWidth,
-                          borderRadius:
-                              borderRadius,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                // =================================================================
-                // LABEL
-                // =================================================================
- Positioned(
-  top: isFloating ? -8.5 : geo.labelTopAtRest,
-  left: geo.getLabelLeft(
-    isFloating,
-  ),
-  child: IgnorePointer(
-    ignoring: true,
-    child: AnimatedOpacity(
-      duration: const Duration(
-        milliseconds: 140,
-      ),
-      opacity: isFloating ? 1.0 : 0.0,
-      child: AnimatedDefaultTextStyle(
-        duration: const Duration(
-          milliseconds: 180,
-        ),
-        style: TextStyle(
-          color: hasError
-              ? decoration.errorColor
-              : focusColor,
-          fontSize: isFloating
-              ? 10.5
-              : decoration.fontSize,
-          fontWeight: isFloating
-              ? FontWeight.w700
-              : FontWeight.w500,
-          letterSpacing: 0.2,
-          backgroundColor: Colors.transparent,
-        ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5.0,
-          ),
+    // 3. BADGE OPERATEUR
+    Widget? operatorBadge;
+    if (widget.showOperatorBadge && inputStyle.showSuccess) {
+      final String operator = state.detectedOperator;
+      if (operator.isNotEmpty) {
+        operatorBadge = Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: hasError
-                ? decoration.effectiveErrorBorderColor
-                    .withValues(alpha: 0.18)
-                : decoration.effectiveFocusBorderColor
-                    .withValues(alpha: 0.18),
+            color: inputStyle.borderColor.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(
+              color: inputStyle.borderColor.withValues(alpha: 0.3),
+              width: 1,
+            ),
           ),
           child: Text(
-            widget.label,
-          ),
-        ),
-      ),
-    ),
-  ),
-),
- 
-              ],
+            operator,
+            style: TextStyle(
+              color: inputStyle.borderColor,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.3,
             ),
           ),
+        );
+      }
+    }
 
-          // =====================================================================
-          // ERROR
-          // =====================================================================
-
-          if (hasError && widget.enabled)
-            Padding(
-              padding:
-                  const EdgeInsets.only(
-                top: 6,
-                left: 14,
+    final Widget fieldContent = Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _buildCountrySelector(context: context, geo: geo, inputStyle: inputStyle, decoration: decoration),
+        const SizedBox(width: 12),
+        Expanded(
+          child: geo.translateTextVertically(
+            TextFormField(
+              controller: state.controller,
+              focusNode: state.focusNode,
+              enabled: s.enabled,
+              readOnly: widget.readOnly,
+              autofocus: false,
+              showCursor: true,
+              keyboardType: TextInputType.phone,
+              textInputAction: widget.textInputAction,
+              textAlign: TextAlign.start,
+              textAlignVertical: TextAlignVertical.center,
+              inputFormatters: widget.inputFormatters,
+              style: TextStyle(
+                color: inputStyle.textColor,
+                fontSize: s.fontSize,
+                fontWeight: FontWeight.w400,
+                letterSpacing: decoration.letterSpacing,
               ),
-              child:
-                  Text(
-                state.errorText!,
-                style:
-                    TextStyle(
-                  color:
-                      decoration.errorColor,
-                  fontSize: 12,
-                  fontWeight:
-                      FontWeight.w500,
+              cursorColor: inputStyle.borderColor,
+              cursorHeight: s.fontSize * 1.2,
+              onTap: widget.onTap,
+              onChanged: state.handleChanged,
+              onFieldSubmitted: state.handleSubmitted,
+              decoration: InputDecoration(
+                isDense: true,
+                isCollapsed: true,
+                border: InputBorder.none,
+                contentPadding: geo.contentPadding,
+                hintText: isFloating ? widget.hintText : null,
+                hintStyle: TextStyle(
+                  color: inputStyle.hintColor,
+                  fontSize: geo.hintFontSize,
+                  fontWeight: FontWeight.w400,
+                  height: null,
+                  leadingDistribution: TextLeadingDistribution.even,
+                  letterSpacing: decoration.letterSpacing,
                 ),
               ),
             ),
-        ],
+          ),
+        ),
+        if (operatorBadge != null) ...[const SizedBox(width: 8), operatorBadge],
+      ],
+    );
+
+    return Opacity(
+      opacity: s.enabled ? 1.0 : 0.65,
+      child: GlassFieldNotchWrapper(
+        label: widget.label,
+       
+        isFloating: isFloating,
+        inputStyle: inputStyle,
+        enabled: s.enabled,
+        fieldHeight: s.fieldHeight,
+        fontSize: s.fontSize,
+        borderRadius: borderRadius,
+        decoration: decoration,
+        geo: geo,
+        style: glass.effectiveGlassStyle,
+        effects: effectiveEffects,
+        shape: s.shape,
+        width: widget.width,
+        helperText: state.helperText,
+         child: fieldContent,
       ),
     );
   }
 
-  // ===========================================================================
-  // COUNTRY SELECTOR
-  // ===========================================================================
-
   Widget _buildCountrySelector({
     required BuildContext context,
-    required UniversalGlassPhoneInput widget,
-    required UniversalGlassPhoneInputState state,
-    required GlassInputDecoration decoration,
-    required GlassLayoutContext glass,
-    required bool hasFocus,
-    required bool hasError,
-    required Color focusColor,
     required GlassLayoutCalibrator geo,
+    required GlassInputStateStyle inputStyle,
+    required GlassInputDecoration decoration,
   }) {
-    final bool canOpen =
-        widget.enabled &&
-        !widget.readOnly &&
-        widget.countryPickerEnabled;
+    final widget = state.widget;
+    final s = widget.style;
+    final GlassLayoutContext glass = GlassLayoutScope.of(context);
+    final bool canOpen = s.enabled && !widget.readOnly && widget.countryPickerEnabled;
 
-    final Color iconColor =
-        hasError
-            ? Colors.redAccent
-            : hasFocus
-                ? focusColor
-                : decoration.iconColor;
+    final double bubbleSize = GlassInputUtils.bubbleSize(fieldHeight: s.fieldHeight, ratio: 0.6);
 
-    final double bubbleSize =
-        GlassInputUtils.bubbleSize(
-      fieldHeight:
-          widget.fieldHeight,
-      ratio: 0.6,
+    final Widget bubble = context.buildInputBubbleWithChild(
+      child: _buildCountryFlag(size: GlassInputUtils.iconSize(bubbleSize: bubbleSize)),
+      fieldHeight: s.fieldHeight,
+      isActive: inputStyle.isActive,
+      enabled: canOpen,
+      onTap: canOpen ? () => _handleCountryTap(context) : null,
+      color: inputStyle.iconColor,
     );
 
-    final Widget bubble =
-        glass.buildInputBubble(
-      child:
-          _buildCountryFlag(
-        state: state,
-        size:
-            GlassInputUtils.iconSize(
-          bubbleSize:
-              bubbleSize,
-        ),
-      ),
-      fieldHeight:
-          widget.fieldHeight,
-      isFocused:
-          hasFocus,
-      enabled:
-          canOpen,
-      onTap: canOpen
-          ? () {
-              _handleCountryTap(
-                context,
-                widget,
-                state,
-              );
-            }
-          : null,
-      iconColor:
-          iconColor,
-    );
+    final Color finalTextColor = !s.enabled
+        ? inputStyle.textColor.withValues(alpha: 0.40)
+        : inputStyle.isActive
+            ? inputStyle.borderColor
+            : inputStyle.textColor;
 
-    final Color finalTextColor =
-        !widget.enabled
-            ? decoration.textColor
-                .withValues(alpha: 0.40)
-            : hasFocus
-                ? focusColor
-                : decoration.textColor;
+    final Color separatorColor = inputStyle.isActive
+        ? inputStyle.borderColor.withValues(alpha: 0.4)
+        : glass.palette.border.withValues(alpha: 0.3);
 
-    final Color separatorColor =
-        hasFocus
-            ? focusColor.withValues(
-                alpha: 0.4,
-              )
-            : glass.palette.border
-                .withValues(
-                alpha: 0.3,
-              );
-
-    final Widget countryCode =
-        Text(
+    final Widget countryCode = Text(
       state.effectiveCountryCode,
-      style:
-          TextStyle(
-        color:
-            finalTextColor,
-        fontSize:
-            decoration.fontSize - 1,
-        fontWeight:
-            FontWeight.w700,
-      ),
+      style: TextStyle(color: finalTextColor, fontSize: s.fontSize - 1, fontWeight: FontWeight.w700),
     );
 
-    final Widget chevron =
-        geo.translateChevron(
-      glass.buildInputActionIcon(
-        icon:
-            Icons.keyboard_arrow_down_rounded,
-        isFocused:
-            hasFocus,
-        enabled:
-            canOpen,
-        onTap: canOpen
-            ? () {
-                _handleCountryTap(
-                  context,
-                  widget,
-                  state,
-                );
-              }
-            : null,
-        hasError:
-            hasError,
-        customColor:
-            iconColor,
-        availableHeight:
-            widget.fieldHeight,
-        bubbleRatio:
-            0.50,
-        iconRatio:
-            0.66,
-        showGlow:
-            false,
+    final Widget chevron = geo.translateChevron(
+      context.buildInputIcon(
+        icon: Icons.expand_more_rounded,
+        isActive: inputStyle.isActive,
+        enabled: canOpen,
+        onTap: canOpen ? () => _handleCountryTap(context) : null,
+        fieldHeight: s.fieldHeight,
+        bubbleRatio: 0.66,
+        hasError: inputStyle.hasError,
+        onlyIcon: true,
       ),
     );
 
     return Row(
-      mainAxisSize:
-          MainAxisSize.min,
-      crossAxisAlignment:
-          CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         bubble,
-
-        const SizedBox(
-          width: 8,
-        ),
-
+        const SizedBox(width: 8),
         GestureDetector(
-          behavior:
-              HitTestBehavior.opaque,
-          onTap: canOpen
-              ? () {
-                  _handleCountryTap(
-                    context,
-                    widget,
-                    state,
-                  );
-                }
-              : null,
+          behavior: HitTestBehavior.opaque,
+          onTap: canOpen ? () => _handleCountryTap(context) : null,
           child: Row(
-            mainAxisSize:
-                MainAxisSize.min,
-            crossAxisAlignment:
-                CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               countryCode,
-
-              const SizedBox(
-                width: 8,
-              ),
-
-              Container(
-                width: 1,
-                height:
-                    GlassInputUtils
-                        .separatorHeight(
-                  bubbleSize,
-                ),
-                color:
-                    separatorColor,
-              ),
-
-              const SizedBox(
-                width: 4,
-              ),
-
+              const SizedBox(width: 8),
+              Container(width: 1, height: GlassInputUtils.separatorHeight(bubbleSize), color: separatorColor),
+              const SizedBox(width: 4),
               chevron,
             ],
           ),
@@ -848,486 +256,126 @@ GlassNotchShadowWrapper(
     );
   }
 
-  // ===========================================================================
-  // COUNTRY TAP
-  // ===========================================================================
-
-  Future<void> _handleCountryTap(
-    BuildContext context,
-    UniversalGlassPhoneInput widget,
-    UniversalGlassPhoneInputState state,
-  ) async {
-    if (!widget.enabled ||
-        widget.readOnly ||
-        !widget.countryPickerEnabled) {
-      return;
-    }
+  Future<void> _handleCountryTap(BuildContext context) async {
+    final widget = state.widget;
+    final s = widget.style;
+    if (!s.enabled || widget.readOnly || !widget.countryPickerEnabled) return;
 
     FocusScope.of(context).unfocus();
+    final PhoneCountry? currentCountry = state.effectiveCountry;
 
-    final PhoneCountry? currentCountry =
-        state.effectiveCountry;
-
-    if (widget.onCountryTap != null &&
-        currentCountry != null) {
-      widget.onCountryTap!(
-        currentCountry,
-      );
+    if (widget.onCountryTap != null && currentCountry != null) {
+      widget.onCountryTap!(currentCountry);
       return;
     }
 
     try {
-      final PhoneCountryRegistry registry =
-          await state.registryFuture;
+      final PhoneCountryRegistry registry = await state.registryFuture;
+      if (!context.mounted) return;
+      final GlassLayoutContext glass = GlassLayoutScope.of(context);
+      final List<PhoneCountry> countries = widget.countries ?? registry.all();
 
-      if (!context.mounted) {
-        return;
-      }
-
-      final GlassLayoutContext glass =
-          context.watchGlassContext;
-
-      final List<PhoneCountry> countries =
-          widget.countries ??
-          registry.all();
-
-      final PhoneCountry? selected =
-          await PhoneCountryPicker.show(
+      final PhoneCountry? selected = await PhoneCountryPicker.show(
         context: context,
         countries: countries,
         palette: glass.palette,
-        selectedCountry:
-            currentCountry,
-        title:
-            widget.countryPickerTitle,
-        subtitle:
-            widget.countryPickerSubtitle,
+        selectedCountry: currentCountry,
+        title: widget.countryPickerTitle,
+        subtitle: widget.countryPickerSubtitle,
       );
 
-      if (selected == null ||
-          !context.mounted) {
-        return;
+      if (selected != null && context.mounted) {
+        state.selectCountry(selected);
       }
-
-      state.selectCountry(
-        selected,
-      );
     } catch (error, stackTrace) {
-      debugPrint(
-        'UniversalGlassPhoneInput: '
-        'erreur country picker => $error',
-      );
-
-      debugPrintStack(
-        stackTrace: stackTrace,
-      );
+      debugPrint('UniversalGlassPhoneInput: erreur country picker => $error');
+      debugPrintStack(stackTrace: stackTrace);
     }
   }
 
-  // ===========================================================================
-  // FLAG
-  // ===========================================================================
-
-  Widget _buildCountryFlag({
-    required UniversalGlassPhoneInputState state,
-    double size = 22,
-  }) {
-    final String? asset =
-        state.effectiveFlagAsset;
-
-    if (asset != null &&
-        asset.trim().isNotEmpty) {
+  Widget _buildCountryFlag({double size = 22}) {
+    final String? asset = state.effectiveFlagAsset;
+    if (asset != null && asset.trim().isNotEmpty) {
       return ClipRRect(
-        borderRadius:
-            BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(4),
         child: Image.asset(
           asset,
-          package:
-              'universal_glass',
+          package: 'universal_glass',
           width: size,
-          height:
-              size * 0.60,
+          height: size * 0.60,
           fit: BoxFit.cover,
-          cacheWidth:
-              (size * 2.4).toInt(),
-          errorBuilder:
-              (
-            BuildContext context,
-            Object error,
-            StackTrace? stackTrace,
-          ) {
-            return Text(
-              state.effectiveCountryFlag,
-              style:
-                  TextStyle(
-                fontSize: size,
-                height: 1,
-              ),
-            );
+          cacheWidth: (size * 2.4).toInt(),
+          errorBuilder: (context, error, stack) {
+            return Text(state.effectiveCountryFlag, style: TextStyle(fontSize: size, height: 1));
           },
         ),
       );
     }
-
-    return Text(
-      state.effectiveCountryFlag,
-      textAlign:
-          TextAlign.center,
-      style:
-          TextStyle(
-        fontSize: size,
-        height: 1,
-      ),
-    );
+    return Text(state.effectiveCountryFlag, textAlign: TextAlign.center, style: TextStyle(fontSize: size, height: 1));
   }
 }
 
-// ============================================================================
-// NOTCH PAINTER
-// ============================================================================
-//
-// Purement visuel.
-//
-// Aucun clipping.
-// Aucun CustomClipper.
-// Aucune interception du hit-test.
-//
-// Le TextFormField reste indépendant.
-// ============================================================================
-
-class _PhoneInputNotchPainter
-    extends CustomPainter {
-  final double notchStart;
-  final double notchWidth;
-  final Color color;
-  final Color borderColor;
-  final double borderWidth;
-  final BorderRadius borderRadius;
-
-  const _PhoneInputNotchPainter({
-    required this.notchStart,
-    required this.notchWidth,
-    required this.color,
-    required this.borderColor,
-    required this.borderWidth,
-    required this.borderRadius,
-  });
-
-  @override
-void paint(
-  Canvas canvas,
-  Size size,
-) {
-  const double notchDepth = 6.0;
-  const double notchRadius = 4.0;
-
-  const double notchInset = 2.0;
-
-  final double start =
-      (notchStart + notchInset).clamp(
-    notchRadius,
-    size.width - notchRadius,
-  );
-
-  final double end =
-      (start + notchWidth).clamp(
-    start + notchRadius,
-    size.width - notchRadius,
-  );
-
-  final Path path = Path();
-
-  path.moveTo(
-    start - notchRadius,
-    0,
-  );
-
-  path.quadraticBezierTo(
-    start,
-    0,
-    start,
-    notchRadius,
-  );
-
-  path.lineTo(
-    start,
-    notchDepth - notchRadius,
-  );
-
-  path.quadraticBezierTo(
-    start,
-    notchDepth,
-    start + notchRadius,
-    notchDepth,
-  );
-
-  path.lineTo(
-    end - notchRadius,
-    notchDepth,
-  );
-
-  path.quadraticBezierTo(
-    end,
-    notchDepth,
-    end,
-    notchDepth - notchRadius,
-  );
-
-  path.lineTo(
-    end,
-    notchRadius,
-  );
-
-  path.quadraticBezierTo(
-    end,
-    0,
-    end + notchRadius,
-    0,
-  );
-
-  path.close();
-
-  // -------------------------------------------------------------------------
-  // FOND
-  // -------------------------------------------------------------------------
-
-  final Paint backgroundPaint = Paint()
-    ..style = PaintingStyle.fill
-    ..color = color;
-
-  canvas.drawPath(
-    path,
-    backgroundPaint,
-  );
-
-  // -------------------------------------------------------------------------
-  // BORDURE
-  // -------------------------------------------------------------------------
-
-  final Path borderPath = Path();
-
-  borderPath.moveTo(
-    start - notchRadius,
-    0,
-  );
-
-  borderPath.quadraticBezierTo(
-    start,
-    0,
-    start,
-    notchRadius,
-  );
-
-  borderPath.lineTo(
-    start,
-    notchDepth - notchRadius,
-  );
-
-  borderPath.quadraticBezierTo(
-    start,
-    notchDepth,
-    start + notchRadius,
-    notchDepth,
-  );
-
-  borderPath.lineTo(
-    end - notchRadius,
-    notchDepth,
-  );
-
-  borderPath.quadraticBezierTo(
-    end,
-    notchDepth,
-    end,
-    notchDepth - notchRadius,
-  );
-
-  borderPath.lineTo(
-    end,
-    notchRadius,
-  );
-
-  borderPath.quadraticBezierTo(
-    end,
-    0,
-    end + notchRadius,
-    0,
-  );
-
-  final Paint borderPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = borderWidth
-    ..strokeCap = StrokeCap.round
-    ..strokeJoin = StrokeJoin.round
-    ..color = borderColor;
-
-  canvas.drawPath(
-    borderPath,
-    borderPaint,
-  );
-}
-
-  @override
-  bool shouldRepaint(
-    covariant _PhoneInputNotchPainter oldDelegate,
-  ) {
-    return oldDelegate.notchStart !=
-            notchStart ||
-        oldDelegate.notchWidth !=
-            notchWidth ||
-        oldDelegate.color !=
-            color ||
-        oldDelegate.borderColor !=
-            borderColor ||
-        oldDelegate.borderWidth !=
-            borderWidth ||
-        oldDelegate.borderRadius !=
-            borderRadius;
-  }
-}
-
-
-
-
-// ============================================================================
-// OBSERVATEUR LOCAL
-// ============================================================================
-
-class _PhoneInputVisualBuilder
-    extends StatefulWidget {
+// ===========================================================================
+// HELPER: REBUILD SUR FOCUS/TEXTE
+// ===========================================================================
+class _PhoneInputVisualBuilder extends StatefulWidget { // <- REMETTRE CETTE CLASSE
   final FocusNode focusNode;
   final TextEditingController controller;
-
-  final Widget Function(
-    BuildContext context,
-    bool hasFocus,
-    bool hasText,
-  ) builder;
-
+  final Widget Function(BuildContext context, bool hasFocus, bool hasText) builder;
   const _PhoneInputVisualBuilder({
     required this.focusNode,
     required this.controller,
     required this.builder,
   });
-
   @override
-  State<_PhoneInputVisualBuilder>
-      createState() =>
-          _PhoneInputVisualBuilderState();
+  State<_PhoneInputVisualBuilder> createState() => _PhoneInputVisualBuilderState();
 }
 
-class _PhoneInputVisualBuilderState
-    extends State<_PhoneInputVisualBuilder> {
+class _PhoneInputVisualBuilderState extends State<_PhoneInputVisualBuilder> {
   late bool _hasFocus;
   late bool _hasText;
-
   @override
   void initState() {
     super.initState();
-
-    _hasFocus =
-        widget.focusNode.hasFocus;
-
-    _hasText =
-        widget.controller.text.isNotEmpty;
-
-    widget.focusNode.addListener(
-      _handleFocusChanged,
-    );
-
-    widget.controller.addListener(
-      _handleTextChanged,
-    );
+    _hasFocus = widget.focusNode.hasFocus;
+    _hasText = widget.controller.text.isNotEmpty;
+    widget.focusNode.addListener(_handleFocusChanged);
+    widget.controller.addListener(_handleTextChanged);
   }
 
   @override
-  void didUpdateWidget(
-    covariant _PhoneInputVisualBuilder oldWidget,
-  ) {
+  void didUpdateWidget(covariant _PhoneInputVisualBuilder oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.focusNode !=
-        widget.focusNode) {
-      oldWidget.focusNode.removeListener(
-        _handleFocusChanged,
-      );
-
-      _hasFocus =
-          widget.focusNode.hasFocus;
-
-      widget.focusNode.addListener(
-        _handleFocusChanged,
-      );
+    if (oldWidget.focusNode != widget.focusNode) {
+      oldWidget.focusNode.removeListener(_handleFocusChanged);
+      _hasFocus = widget.focusNode.hasFocus;
+      widget.focusNode.addListener(_handleFocusChanged);
     }
-
-    if (oldWidget.controller !=
-        widget.controller) {
-      oldWidget.controller.removeListener(
-        _handleTextChanged,
-      );
-
-      _hasText =
-          widget.controller.text.isNotEmpty;
-
-      widget.controller.addListener(
-        _handleTextChanged,
-      );
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller.removeListener(_handleTextChanged);
+      _hasText = widget.controller.text.isNotEmpty;
+      widget.controller.addListener(_handleTextChanged);
     }
   }
 
   void _handleFocusChanged() {
-    if (!mounted) {
-      return;
-    }
-
-    final bool value =
-        widget.focusNode.hasFocus;
-
-    if (_hasFocus == value) {
-      return;
-    }
-
-    setState(() {
-      _hasFocus = value;
-    });
+    if (!mounted) return;
+    final bool value = widget.focusNode.hasFocus;
+    if (_hasFocus != value) setState(() => _hasFocus = value);
   }
 
   void _handleTextChanged() {
-    if (!mounted) {
-      return;
-    }
-
-    final bool value =
-        widget.controller.text.isNotEmpty;
-
-    if (_hasText == value) {
-      return;
-    }
-
-    setState(() {
-      _hasText = value;
-    });
+    if (!mounted) return;
+    final bool value = widget.controller.text.isNotEmpty;
+    if (_hasText != value) setState(() => _hasText = value);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(
-      context,
-      _hasFocus,
-      _hasText,
-    );
-  }
-
+  Widget build(BuildContext context) => widget.builder(context, _hasFocus, _hasText);
   @override
   void dispose() {
-    widget.focusNode.removeListener(
-      _handleFocusChanged,
-    );
-
-    widget.controller.removeListener(
-      _handleTextChanged,
-    );
-
+    widget.focusNode.removeListener(_handleFocusChanged);
+    widget.controller.removeListener(_handleTextChanged);
     super.dispose();
   }
 }

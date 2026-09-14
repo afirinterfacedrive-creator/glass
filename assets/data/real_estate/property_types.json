@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "villa_f2",
+      "code": "VILLA_F2",
+      "name": "Villa F2",
+      "rooms": 2,
+      "priceMin": 7500000,
+      "priceMax": 12500000,
+      "landArea": 240,
+      "builtArea": 60,
+      "bedrooms": 1,
+      "livingRooms": 1,
+      "bathrooms": 1,
+      "externalKitchen": true,
+      "active": true,
+      "order": 1
+    },
+    {
+      "id": "villa_f3",
+      "code": "VILLA_F3",
+      "name": "Villa F3",
+      "rooms": 3,
+      "priceMin": 9500000,
+      "priceMax": 14500000,
+      "landArea": 240,
+      "builtArea": 85,
+      "bedrooms": 2,
+      "livingRooms": 1,
+      "bathrooms": 1,
+      "externalKitchen": true,
+      "active": true,
+      "order": 2
+    }
+  ]
+}
