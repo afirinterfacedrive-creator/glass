@@ -351,6 +351,12 @@ class AppConstants {
   static const double inputDefaultHorizontalPadding = 16.0;
   static const double inputDefaultVerticalPadding = 8.0;
 
+  /// Taille de texte par défaut des champs de saisie.
+static const double inputDefaultFontSize = 16.0;
+
+static const double minInputFontSize = 8.0;
+static const double maxInputFontSize = 40.0;
+
   // ===========================================================================
   // APPEARANCE — FORM DEFAULTS
   // ===========================================================================

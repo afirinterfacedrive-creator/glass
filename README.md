@@ -19,6 +19,7 @@ Universal Glass provides reusable glass-style components designed to help you bu
 - Universal app bar and tab components
 - Reusable dialogs and modals
 - Glass forms and input components
+- Customizable input dimensions, padding, radius, and font size
 - Toast and tooltip components
 - Phone input with country and operator data
 - Flutter and Riverpod integration
@@ -31,7 +32,7 @@ Add `universal_glass` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  universal_glass: ^2.1.1
+  universal_glass: ^2.1.2
 ```
 
 Then run:
@@ -97,6 +98,7 @@ The glass appearance can be configured through options such as:
 - Background opacity
 - Gradient
 - Gradient density
+- Gradient opacity
 - Border
 - Border opacity and width
 - Glow
@@ -114,6 +116,8 @@ final effect = GlassEffects.aqua();
 ```
 
 Additional predefined effects are available for different visual styles.
+
+Explicit effect values can also be used to control individual visual properties when needed.
 
 ## Glass Components
 
@@ -133,6 +137,46 @@ Universal Glass includes reusable components for common application interfaces, 
 - Physical controls
 
 Components are designed to work together so that applications can maintain a consistent glass visual language.
+
+## Glass Inputs
+
+Universal Glass provides reusable input styling that can be shared across text fields, phone inputs, forms, and other input components.
+
+Input appearance can be customized through properties such as:
+
+- Field height
+- Horizontal padding
+- Vertical padding
+- Font size
+- Border radius
+- Blur
+- Background opacity
+- Border opacity and width
+- Shadows
+- Hover effects
+- Enabled state
+- Glass shape
+
+Example:
+
+```dart
+const inputStyle = GlassInputStyle(
+  fieldHeight: 55,
+  horizontalPadding: 16,
+  verticalPadding: 8,
+  fontSize: 16,
+  borderRadius: 14,
+  blur: 8,
+  backgroundOpacity: 0.62,
+);
+```
+
+Compact and dense input presets are also available:
+
+```dart
+final compact = GlassInputStyle.compact();
+final dense = GlassInputStyle.dense();
+```
 
 ## Phone Input
 

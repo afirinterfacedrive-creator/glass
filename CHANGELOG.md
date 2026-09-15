@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.1.2
+
+### ✨ Improvements
+
+- Added customizable input font size through `GlassInputStyle`.
+- Added centralized input font size defaults through `AppConstants`.
+- Improved input appearance customization with configurable field height, padding, border radius, blur, background opacity, borders, shadows, and hover effects.
+- Improved the separation between global appearance settings and component-specific settings.
+- Improved the public package API and package architecture.
+- Improved documentation for glass inputs and appearance customization.
+- Updated package documentation and examples for the new `2.1.2` release.
+
+### 🐛 Fixes
+
+- Fixed input appearance configuration inconsistencies.
+- Improved handling of input style defaults.
+- Improved consistency between Universal Glass input styling and appearance configuration.
+
 ## 2.1.1
 
 ### ✨ Improvements
